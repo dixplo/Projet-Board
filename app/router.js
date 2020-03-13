@@ -9,7 +9,7 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('developers', function() {
     this.route('add', { path: '/add' });
-    this.route('add', { path: '/edit/:dev_id' });
+    this.route('edit', { path: '/edit/:dev_id' });
     this.route('delete', { path: '/delete/:dev_id' });
   });
 });

@@ -10,7 +10,7 @@ export default Route.extend({
             this.transitionTo('developers.add');
         },
         openEdit(dev) {
-            this.transitionTo('developers.add', dev);
+            this.transitionTo('developers.edit', dev);
         },
         openDelete(dev) {
             this.transitionTo('developers.delete', dev);
