@@ -1,5 +1,25 @@
-{{#each model as |dev|}}
-    {{dev.identity}}<br>
-{{/each}}
-
+<button class="ui icon orange button" {{action 'addDeveloper'}}><i class="user plus icon" /> Add new developer</button>
+<table class="ui table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Firstname</th>
+            <th class="right aligned">Actions</th>
+        </tr>
+    </thead>
+    {{#each model as |dev|}}
+    <tr>
+        <td>{{dev.name}}</td>
+        <td>{{dev.fname}}</td>
+        <td class="right aligned">
+            <button class="ui button inverted icon primary"><i class="user edit icon" /></button>
+            <LinkTo @route="developers.delete" @model={{dev.id}}>
+                <button class="ui button inverted icon red"><i
+                        class="user times icon" /></button>
+            </LinkTo>
+        </td>
+    </tr>
+    {{/each}}
+</table>
 {{outlet}}
+{{outlet modal}}
