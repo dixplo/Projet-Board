@@ -1,5 +1,4 @@
 import Route from '@ember/routing/route';
-import developers from '../developers';
 
 export default Route.extend({
     model(params) {

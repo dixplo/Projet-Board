@@ -12,11 +12,8 @@
         <td>{{dev.name}}</td>
         <td>{{dev.fname}}</td>
         <td class="right aligned">
-            <button class="ui button inverted icon primary"><i class="user edit icon" /></button>
-            <LinkTo @route="developers.delete" @model={{dev.id}}>
-                <button class="ui button inverted icon red"><i
-                        class="user times icon" /></button>
-            </LinkTo>
+            <button class="ui button inverted icon primary" {{action 'openEdit' dev}}><i class="user edit icon" /></button>
+            <button class="ui button inverted icon red" {{action 'openDelete' dev}}><i class="user times icon" /></button>
         </td>
     </tr>
     {{/each}}

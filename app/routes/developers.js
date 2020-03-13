@@ -9,11 +9,11 @@ export default Route.extend({
         addDeveloper() {
             this.transitionTo('developers.add');
         },
-        closeDelete(dev) {
-            dev.set('viewDelete', false)
+        openEdit(dev) {
+            this.transitionTo('developers.add', dev);
         },
         openDelete(dev) {
-            dev.set('viewDelete', true)
+            this.transitionTo('developers.delete', dev);
         }
     }
 });

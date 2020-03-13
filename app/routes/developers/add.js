@@ -1,13 +1,18 @@
 import Route from '@ember/routing/route';
 import { get, set } from '@ember/object';
-import Developer from 'td4/models/developer';
-import RSVP from 'rsvp';
 
 export default Route.extend({
-    model() {
-        return RSVP.hash({
-            title: "Add developer"
-        });
+    async model(params) {
+        console.log(params.dev_id);
+
+        if (params.dev_id != null) {
+            let dev = await this.get('store').findRecord('developer', params.dev_id)
+
+            console.log(dev.fullName)
+            return dev;
+        } else {
+            return {};
+        }
     },
     actions: {
         backToDeveloper(model) {
@@ -16,7 +21,16 @@ export default Route.extend({
             set(model, 'fname', '')
         },
         save(model) {
-            this.get('store').createRecord('developer', {name: get(model, 'name'), fname: get(model, 'fname')});
+            console.log(model)
+            if (get(model, 'fullName') != null) {
+
+            } else {
+                let dev = this.get('store').createRecord('developer', { name: get(model, 'name'), fname: get(model, 'fname') });
+                dev.save();
+                this.transitionTo('developers')
+                set(model, 'name', '')
+                set(model, 'fname', '')
+            }
         }
     }
 });
