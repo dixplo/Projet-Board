@@ -6,7 +6,7 @@ import RSVP from 'rsvp';
 export default Route.extend({
     model() {
         return RSVP.hash({
-            titleAdd: "Add developer"
+            title: "Add developer"
         });
     },
     actions: {
@@ -14,6 +14,9 @@ export default Route.extend({
             this.transitionTo('developers');
             set(model, 'name', '')
             set(model, 'fname', '')
+        },
+        save(model) {
+            this.get('store').createRecord('developer', {name: get(model, 'name'), fname: get(model, 'fname')});
         }
     }
 });

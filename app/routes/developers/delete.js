@@ -10,8 +10,7 @@ export default Route.extend({
             this.transitionTo('developers');
         },
         deleteForever(dev) {
-            let developer = this.get('store').peekRecord('developer', dev.id);
-            developer.destroyRecord(); // => DELETE to /posts/2
+            dev.destroyRecord().then(()=>this.transitionTo('developers'));
         }
     }
 });
