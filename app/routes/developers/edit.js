@@ -1,15 +1,16 @@
 import Route from '@ember/routing/route';
 import { get, set } from '@ember/object';
+import RSVP from 'rsvp'
 
 export default Route.extend({
     async model(params) {
         let dev = await this.get('store').peekRecord('developer', params.dev_id)
-        let r = {
-            edit: true,
+        let nom = dev.get('name');
+        let r = RSVP.hash({
             dev: dev,
-            name: dev.get('name'),
+            name: nom,
             fname: dev.get('fname')
-        };
+        });
         console.log(r);
 
         return r;
