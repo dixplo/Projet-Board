@@ -1,6 +1,13 @@
-<div class="ui container segment">
-    <button class="ui button primary" {{action "goToDevelopers"}}>Developer</button>
-    <button class="ui button primary" {{action "goToProjects"}}>Projects</button>
-    <br>
-    {{outlet}}
+<div class="ui container">
+    <div class="ui top attached tabular menu">
+        <a class="item active" {{action "goToProjects"}}>
+            Projects
+        </a>
+        <a class="item" {{action "goToDevelopers"}}>
+            Developer
+        </a>
+    </div>
+    <div class="ui bottom attached segment">
+        {{outlet}}
+    </div>
 </div>

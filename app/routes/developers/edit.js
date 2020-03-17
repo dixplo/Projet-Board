@@ -13,8 +13,6 @@ export default Route.extend({
             name: mydev.get('name'),
             fname: mydev.get('fname')
         });
-        console.log(r);
-        debugger
         return r;
     },
     actions: {
@@ -22,12 +20,10 @@ export default Route.extend({
             this.transitionTo('developers');
         },
         save(model) {
-            console.log("update");
             let dev = get(model, 'dev');
             dev.set('name', get(model, 'name'));
             dev.set('fname', get(model, 'fname'));
             dev.save();
-            debugger
             this.transitionTo('developers')
             set(model, 'name', '')
             set(model, 'fname', '')

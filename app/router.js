@@ -12,6 +12,7 @@ Router.map(function() {
     this.route('edit', { path: '/edit/:dev_id' });
     this.route('delete', { path: '/delete/:dev_id' });
   });
+  this.route('projects');
 });
 
 export default Router;
