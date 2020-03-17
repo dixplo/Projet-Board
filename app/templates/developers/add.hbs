@@ -2,7 +2,14 @@
 <div class="ui message attached icon">
     <i class="close icon" {{action 'backToDeveloper' model}}></i>
     <div class="content">
-        <div class="header">{{if model.edit 'Edit developer' 'Add developer'}}</div>
+
+        <div class="header">
+            {{#if model.devId}}
+            Edit {{model.dev.fullName}}
+            {{else}}
+            Add developer
+            {{/if}}
+        </div>
 
     </div>
 </div>
@@ -27,7 +34,8 @@
     </div>
 </div>
 <div class="ui bottom attached message">
-    <button class="ui button inverted positive icon" {{action 'save' model}}><i class="check circle icon" /> Validate</button>
+    <button class="ui button inverted positive icon" {{action 'save' model}}><i class="check circle icon" />
+        Validate</button>
     <button class="ui button inverted red icon" {{action 'backToDeveloper' model}}><i
             class="icon times circle outline" /> Cancel</button>
 </div>
