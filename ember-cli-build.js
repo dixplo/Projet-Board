@@ -2,9 +2,16 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     // Add options here
+    outputPaths: {
+      app: {
+        css: {
+          'second': '/assets/second.css'
+        }
+      }
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated

@@ -11,5 +11,12 @@ export default Route.extend({
         deleteForever(dev) {
             dev.destroyRecord().then(()=>this.transitionTo('developers'));
         }
+    },
+    renderTemplate(model) {
+        this.render('developers.delete', {
+            into: 'developers',
+            outlet: model.model.id,
+            view: 'developers.delete'
+        });
     }
 });

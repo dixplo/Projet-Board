@@ -1,17 +1,19 @@
-<div class="ui divider" />
-<div class="ui icon message">
-    <i class="close icon" {{action 'closeDelete'}}></i>
-    <i class="trash alternate icon red" />
-    <div class="content">
-        <div class="header">
-            Do you want to delete {{model.fullName}} ?
+<tr>
+    <td colspan="3">
+        <div class="ui icon message">
+            <i class="close icon" {{action 'closeDelete'}}></i>
+            <i class="trash alternate icon red" />
+            <div class="content">
+                <div class="header">
+                    Do you want to delete {{model.fullName}} ?
+                </div>
+                <p>This action will be irreversible.</p>
+                <button class="ui button icon red inverted" {{action 'deleteForever' model}}>
+                    <i class="times icon" /> Validate</button>
+                <button class="ui button icon positive" {{action 'closeDelete'}}>
+                    <i class="trash restore icon" /> Cancel</button>
+            </div>
         </div>
-        <p>This action will be irreversible.</p>
-        <button class="ui button icon red inverted" {{action 'deleteForever' model}}>
-            <i class="times icon" /> Validate</button>
-        <button class="ui button icon positive" {{action 'closeDelete'}}>
-            <i class="trash restore icon" /> Cancel</button>
-    </div>
-</div>
-
+    </td>
+</tr>
 {{outlet}}

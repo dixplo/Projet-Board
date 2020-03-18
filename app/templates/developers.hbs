@@ -1,5 +1,6 @@
-<button class="ui icon orange button" {{action 'addDeveloper'}}><i class="user plus icon" /> Add new developer</button>
-<table class="ui table">
+<button class="ui icon orange button" {{action 'openAdd'}}><i class="user plus icon" /> Add new developer</button>
+{{outlet}}
+<table class="ui table content">
     <thead>
         <tr>
             <th>Name</th>
@@ -7,16 +8,20 @@
             <th class="right aligned">Actions</th>
         </tr>
     </thead>
-    {{#each model as |dev|}}
-    <tr>
-        <td>{{dev.name}}</td>
-        <td>{{dev.fname}}</td>
-        <td class="right aligned">
-            <button class="ui button inverted icon primary" {{action 'openEdit' dev}}><i class="user edit icon" /></button>
-            <button class="ui button inverted icon red" {{action 'openDelete' dev}}><i class="user times icon" /></button>
-        </td>
-    </tr>
-    {{/each}}
+    <tbody>
+        {{#each model.developers as |dev|}}
+        <tr>
+            <td>{{dev.name}}</td>
+            <td>{{dev.fname}}</td>
+            <td class="right aligned">
+                <button class="ui button inverted icon primary" {{action 'openEdit' dev}}><i
+                        class="user edit icon" /></button>
+                <button class="ui button inverted icon red" {{action 'openDelete' model dev}}><i
+                        class="user times icon" /></button>
+            </td>
+        </tr>
+        {{outlet dev.id }}
+
+        {{/each}}
+    </tbody>
 </table>
-{{outlet}}
-{{outlet modal}}
