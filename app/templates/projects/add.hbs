@@ -1,2 +1,58 @@
 {{outlet}}
-<div class="ui divider"></div>
+<div class="ui message attached icon">
+    <i class="close icon" {{action 'backToProject' model}}></i>
+    <div class="content">
+        <div class="header">
+            Add project
+        </div>
+    </div>
+</div>
+<div class="ui form attached fluid segment">
+    <div class="two fields">
+
+        <div class="ui fluid labeled input field" data-children-count="1">
+            <div class="ui label">
+                Name
+            </div>
+            <Input type="text" @value={{model.name}} placeholder="Name" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Descriptif</label>
+        <Textarea @value={{model.fname}} placeholder="Group,merge,archive, and compare coverage reports" />
+        
+    </div>
+    <div class="two fields">
+        <div class="ui fluid labeled input field" data-children-count="1">
+            <div class="ui label">
+                Start date
+            </div>
+            <Input type="date" @value={{model.fname}} placeholder="startdate" />
+        </div>
+        <div class="ui fluid labeled input field" data-children-count="1">
+            <div class="ui label">
+                Stop date
+            </div>
+            <Input type="date" @value={{model.fname}} placeholder="stopdate" />
+        </div>
+    </div>
+    <div class="two fields">
+       <div class="field">
+    <label>Owner</label>
+    <select class="ui search dropdown">
+      <option value="">Select Owner</option>
+      
+    </select>
+  </div>
+
+    </div>
+</div>
+<div class="ui bottom attached message">
+    <button class="ui button inverted positive icon" {{action 'save' model}}><i class="check circle icon" />
+        Validate</button>
+    <button class="ui button inverted red icon" {{action 'backToDeveloper' model}}><i
+            class="icon times circle outline" /> Cancel</button>
+</div>
+<div class="ui divider" />
+{{outlet}}
