@@ -1,4 +1,5 @@
 import Route from '@ember/routing/route';
+import { get, set } from '@ember/object';
 
 export default Route.extend({
     model(params) {
@@ -6,10 +7,14 @@ export default Route.extend({
     },
     actions: {
         closeDelete() {
+            set(this.modelFor('developers'), 'alreadyOpen', ""); 
             this.transitionTo('developers');
         },
         deleteForever(dev) {
-            dev.destroyRecord().then(()=>this.transitionTo('developers'));
+            dev.destroyRecord().then(()=> {
+                set(this.modelFor('developers'), 'alreadyOpen', ""); 
+                this.transitionTo('developers');
+            });
         }
     },
     renderTemplate(model) {

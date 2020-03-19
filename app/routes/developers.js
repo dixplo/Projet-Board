@@ -15,14 +15,26 @@ export default Route.extend({
         },
         openEdit(model, dev) {
             if (get(model, 'alreadyOpen') != "") {
-                this.disconnectOutlet(get(model, 'alreadyOpen'))
+                if (get(model, 'alreadyOpen') == dev.id) {
+                    set(model, 'alreadyOpen', ""); 
+                    this.transitionTo('developers');
+                    return
+                } else {
+                    this.disconnectOutlet(get(model, 'alreadyOpen'));
+                }
             }
             set(model, 'alreadyOpen', dev.id);            
             this.transitionTo('developers.edit', dev.id);
         },
         openDelete(model, dev) {
             if (get(model, 'alreadyOpen') != "") {
-                this.disconnectOutlet(get(model, 'alreadyOpen'))
+                if (get(model, 'alreadyOpen') == dev.id) {
+                    set(model, 'alreadyOpen', ""); 
+                    this.transitionTo('developers');
+                    return
+                } else {
+                    this.disconnectOutlet(get(model, 'alreadyOpen'));
+                }
             }
             set(model, 'alreadyOpen', dev.id)
             this.transitionTo('developers.delete', dev.id);

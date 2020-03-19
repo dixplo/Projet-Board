@@ -4,9 +4,18 @@ import jQuery from 'jquery';
 
 export default Route.extend({
     model() {
-        
+        let href = window.location.href;
+        var where = "";
+        if (href.includes("projects")) {
+            where = "projects";
+        } else if (href.includes("developers")) {
+            where = "developers"
+        } else {
+            this.transitionTo("home");
+            where = "home";
+        }
         return {
-            whereIAm: "developers"
+            whereIAm: where
         };
     },
     actions: {
@@ -27,8 +36,15 @@ export default Route.extend({
         }
     },
     initUI() {
-
         jQuery('.ui.dropdown').dropdown();
         jQuery('.ui.overlay').visibility({ type: 'fixed', offset: 15 });
+        jQuery('#rangestart').calendar({
+            type: 'date',
+            endCalendar: jQuery('#rangeend')
+        });
+        jQuery('#rangeend').calendar({
+            type: 'date',
+            startCalendar: jQuery('#rangestart')
+        });
     }
 });

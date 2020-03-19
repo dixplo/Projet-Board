@@ -16,6 +16,7 @@ export default Route.extend({
     },
     actions: {
         backToDeveloper(model) {
+            set(this.modelFor('developers'), 'alreadyOpen', ""); 
             this.transitionTo('developers');
         },
         save(model) {
@@ -23,6 +24,7 @@ export default Route.extend({
             dev.set('name', get(model, 'name'));
             dev.set('fname', get(model, 'fname'));
             dev.save();
+            set(this.modelFor('developers'), 'alreadyOpen', ""); 
             this.transitionTo('developers')
             set(model, 'name', '')
             set(model, 'fname', '')
