@@ -3,7 +3,6 @@ import { get, set } from '@ember/object';
 import RSVP from 'rsvp'
 
 export default Route.extend({
-    templateName: 'developers/add',
     model(params) {
         let dev = this.get('store').peekRecord('developer', params.dev_id);
         let mydev = dev;
@@ -28,5 +27,12 @@ export default Route.extend({
             set(model, 'name', '')
             set(model, 'fname', '')
         }
+    },
+    renderTemplate(model) {
+        this.render('developers.edit', {
+            into: 'developers',
+            outlet: model.model.devId,
+            view: 'developers.edit'
+        });
     }
 });

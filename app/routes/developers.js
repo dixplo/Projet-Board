@@ -6,21 +6,25 @@ export default Route.extend({
     model() {
         return RSVP.hash({
             developers: this.get('store').findAll('developer'),
-            alreadyOpen: true
+            alreadyOpen: ''
         });
     },
     actions: {
         openAdd() {
             this.transitionTo('developers.add');
         },
-        openEdit(dev) {
+        openEdit(model, dev) {
+            if (get(model, 'alreadyOpen') != "") {
+                this.disconnectOutlet(get(model, 'alreadyOpen'))
+            }
+            set(model, 'alreadyOpen', dev.id);            
             this.transitionTo('developers.edit', dev.id);
         },
         openDelete(model, dev) {
-            /*if (get(model, 'alreadyOpen')) {
-                debugger
+            if (get(model, 'alreadyOpen') != "") {
+                this.disconnectOutlet(get(model, 'alreadyOpen'))
             }
-            debugger*/
+            set(model, 'alreadyOpen', dev.id)
             this.transitionTo('developers.delete', dev.id);
         }
     }
