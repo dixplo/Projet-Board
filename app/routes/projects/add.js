@@ -6,9 +6,10 @@ export default Route.extend({
             this.transitionTo('projects');
             set(model, 'name', '')
             set(model, 'description', '')
-            set(model, 'startdate', '')
-            set(model, 'duedate', '')
-        },
+            set(model, 'startDate', '')
+            set(model, 'endDate', '')
+        }
+        /*
         save(model) {
             console.log("save");
             let proj = this.get('store').createRecord('project', { name: get(model, 'name'), description: get(model, 'description'),startdate: get(model, 'startdate'),duedate: get(model, 'duedate') });

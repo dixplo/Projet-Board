@@ -38,13 +38,5 @@ export default Route.extend({
     initUI() {
         jQuery('.ui.dropdown').dropdown();
         jQuery('.ui.overlay').visibility({ type: 'fixed', offset: 15 });
-        jQuery('#rangestart').calendar({
-            type: 'date',
-            endCalendar: jQuery('#rangeend')
-        });
-        jQuery('#rangeend').calendar({
-            type: 'date',
-            startCalendar: jQuery('#rangestart')
-        });
     }
 });
