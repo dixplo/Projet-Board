@@ -19,8 +19,8 @@
     </div>
 
     <div class="field">
-        <label>Descriptif</label>
-        <Textarea @value={{model.fname}} placeholder="Group,merge,archive, and compare coverage reports" />
+        <label>Description</label>
+        <Textarea @value={{model.description}} placeholder="Group,merge,archive, and compare coverage reports" />
         
     </div>
     <div class="two fields">
@@ -28,13 +28,13 @@
             <div class="ui label">
                 Start date
             </div>
-            <Input type="date" @value={{model.fname}} placeholder="startdate" />
+            <Input type="date" @value={{model.startDate}} max={{model.endDate}} />
         </div>
         <div class="ui fluid labeled input field" data-children-count="1">
             <div class="ui label">
-                Stop date
+                Due date
             </div>
-            <Input type="date" @value={{model.fname}} placeholder="stopdate" />
+            <Input type="date" @value={{model.endDate}} min={{model.startDate}} />
         </div>
     </div>
     <div class="two fields">

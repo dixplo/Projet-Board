@@ -6,8 +6,8 @@ export default Route.extend({
             this.transitionTo('projects');
             set(model, 'name', '')
             set(model, 'description', '')
-            set(model, 'startdate', '')
-            set(model, 'duedate', '')
+            set(model, 'startDate', '')
+            set(model, 'endDate', '')
         }
         /*
         save(model) {
