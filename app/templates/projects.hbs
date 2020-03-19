@@ -1,26 +1,31 @@
 <button class="ui icon orange button" {{action 'openAdd'}}><i class="plus icon" /> Create new project</button>
 {{outlet}}
-<table class="ui table">
+<table class="ui selectable table">
     <thead>
         <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>StartDate</th>
-            <th>DueDate</th>
+            <th>Start Date</th>
+            <th>Due Date</th>
             <th class="right aligned">Actions</th>
         </tr>
     </thead>
-    {{#each model as |project|}}
-    <tr>
-        <td>{{project.name}}</td>
-        <td>{{project.description}}</td>
-        <td>{{project.stringStartDate}}</td>
-        <td>{{project.stringEndDate}}</td>
-        <td class="right aligned">
-            <button class="ui button inverted icon primary" {{action 'openEdit' project}}><i class="edit icon" /></button>
-            <button class="ui button inverted icon red" {{action 'openDelete' project}}><i class="times icon" /></button>
-            <button class="ui button icon purple" {{action 'openProject' project}}><i class="arrow circle right icon" /></button>
-        </td>
-    </tr>
-    {{/each}}
+    <tbody>
+        {{#each model as |project|}}
+        <tr {{action 'openProject' project}}>
+            <td>{{project.name}}</td>
+            <td>{{project.description}}</td>
+            <td>{{project.stringStartDate}}</td>
+            <td>{{project.stringEndDate}}</td>
+            <td class="right aligned">
+                <button class="ui button inverted icon primary" {{action 'openEdit' project}}>
+                    <i class="edit icon" />
+                </button>
+                <button class="ui button inverted icon red" {{action 'openDelete' project}}>
+                    <i class="times icon" />
+                </button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
 </table>

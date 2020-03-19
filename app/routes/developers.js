@@ -11,7 +11,7 @@ export default Route.extend({
     },
     actions: {
         openAdd() {
-            this.transitionTo('developers.add');
+            this.transitionTo('developers.new');
         },
         openEdit(model, dev) {
             if (get(model, 'alreadyOpen') != "") {
