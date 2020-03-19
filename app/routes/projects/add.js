@@ -8,16 +8,14 @@ export default Route.extend({
             set(model, 'description', '')
             set(model, 'startdate', '')
             set(model, 'duedate', '')
-        }
-        /*
+        },
         save(model) {
             console.log("save");
-            let dev = this.get('store').createRecord('developer', { name: get(model, 'name'), fname: get(model, 'fname') });
-            dev.save();
+            let proj = this.get('store').createRecord('project', { name: get(model, 'name'), description: get(model, 'description'),startdate: get(model, 'startdate'),duedate: get(model, 'duedate') });
+            proj.save();
             //this.transitionTo('developers')
             //set(model, 'name', '')
             //set(model, 'fname', '')
         }
-        */
     }
 });
