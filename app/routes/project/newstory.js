@@ -37,8 +37,6 @@ export default Route.extend({
             }).save();
             let tags = await this.store.findAll('tag');
             set(model, 'tags', tags);*/
-            dropdown.value = "red";
-
 
             jQuery('body')
                 .toast({

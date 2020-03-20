@@ -23,7 +23,8 @@
 
     <div class="field">
         <label>Developer</label>
-        <select class="ui search dropdown">
+        <select class="ui icon search dropdown">
+            <i class="user icon"></i>
             <option value="">Select Developer</option>
             {{#each model.project.developers as |developer|}}
             <option value="{{developer.id}}">{{developer.fullName}}</option>
@@ -46,8 +47,10 @@
         <div class="field">
             <label>Add new tag</label>
             <div class="ui action input">
-                <Input type="text" @value={{model.titleNewTag}} placeholder="Tag name..."/>
-                <select class="ui dropdown" id="colorNewTag">
+                <Input type="text" @value={{model.titleNewTag}} placeholder="Tag name..." />
+                <select class="ui icon dropdown" id="colorNewTag">
+
+                    <i class="user icon"></i>
                     {{#each model.colors as |color|}}
                     <option value="{{color}}">
                         <div class="ui {{color}} empty circular label"></div>{{color}}
@@ -67,4 +70,8 @@
         Cancel</button>
 </div>
 <div class="ui divider" id="body" />
+
+{{#each model.project.developers as |developer|}}
+<p>{{developer.id}}</p>
+{{/each}}
 {{outlet}}
