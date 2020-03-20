@@ -9,7 +9,7 @@ export default Route.extend({
             project: project,
             project_id: params.project_id
         });
-
+        
         return retour;
     },
     actions: {

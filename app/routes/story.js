@@ -1,17 +1,15 @@
 import Route from '@ember/routing/route';
-import { get, set } from '@ember/object';
+//import { get, set } from '@ember/object';
 import RSVP from 'rsvp';
 
 export default Route.extend({
     async model(params) {
-        let stories = this.get('store').query('story', {
-            filter: {
-                project: params.project_id
-            }
-        })
+        let story = await this.store.peekRecord('story', params.story_id)
         
         return RSVP.hash({
-            stories: stories
+            story: story,
+            project_id: params.project_id,
+            story_id: params.story_id
         });
     },
     actions: {

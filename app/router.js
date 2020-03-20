@@ -17,10 +17,12 @@ Router.map(function () {
   });
   this.route('home');
 
-  this.route('project', { path: '/project/:project_id' });
-  
-  this.route('story', { path: '/project/:project_id/story' }, function () {
-    this.route('new');
+  this.route('project', { path: '/project/:project_id' }, function () {
+    this.route('newstory', { path: "/story/new" });
+  });
+
+  this.route('story', { path: '/project/:project_id/story/:story_id' }, function () {
+    this.route('edit');
   });
 
 });
