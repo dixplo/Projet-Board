@@ -39,7 +39,7 @@ export default Route.extend({
             set(model, 'tags', tags);*/
             dropdown.value = "red";
 
-            
+
             jQuery('body')
                 .toast({
                     class: 'warning',
@@ -47,6 +47,13 @@ export default Route.extend({
                     message: 'Hey, where is my icon ?'
                 });
 
+        },
+        didTransition() {
+            Ember.run.next(this, 'initUI');
         }
+    },
+    initUI() {
+        jQuery('.ui.dropdown').dropdown();
     }
+
 });
