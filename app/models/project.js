@@ -11,17 +11,43 @@ export default Model.extend({
     owner: DS.belongsTo('developer'),
     developers: DS.hasMany('developer'),
     stringStartDate: computed('startDate', function () {
-        var string = "00/00/0000";
-        if (this.get('startDate') !== null && this.get('startDate') !== undefined) {
-            string = this.get('startDate').getDate() + "/" + (this.get('startDate').getMonth() + 1) + "/" + this.get('startDate').getFullYear();
+        let date = this.get('startDate');
+        if (date !== null && date !== undefined && date instanceof Date) {
+            let year = date.getFullYear().toString();
+            var month = (date.getMonth() + 1).toString();
+            var day = date.getDate().toString();
+            var newDate = year + "-";
+            if (month.length == 1) { month = "0" + month; }
+            if (day.length == 1) { day = "0" + day; }
+            newDate += month + "-" + day;
+            return newDate;
+        } else if (date !== "" && date !== null) {
+            return date;
+        } else {
+            return "0000-00-00";
         }
-        return string;
     }),
     stringEndDate: computed('endDate', function () {
-        var string = "00/00/0000";
-        if (this.get('endDate') !== null && this.get('endDate') !== undefined) {
-            string = this.get('endDate').getDate() + "/" + (this.get('endDate').getMonth() + 1) + "/" + this.get('endDate').getFullYear();
+        let date = this.get('endDate');
+        if (date !== null && date !== undefined && date instanceof Date) {
+            let year = date.getFullYear().toString();
+            var month = (date.getMonth() + 1).toString();
+            var day = date.getDate().toString();
+            var newDate = year + "-";
+            if (month.length == 1) { month = "0" + month; }
+            if (day.length == 1) { day = "0" + day; }
+            newDate += month + "-" + day;
+            return newDate;
+        } else if (date !== "" && date !== null) {
+            return date;
+        } else {
+            return "0000-00-00";
         }
-        return string;
+    }),
+    storiesLength: computed('stories', function () {
+        return this.get('stories').length;
+    }),
+    developersLength: computed('developers', function () {
+        return this.get('developers').length;
     })
 });

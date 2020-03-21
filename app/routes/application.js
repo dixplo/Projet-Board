@@ -6,7 +6,7 @@ export default Route.extend({
     model() {
         let href = window.location.href;
         var where = "";
-        if (href.includes("projects")) {
+        if (href.includes("project")) {
             where = "projects";
         } else if (href.includes("developers")) {
             where = "developers"

@@ -1,3 +1,73 @@
-
-
+<div class="ui grid">
+    <div class="one wide column">
+        <i class="archive icon huge" />
+    </div>
+    <div class="fourteen wide column">
+        <div class="one column row">
+            <div class="column">
+                <h2>{{model.project.name}}</h2>
+            </div>
+        </div>
+        <div class="one column row">
+            <div class="column">
+                {{model.project.description}}
+            </div>
+        </div>
+        <div class="one column row">
+            <div class="column">
+                <i class="stopwatch icon" /> {{model.project.stringStartDate}} <i
+                    class="arrow right icon" />{{model.project.stringEndDate}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui grid">
+    <div class="center aligned equal width column row">
+        <div class="column">
+            <i class="icon folder" />{{model.project.storiesLength}} stories
+        </div>
+        <div class="column">
+            <i class="icon users" />{{model.project.developersLength}} contributors
+        </div>
+    </div>
+</div>
+<button class="ui icon button" {{action 'openAddStory' model}}><i class="plus icon" /> Add story in project</button>
+<br>
 {{outlet}}
+<div class="ui segment">
+    {{#if (eq model.project.storiesLength 0 )}}
+    <div class="ui center aligned header icon">
+        <i class="icon folder open outline" />
+        No story in this project
+    </div>
+    {{else}}
+    <table class="ui very basic table">
+        <tbody>
+            {{#each model.project.stories as |story|}}
+            <tr>
+                <td><i class="folder icon big" /></td>
+                <td>
+                    <div class="header">{{story.code}}</div>
+                    <div class="content">
+                        {{story.description}}
+                        {{#each story.tags as |tag|}}
+                        <a class="ui {{tag.color}} tag label">{{tag.title}}</a>
+                        {{/each}}
+                    </div>
+                </td>
+                <td>
+                    <div class="ui left labeled button">
+                        <a class="ui basic right pointing label">
+                            {{story.developer.fullName}}
+                        </a>
+                        <div class="ui button">
+                            <i class="user icon"></i> Modify...
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+</div>

@@ -7,13 +7,16 @@ export default Route.extend({
     },
     actions: {
         openAdd() {
-            this.transitionTo('projects.add');
+            this.transitionTo('projects.new');
         },
         openEdit(project) {
             this.transitionTo('projects.edit', project.id);
         },
         openDelete(project) {
             this.transitionTo('projects.delete', project.id);
+        },
+        openProject(project) {
+            this.transitionTo('project', project.id);
         }
     }
 });

@@ -1,0 +1,75 @@
+<div class="ui message attached icon">
+    <i class="close icon" {{action 'backToProject' model}}></i>
+    <div class="content">
+        <div class="header">
+            Add project
+        </div>
+    </div>
+</div>
+<div class="ui form attached fluid segment">
+    <div class="two fields">
+
+        <div class="ui fluid labeled input field">
+            <div class="ui label">
+                Name
+            </div>
+            <Input type="text" @value={{model.name}} />
+        </div>
+    </div>
+
+    <div class="field">
+
+        <div class="ui fluid labeled input field">
+            <div class="ui label">
+                Description
+            </div>
+            <Textarea @value={{model.description}}></Textarea>
+        </div>
+
+    </div>
+    <div class="two fields">
+        <div class="ui fluid labeled input field">
+            <div class="ui label">
+                Start date
+            </div>
+            <Input type="date" @value={{model.startDate}} max={{model.endDate}} />
+        </div>
+        <div class="ui fluid labeled input field">
+            <div class="ui label">
+                Due date
+            </div>
+            <Input type="date" @value={{model.endDate}} min={{model.startDate}} />
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>Owner</label>
+            <select class="ui search dropdown" id="selectOwnerAddProject">
+                <option value="">Select Owner</option>
+                {{#each model.developers as |developer|}}
+                <option value="{{developer.id}}">{{developer.fullName}}</option>
+                {{/each}}
+
+            </select>
+        </div>
+        <div class="field">
+            <label>Developers</label>
+            <select class="ui search multiple dropdown" id="selectDevelopersAddProject">
+                <option value="">Select Owner</option>
+                {{#each model.developers as |developer|}}
+                <option value="{{developer.id}}">{{developer.fullName}}</option>
+                {{/each}}
+
+            </select>
+        </div>
+
+    </div>
+</div>
+<div class="ui bottom attached message">
+    <button class="ui button inverted positive icon" {{action 'save' model}}><i class="check circle icon" />
+        Validate</button>
+    <button class="ui button inverted red icon" {{action 'backToProject' model}}><i class="icon times circle outline" />
+        Cancel</button>
+</div>
+<div class="ui divider" />
+{{outlet}}
