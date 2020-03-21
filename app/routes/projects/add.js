@@ -12,7 +12,7 @@ export default Route.extend({
         },
         save(model) { 
             console.log("save");
-            let proj = this.get('store').createRecord('projects', { name: get(model, 'name'), description: get(model, 'description'),startdate: get(model, 'startdate'),endDate: get(model, 'endDate') });
+            let proj = this.get('store').createRecord('project', { name: get(model, 'name'), description: get(model, 'description'),startDate: get(model, 'startDate'),endDate: get(model, 'endDate') });
             proj.save();
             //this.transitionTo('developers')
             //set(model, 'name', '')
