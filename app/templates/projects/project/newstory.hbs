@@ -37,7 +37,7 @@
             <label>Tags</label>
             <select class="ui search multiple dropdown" id="addTag">
                 <option value="">Select Tag</option>
-                {{#each model.tags as |tag|}}
+                {{#each model.project.tags as |tag|}}
                 <option value="{{tag.id}}">
                     <div class="ui {{tag.color}} empty circular label"></div> {{tag.title}}
                 </option>
@@ -70,8 +70,13 @@
         Cancel</button>
 </div>
 <div class="ui divider" id="body" />
-
+<p>developers</p>
 {{#each model.project.developers as |developer|}}
-<p>{{developer.id}}</p>
+<p>{{developer.fullName}}</p>
+{{/each}}
+<p>project tags :</p>
+{{#each model.project.tags as |tag|}}
+<br>
+project tag : <div class="ui {{tag.color}} empty circular label"></div> {{tag.title}}
 {{/each}}
 {{outlet}}

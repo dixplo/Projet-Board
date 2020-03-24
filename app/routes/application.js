@@ -3,9 +3,13 @@ import { get, set } from '@ember/object';
 import jQuery from 'jquery';
 
 export default Route.extend({
-    model() {
+    async model() {
         let href = window.location.href;
         var where = "";
+        /*await this.store.findAll('developer');
+        await this.store.findAll('story');
+        await this.store.findAll('tag');
+        await this.store.findAll('project');*/
         if (href.includes("project")) {
             where = "projects";
         } else if (href.includes("developers")) {

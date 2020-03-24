@@ -24,10 +24,10 @@
 <div class="ui grid">
     <div class="center aligned equal width column row">
         <div class="column">
-            <i class="icon folder" />{{model.project.storiesLength}} stories
+            <i class="icon folder" />{{pluralize model.project.storiesLength "No stories" "1 story" " stories"}}
         </div>
         <div class="column">
-            <i class="icon users" />{{model.project.developersLength}} contributors
+            <i class="icon users" />{{pluralize model.project.developersLength "No contributor" "1 contributor" " contributors"}}
         </div>
     </div>
 </div>

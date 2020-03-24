@@ -7,9 +7,10 @@ export default Model.extend({
     description: DS.attr(),
     startDate: DS.attr('utc'),
     endDate: DS.attr('utc'),
-    stories: DS.hasMany('story'),
-    owner: DS.belongsTo('developer'),
-    developers: DS.hasMany('developer'),
+    stories: DS.hasMany('story', { async: false }),
+    owner: DS.belongsTo('developer', { async: false }),
+    developers: DS.hasMany('developer', { async: false }),
+    tags: DS.hasMany('tag', { async: false }),
     stringStartDate: computed('startDate', function () {
         let date = this.get('startDate');
         if (date !== null && date !== undefined && date instanceof Date) {
@@ -24,7 +25,7 @@ export default Model.extend({
         } else if (date !== "" && date !== null) {
             return date;
         } else {
-            return "0000-00-00";
+            return "????-??-??";
         }
     }),
     stringEndDate: computed('endDate', function () {
@@ -41,7 +42,7 @@ export default Model.extend({
         } else if (date !== "" && date !== null) {
             return date;
         } else {
-            return "0000-00-00";
+            return "????-??-??";
         }
     }),
     storiesLength: computed('stories', function () {

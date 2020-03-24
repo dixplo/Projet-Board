@@ -1,9 +1,9 @@
 import Route from '@ember/routing/route';
-import { get, set } from '@ember/object';
 
 export default Route.extend({
-    model() {
-        return this.get('store').findAll('project');
+    async model() {
+        let developers = await this.get('store').findAll('project', { include: 'tags,developers,stories,owner' });
+        return developers
     },
     actions: {
         openAdd() {
@@ -16,7 +16,7 @@ export default Route.extend({
             this.transitionTo('projects.delete', project.id);
         },
         openProject(project) {
-            this.transitionTo('project', project.id);
+            this.transitionTo('/projects/project/' + project.id);
         }
     }
 });

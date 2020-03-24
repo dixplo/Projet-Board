@@ -14,17 +14,16 @@ Router.map(function () {
   });
   this.route('projects', function () {
     this.route('new');
+
+    this.route('project', { path: '/project/:project_id' }, function () {
+      this.route('newstory', { path: "/story/new" });
+
+      this.route('story', { path: '/story' }, function () {
+        this.route('edit', { path: "/edit/:story_id" });
+      });
+    });
   });
   this.route('home');
-
-  this.route('project', { path: '/project/:project_id' }, function () {
-    this.route('newstory', { path: "/story/new" });
-  });
-
-  this.route('story', { path: '/project/:project_id/story/:story_id' }, function () {
-    this.route('edit');
-  });
-
 });
 
 export default Router;

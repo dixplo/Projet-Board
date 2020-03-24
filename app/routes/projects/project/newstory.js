@@ -2,23 +2,19 @@ import Route from '@ember/routing/route';
 import { get, set } from '@ember/object';
 import RSVP from 'rsvp';
 import jQuery from 'jquery';
-import EmberResolver from 'ember-resolver';
 
 export default Route.extend({
     async model() {
-        let parentModel = this.modelFor('project');
+        let parentModel = this.modelFor('projects.project');
         let project_id = parentModel.project_id;
-
         if (project_id === null || project_id === undefined) {
             this.transitionTo('projects');
             return
         }
-        let project = await this.store.peekRecord('project', project_id);
-        let tags = await this.store.findAll('tag');
+
         return RSVP.hash({
             project_id: project_id,
-            project: project,
-            tags: tags,
+            project: await this.store.findRecord('project', project_id, { reload: true , include: 'tags,developers,stories,owner' }),
             colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
 
         });
@@ -31,27 +27,26 @@ export default Route.extend({
             let dropdown = jQuery("#colorNewTag")[0];
             let color = dropdown.value;
             let title = get(model, 'titleNewTag');
-            /*this.store.createRecord('tag', {
+            var project = get(model, 'project');
+            let tag = this.store.createRecord('tag', {
                 title: title,
-                color: color
-            }).save();
-            let tags = await this.store.findAll('tag');
-            set(model, 'tags', tags);*/
+                color: color,
+                project: project
+            });
+            tag.save();
+            project = await this.store.findRecord('project', project.id, {
+                include: 'tags'
+            });
+            set(model, 'project', project);
+            set(model, 'tags', get(project, 'tags'));
+            set(model, 'titleNewTag', '');
 
             jQuery('body')
                 .toast({
-                    class: 'warning',
-                    showIcon: false,
-                    message: 'Hey, where is my icon ?'
+                    class: 'success',
+                    showIcon: true,
+                    message: 'Tag <div class="ui ' + color + ' label">' + title + '</div> added successfully'
                 });
-
-        },
-        didTransition() {
-            Ember.run.next(this, 'initUI');
         }
-    },
-    initUI() {
-        jQuery('.ui.dropdown').dropdown();
     }
-
 });
