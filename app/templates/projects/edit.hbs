@@ -1,41 +1,6 @@
 <tr>
-    <td colspan="3">
-        <div class="ui message attached icon">
-            <i class="close icon" {{action 'backToProject' model}}></i>
-            <div class="content">
-
-                <div class="header">
-                    Edit {{model.proj.name}}
-                </div>
-
-            </div>
-        </div>
-        <div class="ui form attached fluid segment">
-            <div class="two fields">
-
-                <div class="ui fluid labeled input field" data-children-count="1">
-                    <div class="ui label">
-                        Name
-                    </div>
-                    <Input type="text" @value={{model.name}} placeholder="Name" />
-                </div>
-            </div>
-
-            <div class="two fields">
-                <div class="ui fluid labeled input field" data-children-count="1">
-                    <div class="ui label">
-                        Firstname
-                    </div>
-                    <Input type="text" @value={{model.fname}} placeholder="Firstname" />
-                </div>
-            </div>
-        </div>
-        <div class="ui bottom attached message">
-            <button class="ui button inverted positive icon" {{action 'save' model}}><i class="check circle icon" />
-                Validate</button>
-            <button class="ui button inverted red icon" {{action 'backToDeveloper' model}}><i
-                    class="icon times circle outline" /> Cancel</button>
-        </div>
+    <td colspan="5">
+        salut
     </td>
 </tr>
 {{outlet}}

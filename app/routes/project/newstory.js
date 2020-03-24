@@ -5,19 +5,20 @@ import jQuery from 'jquery';
 
 export default Route.extend({
     async model() {
-        let parentModel = this.modelFor('projects.project');
+        let parentModel = this.modelFor('project');
         let project_id = parentModel.project_id;
         if (project_id === null || project_id === undefined) {
             this.transitionTo('projects');
             return
         }
-
-        return RSVP.hash({
+        let retour = RSVP.hash({
             project_id: project_id,
             project: await this.store.findRecord('project', project_id, { reload: true , include: 'tags,developers,stories,owner' }),
             colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
 
         });
+        
+        return retour;
     },
     actions: {
         backToProject(model) {

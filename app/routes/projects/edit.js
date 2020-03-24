@@ -1,18 +1,22 @@
-import RSVP from 'rsvp'
+import Route from '@ember/routing/route';
+import { get, set } from '@ember/object';
+import RSVP from 'rsvp';
 
 export default Route.extend({
     model(params) {
-        let proj = this.get('store').peekRecord('project', params.proj_id);
+        
+        let project_id = params.project_id;
+        let proj = this.get('store').peekRecord('project', project_id);
         let myproj = proj;
         let r = RSVP.hash({
-            projId: params.proj_id,
-            proj: projdev,
-            name: projdev.get('name'),
-            description: projdev.get('description'),
-            startDate: projdev.get('startDate'),
-            endDate:  projdev.get('endDate'),
-            owner:  projdev.get('owner'),
-            projects:  projdev.get('projects')
+            projId: project_id,
+            proj: myproj,
+            name: myproj.get('name'),
+            description: myproj.get('description'),
+            startDate: myproj.get('startDate'),
+            endDate:  myproj.get('endDate'),
+            owner:  myproj.get('owner'),
+            projects:  myproj.get('projects')
         });
         return r;
     },
@@ -41,6 +45,14 @@ export default Route.extend({
         }
     },
     renderTemplate(model) {
+        debugger
+        this.render('projects.project.edit', {
+            into: 'projects',
+            outlet: model.model.projId
+        });
+    },
+    renderTemplate(model) {
+        debugger
         this.render('projects.edit', {
             into: 'projects',
             outlet: model.model.projId,

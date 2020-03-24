@@ -1,16 +1,16 @@
 import DS from 'ember-data';
 const { Model } = DS;
-import EmberObject, { computed } from '@ember/object';
+import { computed } from '@ember/object';
 
 export default Model.extend({
     name: DS.attr(),
     description: DS.attr(),
     startDate: DS.attr('utc'),
     endDate: DS.attr('utc'),
-    stories: DS.hasMany('story', { async: false }),
-    owner: DS.belongsTo('developer', { async: false }),
-    developers: DS.hasMany('developer', { async: false }),
-    tags: DS.hasMany('tag', { async: false }),
+    stories: DS.hasMany('story'),
+    owner: DS.belongsTo('developer'),
+    developers: DS.hasMany('developer'),
+    tags: DS.hasMany('tag'),
     stringStartDate: computed('startDate', function () {
         let date = this.get('startDate');
         if (date !== null && date !== undefined && date instanceof Date) {

@@ -12,18 +12,22 @@ Router.map(function () {
     this.route('edit', { path: '/edit/:dev_id' });
     this.route('delete', { path: '/delete/:dev_id' });
   });
+
   this.route('projects', function () {
     this.route('new');
+    this.route('edit', { path: '/edit/:project_id' });
+  });
 
-    this.route('project', { path: '/project/:project_id' }, function () {
-      this.route('newstory', { path: "/story/new" });
+  this.route('home');
 
-      this.route('story', { path: '/story' }, function () {
-        this.route('edit', { path: "/edit/:story_id" });
-      });
+  this.route('project', { path: '/project/:project_id' }, function () {
+    this.route('newstory', { path: "/story/new" });
+
+    this.route('story', { path: '/story' }, function () {
+      this.route('edit', { path: "/edit/:story_id" });
     });
   });
-  this.route('home');
+  
 });
 
 export default Router;
