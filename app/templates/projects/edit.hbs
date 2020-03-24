@@ -20,13 +20,26 @@
                     <Input type="text" @value={{model.name}} placeholder="Name" />
                 </div>
             </div>
-
             <div class="two fields">
                 <div class="ui fluid labeled input field" data-children-count="1">
                     <div class="ui label">
-                        Firstname
+                        Description
                     </div>
-                    <Input type="text" @value={{model.fname}} placeholder="Firstname" />
+                    <Input type="text" @value={{model.description}} placeholder="Description" />
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="ui fluid labeled input field">
+                    <div class="ui label">
+                        Start date
+                    </div>
+                    <Input type="date" @value={{model.startDate}} max={{model.endDate}} />
+                </div>
+                <div class="ui fluid labeled input field">
+                    <div class="ui label">
+                        Due date
+                    </div>
+                    <Input type="date" @value={{model.endDate}} min={{model.startDate}} />
                 </div>
             </div>
         </div>
