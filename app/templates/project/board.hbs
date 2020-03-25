@@ -35,37 +35,6 @@
 {{else}}
 <br>
 {{/if}}
-<div class="ui grid">
-    {{#each model.project.stories as |story|}}
-    <div class="two column row" {{action 'click' model}}>
-        <div class="ui column">
-            <h4 class="ui header">
-                <i class="folder icon big" />
-                <div class="content">
-                    {{story.code}}
-                    <div class="sub header">
-                        {{story.description}}
-                        {{#each story.tags as |tag|}}
-                        <a class="ui {{tag.color}} label">{{tag.title}}</a>
-                        {{/each}}
-                    </div>
-                </div>
-            </h4>
-        </div>
-        <div class="right floated right aligned column">
-
-            <div class="ui left labeled button">
-                <div class="ui basic right pointing label">
-                    {{story.developer.fullName}}
-                </div>
-                <div class="ui button">
-                    <i class="folder open icon" /> Open
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/each}}
-</div>
 <br>
 <div class="ui equal width grid">
     <div class="column">

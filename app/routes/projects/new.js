@@ -23,7 +23,7 @@ export default Route.extend({
             let description = get(model, 'description');
             let ownerIndex = jQuery('#selectOwnerAddProject')[0].selectedIndex - 1;
             let selectedDev = jQuery('#selectDevelopersAddProject')[0].selectedOptions;
-            let startDate = get(model, 'startDate');
+            let startDate = new Date(get(model, 'startDate'));
             let endDate = get(model, 'endDate');
 
             
@@ -45,9 +45,6 @@ export default Route.extend({
             if (ownerIndex == -1) {
                 errorDescription += "<li>Owner project</li>";
                 error = true;
-            }
-            if (condition) {
-                
             }
             debugger
             if (error) {
