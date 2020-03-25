@@ -23,7 +23,7 @@ export default Route.extend({
             let description = get(model, 'description');
             let ownerIndex = jQuery('#selectOwnerAddProject')[0].selectedIndex - 1;
             let selectedDev = jQuery('#selectDevelopersAddProject')[0].selectedOptions;
-            let startDate = get(model, 'startDate');
+            let startDate = new Date(get(model, 'startDate'));
             let endDate = get(model, 'endDate');
 
             var error = false;
@@ -44,6 +44,7 @@ export default Route.extend({
                 errorDescription += "<li>Owner project</li>";
                 error = true;
             }
+            debugger
             if (error) {
                 jQuery('body')
                     .toast({
