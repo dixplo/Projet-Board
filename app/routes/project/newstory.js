@@ -11,7 +11,7 @@ export default Route.extend({
             this.transitionTo('projects');
             return
         }
-        await this.store.findAll('tag', { filter: { project: project_id } })
+        await this.store.findAll('tag', { filter: { project: project_id } });
         return await RSVP.hash({
             project_id: project_id,
             project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developers,owner' }),

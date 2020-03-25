@@ -23,7 +23,7 @@
                     <div class="ui basic right pointing label">
                         {{story.developer.fullName}}
                     </div>
-                    <div class="ui button">
+                    <div class="ui button" {{action "affectF" model story}}>
                         <i class="folder open icon" /> Open
                     </div>
                 </div>
@@ -37,44 +37,44 @@
 {{/if}}
 <br>
 <div class="ui equal width grid">
+    {{#each model.project.stepsOrdered as |step|}}
     <div class="column myStep">
-        <div class="ui top attached secondary segment">To Do</div>
-        <div class="ui attached segment">
-            <div class="ui green segment "></div>
-            <div class="ui red segment "></div>
+        <div class="ui top attached raised secondary segment">
+            <div class="ui aligned grid">
+                <div class="left floated left aligned eight wide column">
+                    {{step.title}}
+                </div>
+                <div class="right floated right aligned eight wide column">
+                    <i class="chevron circle left icon large" {{action "minusStep" model step}} />
+                    <i class="chevron circle right icon large" {{action "plusStep" model step}} />
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="column myStep">
-        <div class="ui top attached secondary segment">In Progress</div>
-        <div class="ui attached segment">
-            <div class="ui segment "></div>
+        {{#draggable-dropzone content=step dropped="addToStep" class="column"}}
+        <div class="ui attached raised segment">
+            {{#each model.project.stories as |story|}}
+            {{#if (eq story.step.id step.id)}}
+            {{#draggable-item class="ui segment" activeClass="secondary" content=story onClick="activate"}}
+            {{story.code}}<br>{{if story.activated 'green' 'red'}}
+            {{/draggable-item}}
+            {{/if}}
+            {{/each}}
         </div>
+        {{/draggable-dropzone}}
     </div>
-    <div class="column myStep">
-        <div class="ui top attached secondary segment">Done</div>
-        <div class="ui attached segment">
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
+
+    {{/each}}
+    <div class="column centered addStep">
+        <div class="ui top attached secondary selected segment">
+            <div class="ui form">
+                <Input type="text" class="ui fluid input" placeholder="Step Title" @value={{model.stepTitle}} />
+            </div>
         </div>
-    </div>
-    <div class="column myStep">
-        <div class="ui top attached secondary segment">Done</div>
-        <div class="ui attached segment">
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
-        </div>
-    </div>
-    <div class="column myStep">
-        <div class="ui top attached secondary segment">Done</div>
-        <div class="ui attached segment">
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
-            <div class="ui segment "></div>
+        <div class="ui attached placeholder segment" {{action 'addStep' model}}>
+            <div class="ui icon header">
+                <i class="ui plus icon" />
+                Add Step
+            </div>
         </div>
     </div>
 </div>

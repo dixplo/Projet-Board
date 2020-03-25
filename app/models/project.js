@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 const { Model } = DS;
 import { computed } from '@ember/object';
+import { sort } from '@ember/object/computed';
 
 export default Model.extend({
     name: DS.attr(),
@@ -11,6 +12,7 @@ export default Model.extend({
     owner: DS.belongsTo('developer'),
     developers: DS.hasMany('developer'),
     tags: DS.hasMany('tag'),
+    steps: DS.hasMany('step'),
     stringStartDate: computed('startDate', function () {
         let date = this.get('startDate');
         if (date !== null && date !== undefined && date instanceof Date) {
@@ -49,5 +51,14 @@ export default Model.extend({
         return this.get('stories').filter((story) => {
           return story.get('step').get('id') == undefined;
         });
+    }),
+    stepsOrdered: sort('steps.@each.order', function (a, b) {
+        if (a.order > b.order) {
+            return 1;
+          } else if (a.order < b.order) {
+            return -1;
+          }
+      
+          return 0;
     })
 });
