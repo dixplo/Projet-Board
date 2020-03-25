@@ -10,10 +10,10 @@ export default Route.extend({
         let proj = this.get('store').peekRecord('project', project_id);
         let myproj = proj;
         let developers = await this.store.findAll('developer') ;
+        let developersInProject = await get(proj, 'developer');
         let dropDownOwner = jQuery('#selectOwnerEditProject')[0];
+        let dropDownDeveloper = jQuery(".dropdown").select();
 
-
-        
         let r = RSVP.hash({
             projId: project_id,
             proj: myproj,
@@ -22,7 +22,9 @@ export default Route.extend({
             startDate: myproj.get('stringStartDate'),
             endDate:  myproj.get('stringEndDate'),
             projects:  myproj.get('projects'),
-            developers: developers
+            developers: developers,
+            developersInProject: developersInProject
+
         });
         return r;
     },
