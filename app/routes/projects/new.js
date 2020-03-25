@@ -26,6 +26,8 @@ export default Route.extend({
             let startDate = get(model, 'startDate');
             let endDate = get(model, 'endDate');
 
+            
+
             var error = false;
             var errorDescription = "You must enter : <br><ul>"
             if (name === undefined) {
@@ -44,6 +46,10 @@ export default Route.extend({
                 errorDescription += "<li>Owner project</li>";
                 error = true;
             }
+            if (condition) {
+                
+            }
+            debugger
             if (error) {
                 jQuery('body')
                     .toast({
