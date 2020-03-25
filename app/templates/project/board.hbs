@@ -1,5 +1,5 @@
 {{#if (not-eq model.project.haveStoriesWithNoStep.length 0)}}
-<div class="ui top attached secondary segment">top</div>
+<div class="ui top attached secondary segment">Unreferenced story</div>
 <div class="ui attached segment">
     <div class="ui middle aligned grid">
         {{#each model.project.haveStoriesWithNoStep as |story|}}
@@ -37,20 +37,38 @@
 {{/if}}
 <br>
 <div class="ui equal width grid">
-    <div class="column">
+    <div class="column myStep">
         <div class="ui top attached secondary segment">To Do</div>
         <div class="ui attached segment">
             <div class="ui green segment "></div>
             <div class="ui red segment "></div>
         </div>
     </div>
-    <div class="column">
+    <div class="column myStep">
         <div class="ui top attached secondary segment">In Progress</div>
         <div class="ui attached segment">
             <div class="ui segment "></div>
         </div>
     </div>
-    <div class="column">
+    <div class="column myStep">
+        <div class="ui top attached secondary segment">Done</div>
+        <div class="ui attached segment">
+            <div class="ui segment "></div>
+            <div class="ui segment "></div>
+            <div class="ui segment "></div>
+            <div class="ui segment "></div>
+        </div>
+    </div>
+    <div class="column myStep">
+        <div class="ui top attached secondary segment">Done</div>
+        <div class="ui attached segment">
+            <div class="ui segment "></div>
+            <div class="ui segment "></div>
+            <div class="ui segment "></div>
+            <div class="ui segment "></div>
+        </div>
+    </div>
+    <div class="column myStep">
         <div class="ui top attached secondary segment">Done</div>
         <div class="ui attached segment">
             <div class="ui segment "></div>

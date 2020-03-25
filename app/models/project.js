@@ -45,15 +45,9 @@ export default Model.extend({
             return "????-??-??";
         }
     }),
-    storiesLength: computed('stories', function () {
-        return this.get('stories').length;
-    }),
     haveStoriesWithNoStep: computed('stories.@each.step', function () {
         return this.get('stories').filter((story) => {
           return story.get('step').get('id') == undefined;
         });
-    }),
-    developersLength: computed('developers', function () {
-        return this.get('developers').length;
     })
 });

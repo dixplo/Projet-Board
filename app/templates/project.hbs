@@ -15,11 +15,11 @@
 
 <div class="ui horizontal basic  segments">
     <div class="ui center aligned basic segment">
-        <i class="icon folder" />{{pluralize model.project.storiesLength "No stories" "1 story" " stories"}}
+        <i class="icon folder" />{{pluralize model.project.stories.length "No stories" "1 story" " stories"}}
     </div>
     <div class="ui center aligned basic segment">
         <i
-            class="icon users" />{{pluralize model.project.developersLength "No contributor" "1 contributor" " contributors"}}
+            class="icon users" />{{pluralize model.project.developers.length "No contributor" "1 contributor" " contributors"}}
     </div>
 </div>
 <div class="three ui buttons">

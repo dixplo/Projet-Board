@@ -1,4 +1,13 @@
 body {
+  .marge{
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+  }
+  .myStep{
+    min-width: 20% !important;
+  }
   .ui.overlay {
     background-color: #ffffff;
     padding: 0em;
