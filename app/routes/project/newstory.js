@@ -11,23 +11,30 @@ export default Route.extend({
             this.transitionTo('projects');
             return
         }
-        let retour = RSVP.hash({
+        await this.store.findAll('tag', { filter: { project: project_id } })
+        return await RSVP.hash({
             project_id: project_id,
-            project: await this.store.findRecord('project', project_id, { reload: true , include: 'tags,developers,stories,owner' }),
+            project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developers,owner' }),
             colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
-
         });
-        
-        return retour;
     },
     actions: {
         backToProject(model) {
-            this.transitionTo('/project/' + get(model, 'project_id'));
+            this.transitionTo('/project/' + get(model, 'project_id') + '/stories');
         },
         async addNewTag(model) {
             let dropdown = jQuery("#colorNewTag")[0];
             let color = dropdown.value;
             let title = get(model, 'titleNewTag');
+            if (title === undefined) {
+                jQuery('body')
+                    .toast({
+                        class: 'error',
+                        showIcon: true,
+                        message: 'You must enter a tag title to add it !'
+                    });
+                return
+            }
             var project = get(model, 'project');
             let tag = this.store.createRecord('tag', {
                 title: title,
@@ -35,8 +42,11 @@ export default Route.extend({
                 project: project
             });
             tag.save();
+            project.tags.toArray().addObject(tag);
+            project.save();
             project = await this.store.findRecord('project', project.id, {
-                include: 'tags'
+                include: 'tags,developers,stories',
+                reload: true
             });
             set(model, 'project', project);
             set(model, 'tags', get(project, 'tags'));
@@ -48,6 +58,65 @@ export default Route.extend({
                     showIcon: true,
                     message: 'Tag <div class="ui ' + color + ' label">' + title + '</div> added successfully'
                 });
+        },
+        async save(model) {
+            let code = model.code;
+            let description = model.description;
+
+            var error = false;
+            var errorDescription = "You must enter : <br><ul>"
+            if (code === undefined) {
+                errorDescription += "<li>Story code</li>";
+                error = true;
+            }
+            if (description === undefined) {
+                errorDescription += "<li>Story description</li>";
+                error = true;
+            }
+            if (error) {
+                jQuery('body')
+                    .toast({
+                        class: 'error',
+                        title: "Warning",
+                        showIcon: true,
+                        message: errorDescription + "</ul>",
+                        showProgress: 'bottom',
+                        classProgress: 'black',
+                    });
+                return
+            }
+
+            let project = get(model, 'project');
+            let developer = null;
+            get(project, 'developers').forEach(dev => {
+                if (dev.id == jQuery("#addDeveloper")[0].value) {
+                    developer = dev;
+                }
+            });
+
+            let tagsDropdown = jQuery("#addTags")[0].selectedOptions;
+            let tags = []
+            for (let option of tagsDropdown) {
+                if (!(option instanceof Number) && tags.indexOf(option.index - 1) == -1) {
+                    let tagIndex = option.index - 1;
+                    if (tagIndex != -1) {
+                        tags.push(tagIndex)
+                    }
+                }
+            }
+            let tagsInProject = get(model, 'project').tags.objectsAt(tags);
+
+            let story = this.store.createRecord('story', {
+                code: code,
+                description: description,
+                project: project,
+                developer: developer,
+                tags: tagsInProject
+            });
+            story.save();
+            get(project, 'stories').toArray().addObject(story);
+            project.save();
+            this.transitionTo('/project/' + project.id + '/stories');
         }
     }
 });

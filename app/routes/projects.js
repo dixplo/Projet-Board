@@ -10,7 +10,7 @@ export default Route.extend({
             this.transitionTo('projects.new');
         },
         openEdit(project) {
-            this.transitionTo('projects.edit' , project.id);
+            this.transitionTo('/projects/edit/' + project.id);
         },
         openDelete(project) {
             this.transitionTo('projects.delete', project.id);

@@ -15,7 +15,7 @@ export default Route.extend({
         return r;
     },
     actions: {
-        backToDeveloper(model) {
+        backToDeveloper() {
             set(this.modelFor('developers'), 'alreadyOpen', ""); 
             this.transitionTo('developers');
         },

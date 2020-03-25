@@ -26,6 +26,8 @@ Router.map(function () {
     this.route('story', { path: '/story' }, function () {
       this.route('edit', { path: "/edit/:story_id" });
     });
+    this.route('board');
+    this.route('stories');
   });
   
 });

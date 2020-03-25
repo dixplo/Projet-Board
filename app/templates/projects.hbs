@@ -1,6 +1,6 @@
 <button class="ui icon orange button" {{action 'openAdd'}}><i class="plus icon" /> Create new project</button>
 {{outlet}}
-<table class="ui selectable table">
+<table class="ui table">
     <thead>
         <tr>
             <th>Name</th>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         {{#each model as |project|}}
-        <tr {{action 'openProject' project}}>
+        <tr>
             <td>{{project.name}}</td>
             <td>{{project.description}}</td>
             <td>{{project.stringStartDate}}</td>
@@ -23,6 +23,9 @@
                 </button>
                 <button class="ui button inverted icon red" {{action 'openDelete' project}}>
                     <i class="times icon" />
+                </button>
+                <button class="ui button inverted icon violet" {{action 'openProject' project}}>
+                    <i class="arrow circle right icon" />
                 </button>
             </td>
         </tr>

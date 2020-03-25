@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
+import { next } from '@ember/runloop';
 import jQuery from 'jquery';
 
 export default Route.extend({
@@ -36,7 +37,7 @@ export default Route.extend({
             this.transitionTo('home');
         },
         didTransition() {
-            Ember.run.next(this, 'initUI');
+            next(this, 'initUI');
         }
     },
     initUI() {

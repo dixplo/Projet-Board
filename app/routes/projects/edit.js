@@ -45,14 +45,6 @@ export default Route.extend({
         }
     },
     renderTemplate(model) {
-        debugger
-        this.render('projects.project.edit', {
-            into: 'projects',
-            outlet: model.model.projId
-        });
-    },
-    renderTemplate(model) {
-        debugger
         this.render('projects.edit', {
             into: 'projects',
             outlet: model.model.projId,

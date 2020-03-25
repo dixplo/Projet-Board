@@ -48,6 +48,13 @@ export default Model.extend({
     storiesLength: computed('stories', function () {
         return this.get('stories').length;
     }),
+    haveStoriesWithNoStep: computed('stories.@each.step', function () {
+        
+        let array = this.get('stories').filter(function(sto) {
+            return sto.get('step') === undefined;
+          });
+        return array;
+    }),
     developersLength: computed('developers', function () {
         return this.get('developers').length;
     })

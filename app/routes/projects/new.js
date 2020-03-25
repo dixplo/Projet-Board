@@ -44,12 +44,12 @@ export default Route.extend({
                 errorDescription += "<li>Owner project</li>";
                 error = true;
             }
-
             if (error) {
                 jQuery('body')
                     .toast({
                         class: 'error',
                         title: "Warning",
+                        showIcon: true,
                         message: errorDescription + "</ul>",
                         showProgress: 'bottom',
                         classProgress: 'black',

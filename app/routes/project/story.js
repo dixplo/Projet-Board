@@ -5,7 +5,6 @@ import RSVP from 'rsvp';
 export default Route.extend({
     async model(params) {
         let story = await this.store.peekRecord('story', params.story_id)
-        debugger
         return RSVP.hash({
             story: story,
             project_id: params.project_id,
