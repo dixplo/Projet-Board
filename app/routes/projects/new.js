@@ -50,7 +50,6 @@ export default Route.extend({
                 errorDescription += "<li>The end date cannot be less than the start date.</li>";
                 error = true;
             }
-            debugger
             if (error) {
                 jQuery('body')
                     .toast({
