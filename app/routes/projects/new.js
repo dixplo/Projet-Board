@@ -24,7 +24,7 @@ export default Route.extend({
             let ownerIndex = jQuery('#selectOwnerAddProject')[0].selectedIndex - 1;
             let selectedDev = jQuery('#selectDevelopersAddProject')[0].selectedOptions;
             let startDate = new Date(get(model, 'startDate'));
-            let endDate = get(model, 'endDate');
+            let endDate = new Date(get(model, 'endDate'));
 
             
 
@@ -44,6 +44,10 @@ export default Route.extend({
             }
             if (ownerIndex == -1) {
                 errorDescription += "<li>Owner project</li>";
+                error = true;
+            }
+            if (startDate > endDate) {
+                errorDescription += "<li>The end date cannot be less than the start date.</li>";
                 error = true;
             }
             debugger
