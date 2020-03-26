@@ -13,6 +13,7 @@ export default Component.extend({
   draggable: 'true',
 
   dragStart(event) {
+    this.sendAction("ddragStart", get(this, 'content'));
     return event.dataTransfer.setData('text/data', get(this, 'content').get('id'));
   },
   doubleClick() {

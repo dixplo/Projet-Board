@@ -3,14 +3,17 @@ import RSVP from 'rsvp';
 import { get, set } from '@ember/object';
 
 export default Route.extend({
-    async model() {
+    async model() {        
         let project_id = this.modelFor('project').project_id;
         let project = await this.store.findRecord('project', project_id, {
             reload: true,
-            include: 'developers,stories,tags,steps'
+            include: 'developers,stories,stories.tasks,tags,steps'
         });
         let developers = await project.get('developers');
         let stories = await project.get('stories');
+        await stories.forEach(async story => {
+            await story.get('tasks');   
+        });
         await this.store.findAll('step', { filter: { project: project_id } })
         let retour = RSVP.hash({
             project: project,
@@ -19,9 +22,6 @@ export default Route.extend({
         return retour;
     },
     actions: {
-        click(story) {
-            debugger
-        },
         addStep(model) {
             let title = get(model, 'stepTitle');
             if (title === undefined) {
@@ -79,11 +79,6 @@ export default Route.extend({
                 step.save();
             }
         },
-        affectF(model, story) {
-            let list = get(model, 'project').stepsOrdered.toArray()[0];
-            set(story, 'step', list);
-            story.save();
-        },
         async addToStep(storyId, step) {
             let model = this.modelFor('project.board');
             var story = null;
@@ -103,9 +98,15 @@ export default Route.extend({
             let model = this.modelFor('project.board');
             let stories = await get(model.project, 'stories');
             stories.forEach(mStory => {
-                set(mStory, 'active', false);
+                if (story.id == mStory.id) {
+                    set(story, 'active', !get(story, 'active'));
+                } else {
+                    set(mStory, 'active', false);
+                }
             });
-            set(story, 'active', true);
+        },
+        ddragStart(story) {
+            debugger
         }
     }
 });

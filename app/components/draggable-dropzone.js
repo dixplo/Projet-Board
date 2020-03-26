@@ -4,16 +4,16 @@ import { set, get } from '@ember/object';
 export default Component.extend({
   classNames: ['draggableDropzone'],
   classNameBindings: ['dragClass'],
-  dragClass: 'deactivated',
+  dragClass: '',
 
   dragLeave(event) {
     event.preventDefault();
-    set(this, 'dragClass', 'deactivated');
+    set(this, 'dragClass', '');
   },
 
   dragOver(event) {
     event.preventDefault();
-    set(this, 'dragClass', 'activated');
+    set(this, 'dragClass', 'green');
   },
 
   drop(event) {

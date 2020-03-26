@@ -3,5 +3,6 @@ const { Model } = DS;
 
 export default Model.extend({
     content: DS.attr(),
-    story: DS.belongsTo('story')
+    story: DS.belongsTo('story'),
+    finished: DS.attr('boolean')
 });

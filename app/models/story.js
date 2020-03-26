@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 const { Model } = DS;
+import { computed } from '@ember/object';
 
 export default Model.extend({
     
@@ -11,4 +12,15 @@ export default Model.extend({
     tags: DS.hasMany('tag'),
     tasks: DS.hasMany('task'),
     step: DS.belongsTo('step'),
+    estimate: DS.attr('number'),
+    ratioTasks: computed('tasks.@each.finished', function () {
+        let tasks = this.get('tasks');
+        var finished = 0;
+        tasks.toArray().forEach(task => {
+            if (task.finished) {
+                finished++;
+            }
+        });
+        return parseInt(finished/tasks.length*100) +" %"
+    })
 });

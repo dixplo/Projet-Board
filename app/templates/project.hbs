@@ -1,32 +1,32 @@
-<button class="ui icon button basic" {{action 'backToProjects'}}><i class="arrow circle left icon" />
+<button class="ui icon button basic inverted" {{action 'backToProjects'}}><i class="arrow circle left icon" />
     Back to project list</button>
 
 <h2 class="ui header">
-    <i class="archive icon big" />
+    <i class="archive primary icon big" />
     <div class="content">
         {{model.project.name}}
         <div class="sub header">
             {{model.project.description}}<br>
-            <i class="stopwatch icon" /> {{model.project.stringStartDate}} <i
+            <i class="stopwatch orange icon" /> {{model.project.stringStartDate}} <i
                 class="arrow right icon" />{{model.project.stringEndDate}}
         </div>
     </div>
 </h2>
 
-<div class="ui horizontal basic  segments">
-    <div class="ui center aligned basic segment">
-        <i class="icon folder" />{{pluralize model.project.stories.length "No stories" "1 story" " stories"}}
+<div class="ui horizontal basic segments">
+    <div class="ui center aligned basic segment inverted">
+        <i class="icon folder" /> {{pluralize model.project.stories.length "No stories" "1 story" " stories"}}
     </div>
-    <div class="ui center aligned basic segment">
+    <div class="ui center aligned basic segment inverted">
         <i
-            class="icon users" />{{pluralize model.project.developers.length "No contributor" "1 contributor" " contributors"}}
+            class="icon users" /> {{pluralize model.project.developers.length "No contributor" "1 contributor" " contributors"}}
     </div>
 </div>
 <div class="three ui buttons">
     <button class="ui icon button" {{action 'openAddStory' model}}><i class="plus icon" /> Add story in project</button>
-    <button class="ui icon button pink" {{action 'openStories' model}}><i class="calendar alternate outline icon" />
+    <button class="ui icon button pink" {{action 'openStories' model}}><i class="window restore outline icon" />
         Stories</button>
-    <button class="ui icon button teal" {{action 'openBoard' model}}><i class="calendar alternate outline icon" />
+    <button class="ui icon button teal" {{action 'openBoard' model}}><i class="columns icon" />
         Dashboard</button>
 </div>
 {{outlet}}

@@ -2,8 +2,8 @@
     <a href="https://github.com/jmurphyau/ember-truth-helpers#user-content-usage" target="_blank">operation egal,...
         dans handelbars</a>
 
-    <div class="ui overlay">
-        <div class="ui top attached pointing menu">
+    <div class="ui overlay inverted">
+        <div class="ui top attached pointing menu inverted">
             <a class="item {{if (eq model.whereIAm "home") 'active' ''}}" {{action "goToHome" model}}>
                 Home
             </a>
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="ui bottom attached segment">
+    <div class="ui bottom attached segment inverted">
         {{outlet}}
     </div>
 </div>

@@ -1,16 +1,16 @@
-<div class="ui segment">
+<div class="ui segment inverted">
     {{#if (eq model.project.storiesLength 0 )}}
     <div class="ui center aligned header icon">
         <i class="icon folder open outline" />
         No story in this project
     </div>
     {{else}}
-    <div class="ui middle aligned grid">
+    <div class="ui middle aligned grid inverted">
         {{#each model.project.stories as |story|}}
 
-        <div class="two column row">
+        <div class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive">
             <div class="ui column">
-                <h4 class="ui header">
+                <h4 class="ui header inverted">
                     <i class="folder icon big" />
                     <div class="content">
                         {{story.code}}

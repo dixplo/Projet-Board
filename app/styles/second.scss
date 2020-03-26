@@ -1,18 +1,38 @@
 body {
+  background-color: black !important;
   .marge{
     margin-left: 3%;
     margin-right: 3%;
-    margin-top: 2vh;
-    margin-bottom: 5vh;
   }
   .myStep{
-    min-width: 20% !important;
+    width: 300px !important;
   }
   .addStep {
-    width: 10px !important;
+    width: 20% !important;
+  }
+  .mySegmentBorder{
+    border: 1px solid white !important;
+  }
+  .inputBorder{
+    border: 1px solid #555 !important;
+  }
+  .inputLeftPadding {
+    padding-left: 0.5em !important;
+  }
+  .borderRadiusZeroFive {
+    border-radius: 0.5em 0.5em !important;
+  }
+  .borderRadiusTopZeroThree {
+    border-radius: 0.3em 0.3em 0em 0em !important;
+  }
+  .borderRadiusLeftZeroThree {
+    border-radius: 0.3em 0em 0em 0.3em !important;
+  }
+  .marginZeroFive {
+    margin: 0.5em;
   }
   .ui.overlay {
-    background-color: #ffffff;
+    background-color: #000000;
     padding: 0em;
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
     transition: all 0.5s ease;
@@ -20,7 +40,8 @@ body {
   /* change style */
   .ui.overlay.fixed {
     position: fixed;
-    padding: 1em;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+    padding: 0.5em;
+    border-radius: 0.5em 0.5em;
+    box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
   }
 }

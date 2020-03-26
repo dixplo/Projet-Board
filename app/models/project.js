@@ -49,16 +49,48 @@ export default Model.extend({
     }),
     haveStoriesWithNoStep: computed('stories.@each.step', function () {
         return this.get('stories').filter((story) => {
-          return story.get('step').get('id') == undefined;
+            return story.get('step').get('id') == undefined;
         });
     }),
     stepsOrdered: sort('steps.@each.order', function (a, b) {
         if (a.order > b.order) {
             return 1;
-          } else if (a.order < b.order) {
+        } else if (a.order < b.order) {
             return -1;
-          }
-      
-          return 0;
+        }
+
+        return 0;
+    }),
+    stepsOrderedTable: computed('stepsOrdered', function () {
+        let retour = [];
+        let steps = this.get('stepsOrdered');
+        let numberTab = Math.ceil((steps.length + 1) / 4);
+        let d = retour[1];
+        for (let i = 0; i < numberTab; i++) {
+            let tab = [];
+            var one = false;
+            for (let j = i * 4; j < (i + 1) * 4; j++) {
+                let step = steps.toArray()[j];
+                if (step !== undefined) {
+                    tab.push(step);
+                } else {
+                    if (!one && i == numberTab - 1) {
+                        one = true;
+                        tab.push("addStep");
+                    }
+                }
+            }
+            retour.push(tab);
+        }
+        return retour;
+    }),
+    storiesOrdered: sort('stories.@each.estimate', function (a, b) {
+        if (a.estimate > b.estimate) {
+            return 1;
+        } else if (a.estimate < b.estimate) {
+            return -1;
+        }
+
+        return 0;
     })
 });

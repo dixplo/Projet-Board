@@ -15,7 +15,7 @@ export default Route.extend({
         return await RSVP.hash({
             project_id: project_id,
             project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developers,owner' }),
-            colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
+            colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
         });
     },
     actions: {
