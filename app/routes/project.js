@@ -11,10 +11,11 @@ export default Route.extend({
 
         let project = await this.store.findRecord('project', params.project_id, {
             reload: true,
-            include: 'developers,stories,tags'
+            include: 'developers,stories,tags,steps'
         });
         let developers = await project.get('developers');
         let stories = await project.get('stories');
+        let steps = await project.get('steps');
         let retour = RSVP.hash({
             project: project,
             project_id: params.project_id

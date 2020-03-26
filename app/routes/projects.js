@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
     async model() {
-        let projects = await this.get('store').findAll('project', { include: 'tags,developers,stories,owner' });
+        let projects = await this.get('store').findAll('project', { include: 'tags,developers,stories,steps' });
         return projects;
     },
     actions: {
