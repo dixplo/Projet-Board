@@ -13,6 +13,30 @@ export default Route.extend({
         let developers = await this.store.findAll('developer');
         let developersInProject = await get(proj, 'developer');
 
+
+      
+        //Setting Value
+        document.getElementById("developer").value = selValue;
+
+
+        let dropdownDeveloper = jQuery('#selectOwnerEditProject')
+        let developerInProject = dropdownDeveloper[0]
+        debugger
+        dropdownDeveloper.dropdown({
+            placeholder: 'developer in project',
+            values:[
+            {
+              "developer": "Image",
+              "value": "elliot",
+              "selected": true
+            }]
+          })
+          ;
+        debugger
+
+
+
+
         let r = RSVP.hash({
             projId: project_id,
             proj: myproj,
@@ -94,39 +118,7 @@ export default Route.extend({
         },
         click() {
             
-        let aaaaa = jQuery('#selectOwnerEditProject')
-        let bbbbbb = aaaaa[0]
-        debugger
-        bbbbbb.dropdown({
-            placeholder: 'Show images and icons',
-            values:[{
-              "name": "Avatar",
-              "value": "jenny"
-            },
-            {
-              "name": "Image",
-              "value": "elliot",
-              "selected": true
-            },
-            {
-              "name": "Flag",
-              "value": "uk"
-            },
-            {
-              "name": "Icon",
-              "value": "female"
-            },
-            {
-              "name": "Colored Icon",
-              "value": "coloredfemale"
-            },
-            {
-              "name": "Image and Icon",
-              "value": "completefemale"
-            }]
-          })
-          ;
-        debugger
+        
         }
     },
     renderTemplate(model) {
