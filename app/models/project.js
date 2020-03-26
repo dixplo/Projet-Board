@@ -65,7 +65,6 @@ export default Model.extend({
         let retour = [];
         let steps = this.get('stepsOrdered');
         let numberTab = Math.ceil((steps.length + 1) / 4);
-        let d = retour[1];
         for (let i = 0; i < numberTab; i++) {
             let tab = [];
             var one = false;
@@ -85,12 +84,10 @@ export default Model.extend({
         return retour;
     }),
     storiesOrdered: sort('stories.@each.estimate', function (a, b) {
-        if (a.estimate > b.estimate) {
+        if (a.estimate < b.estimate) {
             return 1;
-        } else if (a.estimate < b.estimate) {
+        } else if (a.estimate > b.estimate) {
             return -1;
-        }
-
-        return 0;
+        } else return 0;
     })
 });

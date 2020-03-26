@@ -12,11 +12,5 @@ export default Route.extend({
         });
     },
     actions: {
-    },
-    renderTemplate() {
-        this.render('projects.project.story', {
-            into: 'application',
-            view: 'projects.project.story'
-        });
     }
 });

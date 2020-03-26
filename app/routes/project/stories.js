@@ -16,5 +16,10 @@ export default Route.extend({
         });
 
         return retour;
-    }
+    },
+     actions: {
+        openStory(story, model) {
+            this.transitionTo("/project/" + model.project_id + "/story/" + story.id);
+        }
+     }
 });

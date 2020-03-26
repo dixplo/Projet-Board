@@ -23,11 +23,12 @@ Router.map(function () {
   this.route('project', { path: '/project/:project_id' }, function () {
     this.route('newstory', { path: "/story/new" });
 
-    this.route('story', { path: '/story' }, function () {
-      this.route('edit', { path: "/edit/:story_id" });
+    this.route('story', { path: '/story/:story_id' }, function () {
+      this.route('edit', { path: "/edit" });
     });
     this.route('board');
-    this.route('stories');
+    this.route('stories', function () {
+    });
   });
   
 });

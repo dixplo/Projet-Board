@@ -3,7 +3,7 @@ import RSVP from 'rsvp';
 import { get, set } from '@ember/object';
 
 export default Route.extend({
-    async model() {        
+    async model() {
         let project_id = this.modelFor('project').project_id;
         let project = await this.store.findRecord('project', project_id, {
             reload: true,
@@ -12,7 +12,7 @@ export default Route.extend({
         let developers = await project.get('developers');
         let stories = await project.get('stories');
         await stories.forEach(async story => {
-            await story.get('tasks');   
+            await story.get('tasks');
         });
         await this.store.findAll('step', { filter: { project: project_id } })
         let retour = RSVP.hash({
@@ -105,8 +105,9 @@ export default Route.extend({
                 }
             });
         },
-        ddragStart(story) {
-            debugger
+        open(story) {
+            let project_id = this.modelFor('project.board').project_id;
+            this.transitionTo("/project/" + project_id + "/story/" + story.id);
         }
     }
 });

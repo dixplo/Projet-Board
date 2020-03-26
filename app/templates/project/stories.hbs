@@ -1,42 +1,53 @@
 <div class="ui segment inverted">
-    {{#if (eq model.project.storiesLength 0 )}}
+  {{#if (eq model.project.storiesLength 0)}}
     <div class="ui center aligned header icon">
-        <i class="icon folder open outline" />
-        No story in this project
+      <i class="icon folder open outline"></i>
+      No story in this project
     </div>
-    {{else}}
+  {{else}}
     <div class="ui middle aligned grid inverted">
-        {{#each model.project.stories as |story|}}
-
-        <div class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive">
-            <div class="ui column">
-                <h4 class="ui header inverted">
-                    <i class="folder icon big" />
-                    <div class="content">
-                        {{story.code}}
-                        <div class="sub header">
-                            {{story.description}}
-                            {{#each story.tags as |tag|}}
-                            <a class="ui {{tag.color}} label">{{tag.title}}</a>
-                            {{/each}}
-                        </div>
+      {{#each model.project.storiesOrdered as |story|}}
+        <div
+          class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive"
+        >
+          <div class="ui column">
+            <h4 class="ui header inverted">
+              <i class="folder primary icon big"></i>
+              <div class="content">
+                {{story.code}}
+                <div class="sub header">
+                  {{#if story.estimate}}
+                    <div class="ui left icon circular violet label left icon">
+                      {{story.estimate}}
                     </div>
-                </h4>
-            </div>
-            <div class="right floated right aligned column">
-
-                <div class="ui left labeled button">
-                    <div class="ui basic right pointing label">
-                        {{story.developer.fullName}}
-                    </div>
-                    <div class="ui button">
-                        <i class="folder open icon" /> Open
-                    </div>
+                  {{/if}}
+                   {{story.description}}
+                  {{#each story.tags as |tag|}}
+                    <a class="ui {{tag.color}} label">
+                      {{tag.title}}
+                    </a>
+                  {{/each}}
                 </div>
+              </div>
+            </h4>
+          </div>
+          <div class="right floated right aligned column">
+            <div
+              class="ui left labeled button"
+              {{action "openStory" story model}}
+            >
+              <div class="ui basic right pointing label">
+                {{story.developer.fullName}}
+              </div>
+              <div class="ui button">
+                <i class="folder open icon"></i>
+                Open
+              </div>
             </div>
+          </div>
         </div>
-        {{/each}}
+      {{/each}}
     </div>
-    {{/if}}
+  {{/if}}
 </div>
 {{outlet}}

@@ -13,6 +13,7 @@
         activeClass="tertiary"
         content=story
         onClick="activate"
+        onDblClick="open"
       }}
         <div class="ui column">
           <h4 class="ui header inverted">
@@ -106,16 +107,13 @@
                       activeClass="tertiary"
                       content=story
                       onClick="activate"
+                      onDblClick="open"
                     }}
+                    <i class="folder open icon"></i>
                       {{#if story.estimate}}
-                        <div
-                          class="ui left icon circular violet label left icon"
-                        >
-                          <i class="folder open icon"></i>
-                          {{story.estimate}}
-                        </div>
-                      {{else}}
-                        <i class="folder open primary icon"></i>
+                      <div class="ui left icon circular violet label left icon">
+                        {{story.estimate}}
+                      </div>
                       {{/if}}
                       <b>
                         {{story.code}}
