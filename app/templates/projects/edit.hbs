@@ -36,10 +36,6 @@
                 <div class="field">
                     <label>Owner</label>
                     <select class="ui search dropdown" id="selectOwnerEditProject">
-                        <option value="">Select Owner</option>
-                        {{#each model.developers as |developer|}}
-                        <option value="{{developer.id}}">{{developer.fullName}}</option>
-                        {{/each}}
 
                     </select>
                 </div>
@@ -57,7 +53,7 @@
             </div>
         </div>
         <div class="ui bottom attached message">
-            <button class="ui button inverted positive icon" {{action 'save' model}}><i class="check circle icon" />
+            <button class="ui button inverted positive icon" {{action 'click'}}><i class="check circle icon" />
                 Validate</button>
             <button class="ui button inverted red icon" {{action 'backToProject' model}}><i
                     class="icon times circle outline" />

@@ -1,18 +1,17 @@
 import Route from '@ember/routing/route';
 import { get, set } from '@ember/object';
 import RSVP from 'rsvp';
+import jQuery from 'jquery';
 
 
 export default Route.extend({
     async model(params) {
-        
+
         let project_id = params.project_id;
         let proj = this.get('store').peekRecord('project', project_id);
         let myproj = proj;
-        let developers = await this.store.findAll('developer') ;
+        let developers = await this.store.findAll('developer');
         let developersInProject = await get(proj, 'developer');
-        let dropDownOwner = jQuery('#selectOwnerEditProject')[0];
-        let dropDownDeveloper = jQuery(".dropdown").select();
 
         let r = RSVP.hash({
             projId: project_id,
@@ -20,8 +19,8 @@ export default Route.extend({
             name: myproj.get('name'),
             description: myproj.get('description'),
             startDate: myproj.get('stringStartDate'),
-            endDate:  myproj.get('stringEndDate'),
-            projects:  myproj.get('projects'),
+            endDate: myproj.get('stringEndDate'),
+            projects: myproj.get('projects'),
             developers: developers,
             developersInProject: developersInProject
 
@@ -30,7 +29,7 @@ export default Route.extend({
     },
     actions: {
         backToProject(model) {
-            set(this.modelFor('projects'), 'alreadyOpen', ""); 
+            set(this.modelFor('projects'), 'alreadyOpen', "");
             this.transitionTo('projects');
         },
         save(model) {
@@ -84,7 +83,7 @@ export default Route.extend({
             proj.set('owner', get(model, 'owner'));
             proj.set('projects', get(model, 'projects'));
             proj.save();
-            set(this.modelFor('projects'), 'alreadyOpen', ""); 
+            set(this.modelFor('projects'), 'alreadyOpen', "");
             this.transitionTo('projects')
             set(model, 'name', '')
             set(model, 'description', '')
@@ -92,6 +91,42 @@ export default Route.extend({
             set(model, 'endDate', '')
             set(model, 'owner', '')
             set(model, 'projects', '')
+        },
+        click() {
+            
+        let aaaaa = jQuery('#selectOwnerEditProject')
+        let bbbbbb = aaaaa[0]
+        debugger
+        bbbbbb.dropdown({
+            placeholder: 'Show images and icons',
+            values:[{
+              "name": "Avatar",
+              "value": "jenny"
+            },
+            {
+              "name": "Image",
+              "value": "elliot",
+              "selected": true
+            },
+            {
+              "name": "Flag",
+              "value": "uk"
+            },
+            {
+              "name": "Icon",
+              "value": "female"
+            },
+            {
+              "name": "Colored Icon",
+              "value": "coloredfemale"
+            },
+            {
+              "name": "Image and Icon",
+              "value": "completefemale"
+            }]
+          })
+          ;
+        debugger
         }
     },
     renderTemplate(model) {
