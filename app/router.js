@@ -29,8 +29,11 @@ Router.map(function () {
     this.route('board');
     this.route('stories', function () {
     });
+    this.route('home');
   });
-  
+
+  this.route('login');
+  this.route('register');
 });
 
 export default Router;

@@ -5,9 +5,8 @@ import { get } from '@ember/object';
 export default Route.extend({
     async model(params) {
         let href = window.location.href
-        if (href.includes("story")) { this.transitionTo('/project/' + params.project_id + '/story/new'); } 
-        else if (href.includes("board")) { this.transitionTo('/project/' + params.project_id + '/board'); }
-        else { this.transitionTo('/project/' + params.project_id + '/stories'); }
+        if (href.includes("board")) { this.transitionTo('/project/' + params.project_id + '/board'); }
+        else if (href.includes("stories")) { this.transitionTo('/project/' + params.project_id + '/stories'); }
 
         let project = await this.store.findRecord('project', params.project_id, {
             reload: true,

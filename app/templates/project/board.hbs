@@ -1,53 +1,56 @@
-<div class="ui top attached secondary segment inverted">
-  Unreferenced story
-</div>
-{{#draggable-dropzone
-  content=null
-  dropped="addToStep"
-  class="ui attached segment inverted"
-}}
-  <div class="ui middle aligned grid inverted">
-    {{#each model.project.haveStoriesWithNoStep as |story|}}
-      {{#draggable-item
-        class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive"
-        activeClass="tertiary"
-        content=story
-        onClick="activate"
-        onDblClick="open"
-      }}
-        <div class="ui column">
-          <h4 class="ui header inverted">
-            <i class="folder primary icon big"></i>
-            <div class="content">
-              {{story.code}}
-              <div class="sub header">
-                {{story.description}}
-                {{#each story.tags as |tag|}}
-                  <div class="ui {{tag.color}} label">
-                    {{tag.title}}
-                  </div>
-                {{/each}}
-              </div>
-            </div>
-          </h4>
-        </div>
-        <div class="right floated right aligned column">
-          <div class="ui left labeled button">
-            <div class="ui basic right pointing label">
-              {{story.developer.fullName}}
-            </div>
-            <div class="ui button">
-              <i class="arrows alternate icon"></i>
-              Drag and drop in a step
-            </div>
-          </div>
-        </div>
-      {{/draggable-item}}
-    {{/each}}
-  </div>
-{{/draggable-dropzone}}
+<br />
 <br />
 <div class="ui equal width grid">
+  <div class="row">
+    <div class="column myStep">
+      <div class="ui top attached secondary segment inverted">
+        Unreferenced story
+      </div>
+      {{#draggable-dropzone content=step dropped="addToStep" class="column"}}
+        <div class="ui attached raised segment inverted">
+          {{#each model.project.haveStoriesWithNoStep as |story|}}
+            <div class="ui middle aligned grid inverted">
+              {{#draggable-item
+                class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive"
+                activeClass="tertiary"
+                content=story
+                onClick="activate"
+                onDblClick="open"
+              }}
+                <div class="ui column">
+                  <h4 class="ui header inverted">
+                    <i class="folder primary icon big"></i>
+                    <div class="content">
+                      {{story.code}}
+                      <div class="sub header">
+                        {{story.description}}
+                        {{#each story.tags as |tag|}}
+                          <div class="ui {{tag.color}} label">
+                            {{tag.title}}
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </h4>
+                </div>
+                <div class="right floated right aligned column">
+                  <div class="ui left labeled button">
+                    <div class="ui basic right pointing label">
+                      {{story.developer.fullName}}
+                    </div>
+                    <div class="ui button">
+                      <i class="arrows alternate icon"></i>
+                      Drag and drop in a step
+                    </div>
+                  </div>
+                </div>
+              {{/draggable-item}}
+            </div>
+          {{/each}}
+        </div>
+      {{/draggable-dropzone}}
+    </div>
+  </div>
   {{#each model.project.stepsOrderedTable as |steps|}}
     <div class="row">
       {{#each steps as |step|}}
@@ -109,11 +112,13 @@
                       onClick="activate"
                       onDblClick="open"
                     }}
-                    <i class="folder open icon"></i>
+                      <i class="folder primary open icon"></i>
                       {{#if story.estimate}}
-                      <div class="ui left icon circular violet label left icon">
-                        {{story.estimate}}
-                      </div>
+                        <div
+                          class="ui left icon circular violet label left icon"
+                        >
+                          {{story.estimate}}
+                        </div>
                       {{/if}}
                       <b>
                         {{story.code}}

@@ -6,34 +6,41 @@ import jQuery from 'jquery';
 export default Route.extend({
     async model() {
         let href = window.location.href;
-        var where = "";
-        /*await this.store.findAll('developer');
-        await this.store.findAll('story');
-        await this.store.findAll('tag');
-        await this.store.findAll('project');*/
         if (href.includes("project")) {
-            where = "projects";
         } else if (href.includes("developers")) {
-            where = "developers"
         } else {
             this.transitionTo("home");
-            where = "home";
         }
+
+        var content = [];
+        let projects = await this.store.findAll('project');
+        projects.forEach(project => {
+            content.push(
+                {
+                    title: project.name,
+                    description: project.description,
+                    url: "/project/" + project.id + "/home"
+                });
+        });
+
         return {
-            whereIAm: where
+            content: content
         };
     },
     actions: {
-        goToDevelopers(model) {
-            set(model, 'whereIAm', 'developers')
+        goToDevelopers() {
             this.transitionTo('developers');
         },
-        goToProjects(model) {
-            set(model, 'whereIAm', 'projects')
-            this.transitionTo('projects');
+        goToProjects(my) {
+            if (my === undefined) {
+                this.transitionTo('projects');
+            } else if (my == "new") {
+                this.transitionTo('projects.new');
+            } else if (my == "myProject") {
+                this.transitionTo('projects.new');
+            }
         },
-        goToHome(model) {
-            set(model, 'whereIAm', 'home')
+        goToHome() {
             this.transitionTo('home');
         },
         didTransition() {
@@ -41,7 +48,18 @@ export default Route.extend({
         }
     },
     initUI() {
-        jQuery('.ui.dropdown').dropdown();
+        jQuery('.ui.dropdown').dropdown({
+            on: 'hover'
+        });
         jQuery('.ui.overlay').visibility({ type: 'fixed', offset: 15 });
+
+        jQuery('.ui.search')
+            .search({
+                source: this.modelFor('application').content,
+                searchFields: [
+                    'title'
+                ],
+                fullTextSearch: false
+            });
     }
 });

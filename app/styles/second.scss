@@ -31,6 +31,11 @@ body {
   .marginZeroFive {
     margin: 0.5em;
   }
+
+  .minHeigthHundred {
+    min-height: 100vh !important;
+  }
+
   .ui.overlay {
     background-color: #000000;
     padding: 0em;
@@ -40,8 +45,8 @@ body {
   /* change style */
   .ui.overlay.fixed {
     position: fixed;
-    padding: 0.5em;
-    border-radius: 0.5em 0.5em;
+    width: 100% !important;
+    top: 0 !important;
     box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
   }
 }

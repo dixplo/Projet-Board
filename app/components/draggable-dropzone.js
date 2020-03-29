@@ -13,7 +13,7 @@ export default Component.extend({
 
   dragOver(event) {
     event.preventDefault();
-    set(this, 'dragClass', 'green');
+    set(this, 'dragClass', '');
   },
 
   drop(event) {

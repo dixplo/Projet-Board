@@ -1,9 +1,27 @@
-<p>{{story.code}}</p>
-
-page story
-<br>
-project_id : {{model.project_id}}
-<br>
-story_id : {{model.story_id}}
-<br>
+<table class="ui table inverted" style="border: 1px solid white;">
+  <tr>
+    <td>
+      <h2 class="ui header inverted">
+        <i class="folder open primary icon"></i>
+        <div class="content">
+          {{model.story.code}}
+          {{#if model.story.estimate}}
+            <h2 class="ui circular violet label large text">
+              {{model.story.estimate}}
+            </h2>
+          {{/if}}
+          <div class="sub header">
+            {{model.story.description}}
+          </div>
+        </div>
+      </h2>
+    </td>
+    <td rowspan="2">
+      jwfnwkf
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+</table>
 {{outlet}}
