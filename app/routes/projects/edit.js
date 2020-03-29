@@ -8,34 +8,33 @@ export default Route.extend({
     async model(params) {
 
         let project_id = params.project_id;
-        let proj = this.get('store').peekRecord('project', project_id);
+        let proj = this.get('store').peekRecord('project', project_id, {include: 'developers'});
+
+        debugger
         let myproj = proj;
         let developers = await this.store.findAll('developer');
-        let developersInProject = await get(proj, 'developer');
+        let developersInProject = await get(proj, 'developers');
 
 
-      
-        //Setting Value
-        document.getElementById("developer").value = selValue;
-
-
-        let dropdownDeveloper = jQuery('#selectOwnerEditProject')
-        let developerInProject = dropdownDeveloper[0]
+        let dropdownDeveloper = jQuery('#selectDevelopersEditProject')
+        let devInProject = dropdownDeveloper[0]
+        let tabDevName = []
+        /*
+        developerInProject.forEach(dev => {
+            tabDevName.push(dev.fullName)
+        });
+        console.log(dropdownDeveloper[0])
+        */
+        
         debugger
         dropdownDeveloper.dropdown({
-            placeholder: 'developer in project',
             values:[
             {
-              "developer": "Image",
-              "value": "elliot",
+              "developer": tabDevName,
               "selected": true
             }]
           })
           ;
-        debugger
-
-
-
 
         let r = RSVP.hash({
             projId: project_id,
@@ -116,10 +115,7 @@ export default Route.extend({
             set(model, 'owner', '')
             set(model, 'projects', '')
         },
-        click() {
-            
-        
-        }
+       
     },
     renderTemplate(model) {
         this.render('projects.edit', {
