@@ -15,26 +15,10 @@ export default Route.extend({
         let developers = await this.store.findAll('developer');
         let developersInProject = await get(proj, 'developers');
 
-
-        let dropdownDeveloper = jQuery('#selectDevelopersEditProject')
-        let devInProject = dropdownDeveloper[0]
-        let tabDevName = []
-        /*
-        developerInProject.forEach(dev => {
-            tabDevName.push(dev.fullName)
-        });
-        console.log(dropdownDeveloper[0])
-        */
         
-        debugger
-        dropdownDeveloper.dropdown({
-            values:[
-            {
-              "developer": tabDevName,
-              "selected": true
-            }]
-          })
-          ;
+        
+        
+        
 
         let r = RSVP.hash({
             projId: project_id,
