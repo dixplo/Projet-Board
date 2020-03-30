@@ -1,1 +1,119 @@
-{{outlet}}
+<div class="ui two column centered grid" style="height: 95vh;">
+  <div class="column middle aligned bottom aligned">
+    <h2 class="ui image header inverted">
+      <i class="user circle icon"></i>
+      <div class="content">
+        Register
+      </div>
+    </h2>
+  </div>
+  <div class="two column centered row">
+    <div class="column mySegmentBorder borderRadiusZeroFive paddingOne">
+      <div class="ui form inverted">
+        <div class="ui field inverted">
+          <label>
+            Email
+          </label>
+          <Input placeholder="Email" type="email" @value={{model.email}} />
+        </div>
+        <div class="ui field inverted">
+          <label>
+            User name
+          </label>
+          <Input
+            placeholder="User name"
+            type="text"
+            @value={{model.username}}
+          />
+        </div>
+        <div class="two fields">
+          <div class="ui field inverted">
+            <label>
+              Name
+            </label>
+            <Input placeholder="Name" type="text" @value={{model.name}} />
+          </div>
+          <div class="ui field inverted">
+            <label>
+              First name
+            </label>
+            <Input
+              placeholder="First name"
+              type="text"
+              @value={{model.fname}}
+            />
+          </div>
+        </div>
+        <div class="ui field inverted">
+          <label>
+            Password
+          </label>
+          <Input
+            placeholder="Password"
+            id="password"
+            type="password"
+            @value={{model.password}}
+          />
+          <span class="ui inverted white text">
+            The password must contain at least:
+            <span
+              class="ui inverted {{if model.lowerPassord "green" "red"}} text"
+            >
+              one lowercase
+            </span>
+            ,
+            <span
+              class="ui inverted {{if model.upperPassord "green" "red"}} text"
+            >
+              one uppercase
+            </span>
+            ,
+            <span
+              class="ui inverted {{if model.numberPassord "green" "red"}} text"
+            >
+              one number
+            </span>
+            and
+            <span
+              class="ui inverted
+                {{if (gt model.password.length 8) "green" "red"}}
+                 text"
+            >
+              8 characters
+            </span>
+            .
+          </span>
+        </div>
+        <div class="ui field inverted">
+          <label>
+            Re-Password
+          </label>
+          <Input
+            placeholder="re-Password"
+            id="repassword"
+            type="password"
+            @value={{model.repassword}}
+          />
+          <span class="ui inverted white text">
+            Please
+            <span
+              class="ui inverted {{if model.samePassword "green" "red"}} text"
+            >
+              re-enter
+            </span>
+            your password
+          </span>
+        </div>
+        <br />
+        <div
+          class="ui primary
+            {{if model.allFields "" "disabled"}}
+             large fluid button submit"
+          {{action "register" model}}
+        >
+          Register
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

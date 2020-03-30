@@ -1,1 +1,42 @@
-{{outlet}}
+<div class="ui two column centered grid" style="height: 95vh;">
+  <div class="column middle aligned bottom aligned">
+    <h2 class="ui image header inverted">
+      <i class="user circle outline icon"></i>
+      <div class="content">
+        Login
+      </div>
+    </h2>
+  </div>
+  <div class="two column centered row">
+    <div class="column mySegmentBorder borderRadiusZeroFive paddingOne">
+      <div class="ui form inverted">
+        <div class="ui field inverted">
+          <label>
+            Email
+          </label>
+          <Input placeholder="Email" type="email" @value={{model.email}} />
+        </div>
+        <div class="ui field inverted">
+          <label>
+            Password
+          </label>
+          <Input
+            placeholder="Password"
+            id="password"
+            type="password"
+            @value={{model.password}}
+          />
+        </div>
+        <br />
+        <div
+          class="ui primary
+            {{if model.allFields "" "disabled"}}
+             large fluid button submit"
+          {{action "login" model}}
+        >
+          Login
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

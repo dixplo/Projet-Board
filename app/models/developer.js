@@ -3,6 +3,7 @@ const { Model } = DS;
 import { computed } from '@ember/object';
 
 export default Model.extend({
+    username: DS.attr(),
     name: DS.attr(),
     fname: DS.attr(),
     ownerProjects: DS.hasMany('project', {inverse: 'owner'}),

@@ -92,5 +92,10 @@ export default Route.extend({
                 });
             this.transitionTo('projects')
         }
+    },
+    renderTemplate() {
+        this.render('projects.new', {
+            into: 'application'
+        });
     }
 });

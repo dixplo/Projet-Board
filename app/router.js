@@ -34,6 +34,11 @@ Router.map(function () {
 
   this.route('login');
   this.route('register');
+  this.route('overview');
+
+  this.route('developer', { path: 'developer/:developer_id' }, function () {
+    this.route('home');
+  });
 });
 
 export default Router;

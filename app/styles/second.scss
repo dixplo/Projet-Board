@@ -1,11 +1,8 @@
 body {
-  background-color: black !important;
+  background-color: #1B1c1d !important;
   .marge{
     margin-left: 3%;
     margin-right: 3%;
-  }
-  .myStep{
-    width: 300px !important;
   }
   .addStep {
     width: 20% !important;
@@ -31,10 +28,28 @@ body {
   .marginZeroFive {
     margin: 0.5em;
   }
+  .paddingOne {
+    padding: 1em !important;
+  }
+  .white {
+    color: #fff;
+  }
 
   .minHeigthHundred {
     min-height: 100vh !important;
   }
+  .applicationMenuTop {
+    height: 5vh !important;
+  }
+  .applicationContentTop {
+    min-height: 95vh !important;
+    bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .searchMenu {
+    min-width: 300px !important;
+  }
+  
 
   .ui.overlay {
     background-color: #000000;

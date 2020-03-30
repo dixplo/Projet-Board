@@ -1,78 +1,93 @@
-<a
-  href="https://github.com/jmurphyau/ember-truth-helpers#user-content-usage"
-  target="_blank"
+<div
+  class="ui top attached
+    {{if model.connected "" "container"}}
+     borderless main menu inverted applicationMenuTop"
 >
-  operation egal,...
-        dans handelbars
-</a>
-<div class="ui top attached menu inverted">
-  <div class="ui category search item">
-    <div class="ui transparent icon input inverted">
-      <input class="prompt" type="text" placeholder="Search project..." />
-      <i class="search link icon"></i>
-    </div>
-    <div class="results"></div>
-  </div>
-  <a class="item" {{action "goToHome"}}>
-    Home
-  </a>
-  <div class="menu">
-    <div class="ui dropdown icon item">
-      Projects
-      <div class="menu">
-        <a class="item" {{action "goToProjects" "new"}}>
-          New
-        </a>
-        <a class="item" {{action "goToProjects"}}>
-          View All
-        </a>
-        <a class="item" {{action "goToProjects" "myProject"}}>
-          View My Projects
-        </a>
+  {{#if model.connected}}
+    <a class="item" {{action "goToHomeOverview" "home"}}>
+      Home
+    </a>
+  {{else}}
+    <a class="item" {{action "goToHomeOverview" "overview"}}>
+      Overview
+    </a>
+  {{/if}}
+  {{#if model.connected}}
+    <div class="menu">
+      <div class="ui dropdown icon item">
+        Projects
+        <div class="menu">
+          <a class="item" {{action "goToProjects" "new"}}>
+            New
+          </a>
+          <a class="item" {{action "goToProjects"}}>
+            View All
+          </a>
+          <a class="item" {{action "goToProjects" "myProject"}}>
+            View My Projects
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  {{else}}
+    <a class="item" {{action "goToProjects"}}>
+      Projects
+    </a>
+  {{/if}}
   <a class="item" {{action "goToDevelopers"}}>
     Developers
   </a>
   <div class="right menu">
-    <div class="ui dropdown icon item">
-      <i class="user circle large icon"></i>
-      <div class="menu">
-        <div class="item">
-          <i class="dropdown icon"></i>
-          <span class="text">
-            New
-          </span>
-          <div class="menu">
-            <div class="item">
-              Document
-            </div>
-            <div class="item">
-              Image
-            </div>
+    <div class="ui category search item searchMenu">
+      <div class="ui transparent icon input inverted">
+        <input class="prompt" type="text" placeholder="Search project..." />
+        <i class="search link icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+    {{#if model.connected}}
+      <div class="ui dropdown icon item">
+        <i class="user circle large icon"></i>
+        <div class="menu">
+          <div class="header">
+            Signed in as
+            <b>
+              {{model.user.username}}
+            </b>
+          </div>
+          <div class="divider"></div>
+          <div class="item">
+            Your profile
+          </div>
+          <div class="divider"></div>
+          <div class="item">
+            Settings
+          </div>
+          <div class="item">
+            Sign out
           </div>
         </div>
-        <div class="item">
-          Open...
-        </div>
-        <div class="item">
-          Save...
-        </div>
-        <div class="item">
-          Edit Permissions
-        </div>
-        <div class="divider"></div>
-        <div class="header">
-          Export
-        </div>
-        <div class="item">
-          Share...
+      </div>
+    {{else}}
+      <div class="item">
+        <div class="ui button" {{action "goToLogin"}}>
+          Login
         </div>
       </div>
-    </div>
+      <div class="item">
+        <div class="ui inverted button" {{action "goToRegister"}}>
+          Register
+        </div>
+      </div>
+    {{/if}}
   </div>
 </div>
-<div class="ui bottom attached segment inverted">
+<div class="ui bottom attached container inverted applicationContentTop">
   {{outlet}}
+  <a
+    href="https://github.com/jmurphyau/ember-truth-helpers#user-content-usage"
+    target="_blank"
+  >
+    operation egal,...dans handelbars
+  </a>
 </div>

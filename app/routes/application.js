@@ -2,34 +2,47 @@ import Route from '@ember/routing/route';
 import { set } from '@ember/object';
 import { next } from '@ember/runloop';
 import jQuery from 'jquery';
+import RSVP from 'rsvp';
 
 export default Route.extend({
     async model() {
-        let href = window.location.href;
-        if (href.includes("project")) {
-        } else if (href.includes("developers")) {
-        } else {
-            this.transitionTo("home");
-        }
-
         var content = [];
         let projects = await this.store.findAll('project');
+        let developers = await this.store.findAll('developer');
         projects.forEach(project => {
             content.push(
                 {
+                    category: "Projects",
                     title: project.name,
                     description: project.description,
                     url: "/project/" + project.id + "/home"
                 });
         });
-
-        return {
-            content: content
-        };
+        developers.forEach(developer => {
+            content.push(
+                {
+                    category: "Developers",
+                    title: developer.username,
+                    description: developer.fullName,
+                    url: "/developer/" + developer.id + "/home"
+                });
+        });
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        return RSVP.hash({
+            content: content,
+            connected: sessionStorage.getItem("connected"),
+            user: user
+        });
     },
     actions: {
         goToDevelopers() {
             this.transitionTo('developers');
+        },
+        goToLogin() {
+            this.transitionTo('login');
+        },
+        goToRegister() {
+            this.transitionTo('register');
         },
         goToProjects(my) {
             if (my === undefined) {
@@ -40,8 +53,8 @@ export default Route.extend({
                 this.transitionTo('projects.new');
             }
         },
-        goToHome() {
-            this.transitionTo('home');
+        goToHomeOverview(what) {
+            this.transitionTo(what);
         },
         didTransition() {
             next(this, 'initUI');
@@ -57,9 +70,13 @@ export default Route.extend({
             .search({
                 source: this.modelFor('application').content,
                 searchFields: [
-                    'title'
+                    'title', 'description'
                 ],
-                fullTextSearch: false
+                type: "category",
+                fullTextSearch: true,
+                searchOnFocus: true,
+                minCharacters: 0,
+                maxResults: 10
             });
     }
 });
