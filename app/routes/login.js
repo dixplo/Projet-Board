@@ -22,8 +22,6 @@ export default Route.extend({
                 set(m, "user", dev);
                 localStorage.setItem('user', JSON.stringify(dev));
                 localStorage.setItem("connected", true);
-                let u = localStorage.getItem("user")
-                debugger
                 this.transitionTo('home');
             } else {
                 $('body')
