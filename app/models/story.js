@@ -13,6 +13,9 @@ export default Model.extend({
     tasks: DS.hasMany('task'),
     step: DS.belongsTo('step'),
     estimate: DS.attr('number'),
+    createDate: DS.attr('utc'),
+    endDate: DS.attr('utc'),
+    modificationDate: DS.attr('utc'),
     ratioTasks: computed('tasks.@each.finished', function () {
         let tasks = this.get('tasks');
         var finished = 0;

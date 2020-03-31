@@ -9,6 +9,7 @@ export default Model.extend({
     ownerProjects: DS.hasMany('project', {inverse: 'owner'}),
     projects: DS.hasMany('project', {inverse: 'developers'}),
     stories: DS.hasMany('story'),
+    follow: DS.hasMany('developer'),
     fullName: computed('name', 'fname', function () {
         return this.get('name')+" "+this.get('fname');
     })
