@@ -39,7 +39,7 @@
   <div class="right menu">
     <div class="ui category search item searchMenu">
       <div class="ui transparent icon input inverted">
-        <input class="prompt" type="text" class="searchAll" placeholder="Search project..." />
+        <input class="prompt" type="text" placeholder="Search..." />
         <i class="search link icon"></i>
       </div>
       <div class="results"></div>
@@ -87,12 +87,13 @@
   </div>
 </div>
 <div class="ui bottom attached container inverted applicationContentTop">
-  <br />
-  {{outlet}}
-  <a
-    href="https://github.com/jmurphyau/ember-truth-helpers#user-content-usage"
-    target="_blank"
-  >
-    operation egal,...dans handelbars
-  </a>
+  <div class="ui very basic segment">
+    {{outlet}}
+    <a
+      href="https://github.com/jmurphyau/ember-truth-helpers#user-content-usage"
+      target="_blank"
+    >
+      operation egal,...dans handelbars
+    </a>
+  </div>
 </div>

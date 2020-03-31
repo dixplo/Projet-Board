@@ -5,6 +5,11 @@ import jQuery from 'jquery';
 
 export default Route.extend({
     async model() {
+        let connected = JSON.parse(localStorage.getItem("connected"));
+        if (!connected) {
+            this.transitionTo("home");
+            return {};
+        }
         let developers = await this.store.findAll('developer');
         return RSVP.hash({
             developers: developers
@@ -12,7 +17,7 @@ export default Route.extend({
     },
     actions: {
         backToProject(model) {
-            this.transitionTo('projects');
+            this.transitionTo('projects', "myProject");
             set(model, 'name', '')
             set(model, 'description', '')
             set(model, 'startDate', '')
@@ -21,12 +26,9 @@ export default Route.extend({
         save(model) {
             let name = get(model, 'name');
             let description = get(model, 'description');
-            let ownerIndex = jQuery('#selectOwnerAddProject')[0].selectedIndex - 1;
             let selectedDev = jQuery('#selectDevelopersAddProject')[0].selectedOptions;
             let startDate = new Date(get(model, 'startDate'));
             let endDate = new Date(get(model, 'endDate'));
-
-            
 
             var error = false;
             var errorDescription = "You must enter : <br><ul>"
@@ -42,10 +44,6 @@ export default Route.extend({
                 errorDescription += "<li>Start Date</li>";
                 error = true;
             }
-            if (ownerIndex == -1) {
-                errorDescription += "<li>Owner project</li>";
-                error = true;
-            }
             if (startDate > endDate) {
                 errorDescription += "<li>The end date cannot be less than the start date.</li>";
                 error = true;
@@ -55,16 +53,13 @@ export default Route.extend({
                     .toast({
                         class: 'error',
                         title: "Warning",
-                        showIcon: true,
                         message: errorDescription + "</ul>",
                         showProgress: 'bottom',
                         classProgress: 'black',
                     });
-                return
+                return;
             }
-
-            let owner = get(model, 'developers').objectAt(jQuery('#selectOwnerAddProject')[0].selectedIndex - 1);
-            let dev = [ownerIndex]
+            let dev = []
             for (let option of selectedDev) {
                 if (!(option instanceof Number) && dev.indexOf(option.index - 1) == -1) {
                     let devIndex = option.index - 1;
@@ -74,11 +69,29 @@ export default Route.extend({
                 }
             }
             let developers = get(model, 'developers').objectsAt(dev);
+            let owner = localStorage.getItem("developerId")
+            let notIn = true;
+
+            developers.forEach(developer => {
+                if (developer.id == owner.id) {
+                    notIn = true
+                }
+            })
+            if (notIn == true) {
+                get(model, 'developers').forEach(developer => {
+                    if (developer.id == owner) {
+                        owner = developer
+                    }
+                })
+                developers.addObject(owner);
+            }
+
             this.store.createRecord('project',
                 {
                     name: name,
                     description: description,
                     startDate: startDate,
+                    modificationDate: new Date(Date.now()),
                     endDate: endDate,
                     owner: owner,
                     developers: developers
@@ -90,7 +103,7 @@ export default Route.extend({
                     message: "Project successfully added !",
                     showProgress: 'bottom'
                 });
-            this.transitionTo('projects')
+            this.transitionTo('projects', "myProject")
         }
     },
     renderTemplate() {
