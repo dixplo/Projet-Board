@@ -13,7 +13,7 @@ Router.map(function () {
     this.route('delete', { path: '/delete/:dev_id' });
   });
 
-  this.route('projects', function () {
+  this.route('projects', {path: "projects/:what"}, function () {
     this.route('new');
     this.route('edit', { path: '/edit/:project_id' });
   });

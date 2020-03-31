@@ -1,16 +1,20 @@
 body {
-  background-color: #1B1c1d !important;
-  .marge{
+  background-color: #1b1c1d !important;
+  .marge {
     margin-left: 3%;
     margin-right: 3%;
   }
   .addStep {
     width: 20% !important;
   }
-  .mySegmentBorder{
+  .mySegmentBorder {
     border: 1px solid white !important;
   }
-  .inputBorder{
+  .very.basic.segment {
+    border: none !important;
+  }
+
+  .inputBorder {
     border: 1px solid #555 !important;
   }
   .inputLeftPadding {
@@ -40,6 +44,7 @@ body {
   }
   .applicationMenuTop {
     height: 5vh !important;
+    box-shadow: 0px 0.5px 5px rgb(136, 136, 136) !important;
   }
   .applicationContentTop {
     min-height: 95vh !important;
@@ -49,7 +54,6 @@ body {
   .searchMenu {
     min-width: 300px !important;
   }
-  
 
   .ui.overlay {
     background-color: #000000;

@@ -1,35 +1,39 @@
-<button class="ui icon orange button" {{action 'openAdd'}}><i class="plus icon" /> Create new project</button>
 {{outlet}}
-<table class="ui table inverted">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>Due Date</th>
-            <th class="right aligned">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each model as |project|}}
-        <tr>
-            <td>{{project.name}}</td>
-            <td>{{project.description}}</td>
-            <td>{{project.stringStartDate}}</td>
-            <td>{{project.stringEndDate}}</td>
-            <td class="right aligned">
-                <button class="ui button inverted icon primary" {{action 'openEdit' project}}>
-                    <i class="edit icon" />
-                </button>
-                <button class="ui button inverted icon red" {{action 'openDelete' project}}>
-                    <i class="times icon" />
-                </button>
-                <button class="ui button inverted icon violet" {{action 'openProject' project}}>
-                    <i class="arrow circle right icon" />
-                </button>
-            </td>
-        </tr>
-        {{outlet project.id }}
-        {{/each}}
-    </tbody>
-</table>
+<div class="ui segment secondary inverted">
+  {{#each model as |project|}}
+    <div class="ui inverted segment">
+      <div class="ui horizontal segments top attached inverted">
+        <div class="ui left aligned basic segment inverted">
+          <h2>
+            {{project.name}}
+          </h2>
+        </div>
+        <div class="ui right aligned basic segment inverted">
+          <i class="stopwatch icon"></i>
+          {{project.stringStartDate}}
+          <i class="arrow right icon"></i>
+          {{project.stringEndDate}}
+        </div>
+      </div>
+      <div class="ui very basic segment attached inverted">
+        <h5>
+          {{project.description}}
+        </h5>
+        <div class="ui label">
+          <i class="icon folder"></i>
+          {{pluralize project.stories.length "No stories" "1 story" " stories"}}
+        </div>
+        <div class="ui label">
+          <i class="icon users"></i>
+          {{pluralize
+            project.developers.length
+            "No contributor"
+            "1 contributor"
+            " contributors"
+          }}
+        </div>
+      </div>
+      {{outlet project.id}}
+    </div>
+  {{/each}}
+</div>

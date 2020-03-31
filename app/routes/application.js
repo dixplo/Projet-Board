@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { set } from '@ember/object';
+import { get, set } from '@ember/object';
 import { next } from '@ember/runloop';
 import jQuery from 'jquery';
 import RSVP from 'rsvp';
@@ -27,14 +27,33 @@ export default Route.extend({
                     url: "/developer/" + developer.id + "/home"
                 });
         });
-        var user = JSON.parse(sessionStorage.getItem("user"));
-        return RSVP.hash({
+        let connected = (localStorage.getItem("connected") == "true");
+        let user = undefined;
+        if (connected == true) {
+            user = JSON.parse(localStorage.getItem("user"));
+            developers.forEach(developer => {
+                if (developer.id == user.developer) {
+                    user.developer = developer
+                }
+            });
+            localStorage.setItem("developerId", user.developer.id);
+        }
+        let retour = RSVP.hash({
             content: content,
-            connected: sessionStorage.getItem("connected"),
+            connected: connected,
             user: user
         });
+        return retour;
     },
     actions: {
+        signOut(model) {
+            set(model, "connected", false);
+            set(model, "user", undefined);
+            localStorage.setItem('user', undefined);
+            localStorage.setItem("connected", false);
+            localStorage.setItem("developerId", undefined);
+            this.transitionTo('home');
+        },
         goToDevelopers() {
             this.transitionTo('developers');
         },
@@ -46,11 +65,9 @@ export default Route.extend({
         },
         goToProjects(my) {
             if (my === undefined) {
-                this.transitionTo('projects');
-            } else if (my == "new") {
                 this.transitionTo('projects.new');
-            } else if (my == "myProject") {
-                this.transitionTo('projects.new');
+            } else {
+                this.transitionTo('projects', my);
             }
         },
         goToHomeOverview(what) {

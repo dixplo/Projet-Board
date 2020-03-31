@@ -20,9 +20,11 @@ export default Route.extend({
                 let m = this.modelFor("application");
                 set(m, "connected", true);
                 set(m, "user", dev);
-                sessionStorage.setItem('user', JSON.stringify(dev));
-                sessionStorage.setItem("connected", true);
-                this.transitionTo('application');
+                localStorage.setItem('user', JSON.stringify(dev));
+                localStorage.setItem("connected", true);
+                let u = localStorage.getItem("user")
+                debugger
+                this.transitionTo('home');
             } else {
                 $('body')
                     .toast({

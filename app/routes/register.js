@@ -9,17 +9,23 @@ export default Route.extend({
     },
     actions: {
         register(model) {
-            let developer = this.store.createRecord('user', {
-                email: model.email,
-                password: model.password,
+            let developer = this.store.createRecord('developer', {
                 name: model.name,
                 fname: model.fname,
                 username: model.username
             });
             developer.save();
-
-            sessionStorage.setItem('user', JSON.stringify(developer));
-            sessionStorage.setItem("connected", true);
+            let user = this.store.createRecord('user', {
+                email: model.email,
+                password: model.password,
+                developer: developer
+            });
+            user.save();
+            let m = this.modelFor("application");
+            set(m, "connected", true);
+            set(m, "user", user);
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem("connected", true);
             this.transitionTo("home");
         },
         didTransition() {

@@ -1,8 +1,27 @@
 import Route from '@ember/routing/route';
 
 export default Route.extend({
-    async model() {
-        let projects = await this.get('store').findAll('project', { include: 'tags,developers,stories,steps' });
+    async model(params) {
+
+        let allProjects = await this.get('store').findAll('project', { include: 'tags,developers,stories,steps' });
+        var projects = [];
+        if (params.what == "all") {
+            projects = allProjects;
+        } else if (params.what == "myProject") {
+            allProjects.forEach(async project => {
+                let developers = await project.get('developers')
+                developers.forEach(developer => {
+                    if (developer.id == localStorage.getItem("developerId")) {
+                        projects.push(project);
+                    }
+                })
+            });
+        } else if (params.what == "new") {
+            this.transitionTo("projects.new")
+        } else {
+            this.transitionTo("home")
+            return {};
+        }
         return projects;
     },
     actions: {

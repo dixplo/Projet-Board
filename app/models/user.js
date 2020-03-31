@@ -1,8 +1,8 @@
 import DS from 'ember-data';
 const { Model } = DS;
-import Developer from 'td4/models/developer'
 
-export default Developer.extend({
+export default Model.extend({
     password: DS.attr(),
-    email: DS.attr()
+    email: DS.attr(),
+    developer: DS.belongsTo('developer')
 });
