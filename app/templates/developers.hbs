@@ -1,4 +1,10 @@
-<button class="ui icon orange button" {{action 'openAdd'}}><i class="user plus icon" /> Add new developer</button>
+<div class="ui fluid category search">
+  <div class="ui icon input">
+    <input class="promptDevelopers" type="text" id="searchBarDev" placeholder="Search developers...">
+    <i class="search icon"></i>
+  </div>
+  <div class="results"></div>
+</div>
 {{outlet}}
 <table class="ui table content inverted">
     <thead>
