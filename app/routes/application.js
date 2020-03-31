@@ -7,8 +7,8 @@ import RSVP from 'rsvp';
 export default Route.extend({
     async model() {
         var content = [];
-        let projects = await this.store.findAll('project');
-        let developers = await this.store.findAll('developer');
+        let projects = await this.store.findAll('project', { reload: true });
+        let developers = await this.store.findAll('developer', { reload: true });
         projects.forEach(project => {
             content.push(
                 {

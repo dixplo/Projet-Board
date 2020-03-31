@@ -12,11 +12,12 @@ export default Route.extend({
             return
         }
         await this.store.findAll('tag', { filter: { project: project_id } });
-        return await RSVP.hash({
+        let retour = await RSVP.hash({
             project_id: project_id,
-            project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developers,owner' }),
+            project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developer' }),
             colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
         });
+        return retour;
     },
     actions: {
         backToProject(model) {
@@ -111,9 +112,34 @@ export default Route.extend({
                 description: description,
                 project: project,
                 developer: developer,
-                tags: tagsInProject
+                tags: tagsInProject,
+                createDate: new Date(Date.now())
             });
             story.save();
+            let contents = [this.store.createRecord('modificationcontent', {
+                text: " create story ",
+                referTo: localStorage.getItem("developerId"),
+                order: 0,
+                classHTML: "ui teal text"
+            }),
+            this.store.createRecord('modificationcontent', {
+                text: " in project  ",
+                referTo: story.id,
+                order: 1,
+                classHTML: "ui teal text"
+            })]
+            contents.forEach(content => {
+                content.save();
+            })
+
+            this.store.createRecord('modification', {
+                date: new Date(Date.now()),
+                contents: contents,
+                referTo: project.id,
+                classHTML: "white large bold",
+                operation: "create"
+            }).save()
+
             get(project, 'stories').toArray().addObject(story);
             project.save();
             this.transitionTo('/project/' + project.id + '/stories');

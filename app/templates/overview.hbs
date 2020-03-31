@@ -1,1 +1,69 @@
-page overview{{outlet}}
+<div class="ui segment secondary inverted">
+  {{#each model.allData as |any|}}
+    <div class="ui inverted segment selectable" {{action "openAny" model any}}>
+      <div class="ui fitted horizontal segments top attached inverted">
+        <div class="ui left fitted aligned fitted basic segment inverted">
+          <div class="inline">
+            {{#each any.contents as |content|}}
+              <span class="{{content.classHTML}}">
+                {{#if (eq content.object._internalModel.modelName "developer")}}
+                  {{content.object.username}}
+                {{/if}}
+                {{#if (eq content.object._internalModel.modelName "story")}}
+                  {{content.object.code}}
+                {{/if}}
+                {{#if (eq content.object._internalModel.modelName "project")}}
+                  {{content.object.name}}
+                {{/if}}
+                {{#if (eq content.object._internalModel.modelName "task")}}
+                  {{content.object.name}}
+                {{/if}}
+              </span>
+              <span class="ui grey text">
+                ⁠
+                ⁠
+                {{content.text}}
+                ⁠
+                ⁠
+              </span>
+            {{/each}}
+            <span class="{{any.classHTML}}">
+              {{#if (eq any.object._internalModel.modelName "project")}}
+                {{any.object.name}}
+              {{else}}
+                {{any.object.code}}
+              {{/if}}
+            </span>
+          </div>
+        </div>
+        <div class="ui right aligned fitted basic segment inverted">
+          {{any.stringDate}}
+        </div>
+      </div>
+      <div class="ui very basic horizontal segments attached inverted">
+        <div class="ui left aligned fitted basic segment inverted">
+          {{any.object.description}}
+          ⁠
+                ⁠
+          {{#each any.contents as |content|}}
+            {{#each content.object.tags as |tag|}}
+              <div class="ui {{tag.color}} label">
+                {{tag.title}}
+              </div>
+                ⁠
+                ⁠
+            {{/each}}
+          {{/each}}
+        </div>
+        <div class="ui right aligned fitted basic segment inverted">
+          {{#if any.developer}}
+            <div class="ui label">
+              <i class="user icon"></i>
+              {{any.developer.username}}
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
