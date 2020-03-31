@@ -56,11 +56,6 @@ export default Route.extend({
             this.transitionTo('developers.delete', dev.id);
         },
         initUI() {
-            jQuery('.ui.dropdown').dropdown({
-                on: 'hover'
-            });
-            jQuery('.ui.overlay').visibility({ type: 'fixed', offset: 15 });
-    
             jQuery('#searchBarDev')
                 .search({
                     source: this.modelFor('developers').content,
