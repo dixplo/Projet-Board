@@ -1,7 +1,7 @@
 {{outlet}}
 <div class="ui segment secondary inverted">
   {{#each model as |project|}}
-    <div class="ui inverted segment">
+    <div class="ui inverted segment selectable" {{action "openProject" project}}>
       <div class="ui horizontal segments top attached inverted">
         <div class="ui left aligned basic segment inverted">
           <h2>
@@ -19,23 +19,27 @@
         <h5>
           {{project.description}}
         </h5>
-        <div class="ui vertically fitted segment">
-          <p>
-            Vertically fitted segment
-          </p>
-        </div>
-        <div class="ui label">
-          <i class="icon folder"></i>
-          {{pluralize project.stories.length "No stories" "1 story" " stories"}}
-        </div>
-        <div class="ui label">
-          <i class="icon users"></i>
-          {{pluralize
-            project.developers.length
-            "No contributor"
-            "1 contributor"
-            " contributors"
-          }}
+        <div class="ui fitted horizontal segments inverted">
+          <div class="ui left aligned fitted segment inverted">
+            <div class="ui label">
+              <i class="icon folder"></i>
+              {{pluralize
+                project.stories.length
+                "No stories"
+                "1 story"
+                " stories"
+              }}
+            </div>
+            <div class="ui label">
+              <i class="icon users"></i>
+              {{pluralize
+                project.developers.length
+                "No contributor"
+                "1 contributor"
+                " contributors"
+              }}
+            </div>
+          </div>
         </div>
       </div>
       {{outlet project.id}}

@@ -3,13 +3,12 @@
     {{if (eq model.connected true) "" "container"}}
      borderless main menu inverted applicationMenuTop"
 >
+  <a class="item" {{action "goToHomeOverview" "overview"}}>
+    Overview
+  </a>
   {{#if (eq model.connected true)}}
     <a class="item" {{action "goToHomeOverview" "home"}}>
       Home
-    </a>
-  {{else}}
-    <a class="item" {{action "goToHomeOverview" "overview"}}>
-      Overview
     </a>
   {{/if}}
   {{#if (eq model.connected true)}}
