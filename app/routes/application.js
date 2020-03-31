@@ -83,7 +83,7 @@ export default Route.extend({
         });
         jQuery('.ui.overlay').visibility({ type: 'fixed', offset: 15 });
 
-        jQuery('.ui.search')
+        jQuery("#searchAll")
             .search({
                 source: this.modelFor('application').content,
                 searchFields: [
