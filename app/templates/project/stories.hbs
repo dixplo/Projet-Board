@@ -2,14 +2,12 @@
   {{#if (eq model.project.storiesLength 0)}}
     <div class="ui center aligned header icon">
       <i class="icon folder open outline"></i>
-      No story in this project
+          No story in this project
     </div>
   {{else}}
     <div class="ui middle aligned grid inverted">
       {{#each model.project.storiesOrdered as |story|}}
-        <div
-          class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive"
-        >
+        <div class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive">
           <div class="ui column">
             <h4 class="ui header inverted">
               <i class="folder primary icon big"></i>
@@ -21,7 +19,7 @@
                       {{story.estimate}}
                     </div>
                   {{/if}}
-                   {{story.description}}
+                  {{story.description}}
                   {{#each story.tags as |tag|}}
                     <a class="ui {{tag.color}} label">
                       {{tag.title}}
@@ -32,16 +30,13 @@
             </h4>
           </div>
           <div class="right floated right aligned column">
-            <div
-              class="ui left labeled button"
-              {{action "openStory" story model}}
-            >
+            <div class="ui left labeled button" {{action "openStory" story model}}>
               <div class="ui basic right pointing label">
                 {{story.developer.fullName}}
               </div>
               <div class="ui button">
                 <i class="folder open icon"></i>
-                Open
+                    Open
               </div>
             </div>
           </div>

@@ -40,7 +40,7 @@
                     </div>
                     <div class="ui button">
                       <i class="arrows alternate icon"></i>
-                      Drag and drop in a step
+                          Drag and drop in a step
                     </div>
                   </div>
                 </div>
@@ -58,9 +58,7 @@
           <div class="column centered addStep">
             <div class="ui top attached secondary selected segment inverted">
               <div class="ui form">
-                <div
-                  class="ui labeled transparent inputBorder borderRadiusZeroFive input field fluid inverted"
-                >
+                <div class="ui labeled transparent inputBorder borderRadiusZeroFive input field fluid inverted">
                   <div class="ui label">
                     Step title
                   </div>
@@ -68,13 +66,10 @@
                 </div>
               </div>
             </div>
-            <a
-              class="ui attached placeholder segment inverted"
-              {{action "addStep" model}}
-            >
+            <a class="ui attached placeholder segment inverted" {{action "addStep" model}}>
               <div class="ui icon header">
                 <i class="ui plus icon"></i>
-                Add Step
+                  Add Step
               </div>
             </a>
           </div>
@@ -86,14 +81,8 @@
                   {{step.title}}
                 </div>
                 <div class="right floated right aligned eight wide column">
-                  <i
-                    class="chevron circle left icon large"
-                    {{action "minusStep" model step}}
-                  ></i>
-                  <i
-                    class="chevron circle right icon large"
-                    {{action "plusStep" model step}}
-                  ></i>
+                  <i class="chevron circle left icon large" {{action "minusStep" model step}}></i>
+                  <i class="chevron circle right icon large" {{action "plusStep" model step}}></i>
                 </div>
               </div>
             </div>
@@ -114,9 +103,7 @@
                     }}
                       <i class="folder primary open icon"></i>
                       {{#if story.estimate}}
-                        <div
-                          class="ui left icon circular violet label left icon"
-                        >
+                        <div class="ui left icon circular violet label left icon">
                           {{story.estimate}}
                         </div>
                       {{/if}}
@@ -153,4 +140,5 @@
     </div>
   {{/each}}
 </div>
+
 {{outlet}}
