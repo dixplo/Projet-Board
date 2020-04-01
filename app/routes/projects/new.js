@@ -26,9 +26,9 @@ export default Route.extend({
         save(model) {
             let name = get(model, 'name');
             let description = get(model, 'description');
+            var startDate = get(model, 'startDate');
             let selectedDev = jQuery('#selectDevelopersAddProject')[0].selectedOptions;
-            let startDate = new Date(get(model, 'startDate'));
-            let endDate = new Date(get(model, 'endDate'));
+            var endDate = get(model, 'endDate');
 
             var error = false;
             var errorDescription = "You must enter : <br><ul>"
@@ -59,6 +59,7 @@ export default Route.extend({
                     });
                 return;
             }
+
             let dev = []
             for (let option of selectedDev) {
                 if (!(option instanceof Number) && dev.indexOf(option.index - 1) == -1) {
@@ -86,16 +87,37 @@ export default Route.extend({
                 developers.addObject(owner);
             }
 
-            this.store.createRecord('project',
-                {
-                    name: name,
-                    description: description,
-                    startDate: startDate,
-                    modificationDate: new Date(Date.now()),
-                    endDate: endDate,
-                    owner: owner,
-                    developers: developers
-                }).save();
+            if (endDate == undefined) {
+                endDate = null
+            }
+
+            let project = this.store.createRecord('project', {
+                name: name,
+                description: description,
+                startDate: new Date(startDate),
+                endDate: endDate,
+                owner: owner,
+                developers: developers
+            });
+            project.save();
+
+            let contents = [this.store.createRecord('modificationcontent', {
+                text: " create project ",
+                referTo: owner.id,
+                order: 0,
+                classHTML: "ui teal text"
+            })];
+            contents.forEach(content => {
+                content.save();
+            })
+            
+            this.store.createRecord('modification', {
+                date: new Date(Date.now()),
+                contents: contents,
+                referTo: project.id,
+                classHTML: "white large bold",
+                operation: "create"
+            }).save()
 
             jQuery('body')
                 .toast({

@@ -13,12 +13,11 @@ Router.map(function () {
     this.route('delete', { path: '/delete/:dev_id' });
   });
 
-  this.route('projects', {path: "projects/:what"}, function () {
+  this.route('projects', { path: "projects/:what" }, function () {
     this.route('new');
     this.route('edit', { path: '/edit/:project_id' });
   });
 
-  this.route('home');
 
   this.route('project', { path: '/project/:project_id' }, function () {
     this.route('newstory', { path: "/story/new" });
@@ -34,7 +33,7 @@ Router.map(function () {
 
   this.route('login');
   this.route('register');
-  this.route('overview');
+  this.route('overview', { path: 'overview/:what' });
 
   this.route('developer', { path: 'developer/:developer_id' }, function () {
     this.route('home');

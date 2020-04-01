@@ -3,11 +3,11 @@
     {{if (eq model.connected true) "" "container"}}
      borderless main menu inverted applicationMenuTop"
 >
-  <a class="item" {{action "goToHomeOverview" "overview"}}>
+  <a class="item" {{action "goToHomeOverview" "all"}}>
     Overview
   </a>
   {{#if (eq model.connected true)}}
-    <a class="item" {{action "goToHomeOverview" "home"}}>
+    <a class="item" {{action "goToHomeOverview" "myProject"}}>
       Home
     </a>
   {{/if}}
@@ -37,7 +37,7 @@
     Developers
   </a>
   <div class="right menu">
-    <div class="ui category search item searchMenu">
+    <div class="ui category search item searchMenu" id="searchAll">
       <div class="ui transparent icon input inverted">
         <input class="prompt" type="text" placeholder="Search..." />
         <i class="search link icon"></i>
@@ -52,7 +52,7 @@
             Signed in as
             <h5>
               <b>
-                {{model.user.developer.username}}
+                {{model.user.username}}
               </b>
             </h5>
           </h6>

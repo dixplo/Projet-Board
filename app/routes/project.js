@@ -15,6 +15,7 @@ export default Route.extend({
         let developers = await project.get('developers');
         let stories = await project.get('stories');
         let steps = await project.get('steps');
+        
         let retour = RSVP.hash({
             project: project,
             project_id: params.project_id

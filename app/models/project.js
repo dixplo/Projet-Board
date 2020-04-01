@@ -6,14 +6,19 @@ import { sort } from '@ember/object/computed';
 export default Model.extend({
     name: DS.attr(),
     description: DS.attr(),
+
     startDate: DS.attr('utc'),
     endDate: DS.attr('utc'),
-    modificationDate: DS.attr('utc'),
+
     stories: DS.hasMany('story'),
+
     owner: DS.belongsTo('developer'),
     developers: DS.hasMany('developer'),
+
     tags: DS.hasMany('tag'),
+    
     steps: DS.hasMany('step'),
+
     stringStartDate: computed('startDate', function () {
         let date = this.get('startDate');
         if (date !== null && date !== undefined && date instanceof Date) {

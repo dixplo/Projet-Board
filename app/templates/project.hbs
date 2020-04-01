@@ -1,33 +1,52 @@
-<button class="ui icon button basic inverted" {{action "backToProjects"}}><i class="arrow circle left icon" />Back to project list</button>
-
-<br />
-<br />
-<div class="ui ui placeholder segment">
-  <div class="content">
-    <div class="header">
-      <h2><i class="archive primary icon big" />{{model.project.name}} </h2>
-      <div class="meta">
-        <i class="stopwatch orange icon" /> {{model.project.stringStartDate}} <i class="arrow right icon" />{{model.project.stringEndDate}}
+<div class="ui segment secondary inverted">
+  <div class="ui placeholder segment">
+    <div class="content">
+      <div class="header">
+        <h2>
+          <i class="archive primary icon big"></i>
+          {{model.project.name}}
+        </h2>
+        <div class="meta">
+          <i class="stopwatch orange icon"></i>
+          {{model.project.stringStartDate}}
+          <i class="arrow right icon"></i>
+          {{model.project.stringEndDate}}
+        </div>
+        {{model.project.description}}
+        <br />
       </div>
-      {{model.project.description}}<br>
-    </div>
-
-
-    <div class="ui horizontal basic segments">
-      <div class="ui center aligned basic segment inverted">
-        <i class="icon folder" /> {{pluralize model.project.stories.length "No stories" "1 story" " stories"}}
+      <div class="ui horizontal basic segments">
+        <div class="ui center aligned basic segment inverted">
+          <i class="icon folder"></i>
+          {{pluralize
+            model.project.stories.length
+            "No stories"
+            "1 story"
+            " stories"
+          }}
+        </div>
+        <div class="ui center aligned basic segment inverted">
+          <i class="icon users"></i>
+          {{pluralize
+            model.project.developers.length
+            "No contributor"
+            "1 contributor"
+            " contributors"
+          }}
+        </div>
       </div>
-      <div class="ui center aligned basic segment inverted">
-        <i class="icon users" />
-        {{pluralize model.project.developers.length "No contributor" "1 contributor" " contributors"}}
+      <div class="large ui three bottom attached buttons">
+        <button class="ui icon button" {{action "openAddStory" model}}>
+          <i class="plus icon"></i>
+        </button>
+        <button class="ui icon button" {{action "openStories" model}}>
+          <i class="window restore outline icon"></i>
+        </button>
+        <button class="ui icon button" {{action "openBoard" model}}>
+          <i class="columns icon"></i>
+        </button>
       </div>
     </div>
-    <div class="large ui three bottom attached buttons">
-      <button class="ui icon button" {{action "openAddStory" model}}><i class="plus icon" /> </button>
-      <button class="ui icon button" {{action "openStories" model}}><i class="window restore outline icon" /></button>
-      <button class="ui icon button" {{action "openBoard" model}}><i class="columns icon" /></button>
-    </div>
-
   </div>
+  {{outlet}}
 </div>
-{{outlet}}

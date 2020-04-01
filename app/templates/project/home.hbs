@@ -1,5 +1,52 @@
-
-ghfdhujkhc
-fdghcggggggggggggggggggggggg
+{{#each model.modifications as |modification|}}
+  <div
+    class="ui inverted segment selectable"
+    {{action "openAny" model modification}}
+  >
+    <div class="ui selectable fitted horizontal segments top attached inverted">
+      <div class="ui left fitted aligned fitted basic segment inverted">
+        <div class="inline">
+          {{#each modification.contents as |content|}}
+            <span class="{{content.classHTML}}">
+              {{#if (eq content.object._internalModel.modelName "developer")}}
+                {{content.object.username}}
+              {{/if}}
+              {{#if (eq content.object._internalModel.modelName "story")}}
+                {{content.object.code}}
+              {{/if}}
+              {{#if (eq content.object._internalModel.modelName "project")}}
+                {{content.object.name}}
+              {{/if}}
+              {{#if (eq content.object._internalModel.modelName "task")}}
+                {{content.object.name}}
+              {{/if}}
+            </span>
+            {{#if (not-eq content.text " create project ")}}
+              {{#if (lt content.order modification.contentsLengthMinusOne)}}
+                <span class="ui grey text">
+                  ⁠
+                ⁠
+                  {{content.text}}
+                  ⁠
+                ⁠
+                </span>
+              {{/if}}
+            {{else}}
+              <span class="ui grey text">
+                ⁠
+                ⁠
+                {{content.text}}
+                ⁠
+                ⁠
+              </span>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+      <div class="ui right aligned fitted basic segment inverted">
+        {{modification.stringDate}}
+      </div>
+    </div>
+  </div>
+{{/each}}
 {{outlet}}
-home project

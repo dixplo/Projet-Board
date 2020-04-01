@@ -8,6 +8,10 @@ export default Route.extend({
         if (params.what == "all") {
             projects = allProjects;
         } else if (params.what == "myProject") {
+            if (!JSON.parse(localStorage.getItem("connected"))) {
+                this.transitionTo("home")
+                return {};
+            }
             allProjects.forEach(async project => {
                 let developers = await project.get('developers')
                 developers.forEach(developer => {
@@ -18,9 +22,6 @@ export default Route.extend({
             });
         } else if (params.what == "new") {
             this.transitionTo("projects.new")
-        } else {
-            this.transitionTo("home")
-            return {};
         }
         return projects;
     },
@@ -35,7 +36,7 @@ export default Route.extend({
             this.transitionTo('projects.delete', project.id);
         },
         openProject(project) {
-            this.transitionTo('/project/' + project.id);
+            this.transitionTo('/project/' + project.id + "/home");
         }
     }
 });

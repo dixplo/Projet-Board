@@ -58,8 +58,25 @@ body {
     bottom: 0 !important;
     margin-bottom: 0 !important;
   }
+
+  .searchMenu a.result {
+    max-height: 100px !important;
+  }
   .searchMenu {
     min-width: 300px !important;
+  }
+  
+  .inline {
+    display: flex !important;
+  }
+  .text.inline {
+    color: #555;
+  }
+  .large {
+    font-size: large;
+  }
+  .bold {
+    font-weight: bold;
   }
 
   .ui.overlay {
