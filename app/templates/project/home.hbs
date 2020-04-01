@@ -21,13 +21,25 @@
                 {{content.object.name}}
               {{/if}}
             </span>
-            <span class="ui grey text">
-              ⁠
+            {{#if (not-eq content.text " create project ")}}
+              {{#if (lt content.order modification.contentsLengthMinusOne)}}
+                <span class="ui grey text">
+                  ⁠
                 ⁠
-              {{content.text}}
-              ⁠
+                  {{content.text}}
+                  ⁠
                 ⁠
-            </span>
+                </span>
+              {{/if}}
+            {{else}}
+              <span class="ui grey text">
+                ⁠
+                ⁠
+                {{content.text}}
+                ⁠
+                ⁠
+              </span>
+            {{/if}}
           {{/each}}
         </div>
       </div>

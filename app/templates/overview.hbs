@@ -4,7 +4,7 @@
       <div class="ui fitted horizontal segments top attached inverted">
         <div class="ui left fitted aligned fitted basic segment inverted">
           <div class="inline">
-            {{#each modification.contents as |content|}}
+            {{#each modification.contentsOrdered as |content|}}
               <span class="{{content.classHTML}}">
                 {{#if (eq content.object._internalModel.modelName "developer")}}
                   {{content.object.username}}
@@ -45,7 +45,7 @@
           {{modification.object.description}}
           ⁠
                 ⁠
-          {{#each modification.contents as |content|}}
+          {{#each modification.contentsOrdered as |content|}}
             {{#each content.object.tags as |tag|}}
               <div class="ui {{tag.color}} label">
                 {{tag.title}}

@@ -62,6 +62,7 @@ export default Route.extend({
         })
         console.log(modifications);
         
+        
         return RSVP.hash({
             modifications: modifications,
             project_id : project_id

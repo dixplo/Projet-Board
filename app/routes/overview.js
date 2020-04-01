@@ -45,17 +45,6 @@ export default Route.extend({
                     return -1;
                 }
             });
-            allData.forEach(data => {
-                let newContents = data.contents.toArray().sort((a, b) => {
-                    if (a.order > b.order) {
-                        return 1;
-                    }
-                    else {
-                        return -1;
-                    }
-                });
-                set(data, 'contents', newContents);
-            })
 
             return RSVP.hash({
                 tags: tags,
@@ -109,18 +98,7 @@ export default Route.extend({
             });
 
             allData.forEach(data => {
-                if (projectsId.indexOf(data.referTo) != -1) {
-
-                    let newContents = data.contents.toArray().sort((a, b) => {
-                        if (a.order > b.order) {
-                            return 1;
-                        }
-                        else {
-                            return -1;
-                        }
-                    });
-                    set(data, 'contents', newContents);
-                } else {
+                if (projectsId.indexOf(data.referTo) == -1) {
                     allData.removeObject(data)
                 }
             })

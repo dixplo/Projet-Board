@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 const { Model } = DS;
 import { computed } from '@ember/object';
+import { sort } from '@ember/object/computed';
 
 export default Model.extend({
     /*
@@ -45,5 +46,17 @@ export default Model.extend({
         } else {
             return "??:?? ??/??/????";
         }
+    }),
+    contentsLengthMinusOne: computed('contents', function () {
+        return this.get("contents").length - 1;
+    }),
+    contentsOrdered: sort('contents.@each.order', function (a, b) {
+        if (a.order > b.order) {
+            return 1;
+        } else if (a.order < b.order) {
+            return -1;
+        }
+
+        return 0;
     })
 });
