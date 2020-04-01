@@ -36,7 +36,7 @@ export default Route.extend({
             this.transitionTo('projects.delete', project.id);
         },
         openProject(project) {
-            this.transitionTo('/project/' + project.id);
+            this.transitionTo('/project/' + project.id + "/home");
         }
     }
 });

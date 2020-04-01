@@ -151,7 +151,7 @@ export default Route.extend({
             if (isStory) {
                 this.transitionTo('/project/' + projectId + '/story/' + storyId);
             } else {
-                this.transitionTo('project', projectId);
+                this.transitionTo('/project/' + projectId + "/home");
             }
         }
     }
