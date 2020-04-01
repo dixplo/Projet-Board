@@ -28,20 +28,19 @@ export default Route.extend({
                 });
         });
         let connected = (localStorage.getItem("connected") == "true");
-        let user = undefined;
+        let dev = undefined;
         if (connected == true) {
-            user = JSON.parse(localStorage.getItem("user"));
+            let devId = localStorage.getItem("developerId")
             developers.forEach(developer => {
-                if (developer.id == user.developer) {
-                    user.developer = developer
+                if (developer.id == devId) {
+                    dev = developer
                 }
             });
-            localStorage.setItem("developerId", user.developer.id);
         }
         let retour = RSVP.hash({
             content: content,
             connected: connected,
-            user: user
+            user: dev
         });
         return retour;
     },
@@ -52,7 +51,7 @@ export default Route.extend({
             localStorage.setItem('user', undefined);
             localStorage.setItem("connected", false);
             localStorage.setItem("developerId", undefined);
-            this.transitionTo('home');
+            this.transitionTo('overview', "all");
         },
         goToDevelopers() {
             this.transitionTo('developers');
@@ -71,7 +70,7 @@ export default Route.extend({
             }
         },
         goToHomeOverview(what) {
-            this.transitionTo(what);
+            this.transitionTo("overview", what);
         },
         didTransition() {
             next(this, 'initUI');

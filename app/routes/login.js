@@ -9,20 +9,21 @@ export default Route.extend({
     },
     actions: {
         async login(model) {
-            let user = await this.store.query('user', {
+            var user = await this.store.query('user', {
                 filter: {
                     email: model.email,
                     password: model.password
                 }
             });
-            var dev = user.firstObject;
-            if (dev !== undefined) {
+            user = user.firstObject;
+            if (user !== undefined) {
+                let developer = await this.store.findRecord('developer', user.developerId)
                 let m = this.modelFor("application");
                 set(m, "connected", true);
-                set(m, "user", dev);
-                localStorage.setItem('user', JSON.stringify(dev));
+                set(m, "user", developer);
+                localStorage.setItem("developerId", user.developerId);
                 localStorage.setItem("connected", true);
-                this.transitionTo('home');
+                this.transitionTo('overview', 'myProject');
             } else {
                 $('body')
                     .toast({

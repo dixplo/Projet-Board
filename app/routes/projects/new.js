@@ -106,11 +106,11 @@ export default Route.extend({
                 referTo: owner.id,
                 order: 0,
                 classHTML: "ui teal text"
-            })]
+            })];
             contents.forEach(content => {
                 content.save();
             })
-
+            
             this.store.createRecord('modification', {
                 date: new Date(Date.now()),
                 contents: contents,

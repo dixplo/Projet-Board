@@ -3,11 +3,11 @@
     {{if (eq model.connected true) "" "container"}}
      borderless main menu inverted applicationMenuTop"
 >
-  <a class="item" {{action "goToHomeOverview" "overview"}}>
+  <a class="item" {{action "goToHomeOverview" "all"}}>
     Overview
   </a>
   {{#if (eq model.connected true)}}
-    <a class="item" {{action "goToHomeOverview" "home"}}>
+    <a class="item" {{action "goToHomeOverview" "myProject"}}>
       Home
     </a>
   {{/if}}
@@ -52,7 +52,7 @@
             Signed in as
             <h5>
               <b>
-                {{model.user.developer.username}}
+                {{model.user.username}}
               </b>
             </h5>
           </h6>
