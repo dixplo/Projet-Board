@@ -24,7 +24,7 @@ export default Route.extend({
                     category: "Developers",
                     title: developer.username,
                     description: developer.fullName,
-                    url: "/developer/" + developer.id + "/home"
+                    url: "/developer/profil/" + developer.id
                 });
         });
         let connected = (localStorage.getItem("connected") == "true");
