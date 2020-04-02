@@ -8,6 +8,7 @@ export default Route.extend({
 
         return {
             selectedImage: "ade",
+            selectedLanguages: [],
             avatars: ["ade", "bob", "christian", "daniel", "elliot"],
             languages: [".net", "c++", "css", "dart", "html"]
         };
@@ -129,6 +130,15 @@ export default Route.extend({
                 set(model, "selectLanguages", true)
             } else {
                 set(model, "selectLanguages", false)
+            }
+            set(model, "selectedLanguages", [])
+            for (let option of selected) {
+                if (!(option instanceof Number)) {
+                    let index = option.index - 1;
+                    if (index != -1) {
+                        get(model, "selectedLanguages").push(get(model, "languages")[index])
+                    }
+                }
             }
             if (
                 model.email !== undefined && model.email != "" &&

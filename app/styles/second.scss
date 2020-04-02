@@ -32,6 +32,16 @@ body {
   .inputLeftPadding {
     padding-left: 0.5em !important;
   }
+  .inputBottomMargin {
+    margin-bottom: 0.5em !important;
+  }
+
+  .textVerticaleAlignThirty {
+    height: 30px;
+    line-height: 30px;
+  }
+
+
   .borderRadiusZeroFive {
     border-radius: 0.5em 0.5em !important;
   }
@@ -44,6 +54,13 @@ body {
   .marginZeroFive {
     margin: 0.5em;
   }
+  .leftMarginAuto {
+    margin-left: auto !important;
+  }
+  .rightMarginAuto {
+    margin-right: auto !important;
+  }
+
   .paddingOne {
     padding: 1em !important;
   }
@@ -87,6 +104,10 @@ body {
   .selectAvatar {
     width: 100% !important;
     min-height: 100px !important;
+  }
+
+  img.little {
+    width: 25px !important;
   }
 
   .ui.overlay {
