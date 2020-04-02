@@ -3,7 +3,7 @@
     <div class="four wide column">
        <div class="ui inverted card">
               <div class="image">
-                <img src="/assets/images/avatars/{{model.developer.selectedImage}}.jpg" />
+                <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg"/>
               </div>
               <div class="content">
                 <div class="header white">
@@ -18,8 +18,8 @@
                   </span>
                 </div>
                 <div class="description">
-                  {{#if (not (is-empty model.selectedLanguages))}}
-                    {{#each model.selectedLanguages as |language|}}
+                  {{#if (not (is-empty model.developer.languagesString))}}
+                    {{#each }}
                       <img
                         class="ui image little"
                         src="/assets/images/languages/{{language}}.png"
@@ -27,7 +27,7 @@
                       />
                     {{/each}}
                   {{else}}
-                    Your favorite languages
+                    No favorite languages
                   {{/if}}
                 </div>
               </div>
