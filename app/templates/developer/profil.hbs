@@ -1,7 +1,37 @@
 {{outlet}}
 <div class="ui grid">
     <div class="four wide column">
-        
+       <div class="ui inverted card">
+              <div class="image">
+                <img src="/assets/images/avatars/{{model.developer.selectedImage}}.jpg" />
+              </div>
+              <div class="content">
+                <div class="header white">
+                    {{model.developer.username}}
+                </div>
+                <div class="meta">
+                  <span class="date">
+                      {{model.developer.fname}}
+                      {{model.developer.name}}
+                    <br />
+                      {{model.developer.email}}
+                  </span>
+                </div>
+                <div class="description">
+                  {{#if (not (is-empty model.selectedLanguages))}}
+                    {{#each model.selectedLanguages as |language|}}
+                      <img
+                        class="ui image little"
+                        src="/assets/images/languages/{{language}}.png"
+                        alt="language"
+                      />
+                    {{/each}}
+                  {{else}}
+                    Your favorite languages
+                  {{/if}}
+                </div>
+              </div>
+            </div>  
 
 
 
