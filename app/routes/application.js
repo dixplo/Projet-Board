@@ -34,6 +34,7 @@ export default Route.extend({
             developers.forEach(developer => {
                 if (developer.id == devId) {
                     dev = developer
+                    
                 }
             });
         }
