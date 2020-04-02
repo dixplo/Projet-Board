@@ -19,7 +19,7 @@
                 </div>
                 <div class="description">
                   {{#if (not (is-empty model.developer.languagesString))}}
-                    {{#each }}
+                    {{#each model.developer.languages as |languages}}
                       <img
                         class="ui image little"
                         src="/assets/images/languages/{{language}}.png"
