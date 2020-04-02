@@ -1,31 +1,42 @@
 {{outlet}}
 <div class="ui grid">
     <div class="four wide column">
-        <div class="ui card">
-            <div class="image">
-                <img src="https://fomantic-ui.com/images/avatar2/large/kristy.png">
-            </div>
-            <div class="content">
-                <a class="header">Theo Marie</a>
+       <div class="ui inverted card">
+              <div class="image">
+                <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg"/>
+              </div>
+              <div class="content">
+                <div class="header white">
+                    {{model.developer.username}}
+                </div>
                 <div class="meta">
-                    <span class="date">NYTS</span>
+                  <span class="date">
+                      {{model.developer.fname}}
+                      {{model.developer.name}}
+                    <br />
+                      {{model.developer.email}}
+                  </span>
                 </div>
                 <div class="description">
-                    Développeur en plein combat contre la flemme !
+                  {{#if (not (is-empty model.developer.languagesString))}}
+                    {{#each }}
+                      <img
+                        class="ui image little"
+                        src="/assets/images/languages/{{language}}.png"
+                        alt="language"
+                      />
+                    {{/each}}
+                  {{else}}
+                    No favorite languages
+                  {{/if}}
                 </div>
-            </div>
-            <div class="extra content">
-                <button class="ui secondary button">
-                    <i class="icon user"></i>
-                    Follow
-                </button>
-                <button class="ui secondary button">
-                    <i class="icon cog"></i>
-                    Edit
-                </button>
-            </div>
-        </div>
+              </div>
+            </div>  
 
+
+
+
+       
     </div>
     <div class="twelve wide column">
         <div>
