@@ -17,6 +17,7 @@ export default Route.extend({
         register(model) {
             let developer = this.store.createRecord('developer', {
                 name: model.name,
+                email: model.email,
                 fname: model.fname,
                 username: model.username,
                 avatar: model.selectedImage,
