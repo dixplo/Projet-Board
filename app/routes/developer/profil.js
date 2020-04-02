@@ -4,5 +4,8 @@ export default Route.extend({
     model() {
     this.paramsFor("developer").developer_id;
     }
+    
+
+
 
 });
