@@ -57,6 +57,9 @@ export default Route.extend({
         goToDevelopers() {
             this.transitionTo('developers');
         },
+        openProfil(model) {
+            this.transitionTo('/developer/' + model.user.id);
+        },
         goToLogin() {
             this.transitionTo('login');
         },
