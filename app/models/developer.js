@@ -16,6 +16,6 @@ export default Model.extend({
         return this.get('name') + " " + this.get('fname');
     }),
     languages: computed('languagesString', function () {
-        return JSON.parsea(this.get('languagesString'));
+        return JSON.parse(this.get('languagesString'));
     })
 });
