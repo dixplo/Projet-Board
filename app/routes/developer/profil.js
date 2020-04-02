@@ -5,4 +5,6 @@ export default Route.extend({
     this.paramsFor("developer").developer_id;
     }
 
+
+
 });
