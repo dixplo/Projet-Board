@@ -9,22 +9,89 @@
   </div>
   <div class="two column centered row">
     <div class="column mySegmentBorder borderRadiusZeroFive paddingOne">
-      <div class="ui form inverted">
-        <div class="ui field inverted">
-          <label>
-            Email
-          </label>
-          <Input placeholder="Email" type="email" @value={{model.email}} />
+      <div class="ui inverted card">
+        <div class="content white">
+          Avatar
         </div>
-        <div class="ui field inverted">
-          <label>
-            User name
-          </label>
-          <Input
-            placeholder="User name"
-            type="text"
-            @value={{model.username}}
-          />
+        <div class="image">
+          <img src="/assets/images/avatars/{{model.selectedImage}}.jpg" />
+        </div>
+        <div class="extra content">
+          <div
+            class="ui inverted right floated mini icon compact button"
+            {{action "changeImagePlus" model}}
+          >
+            next
+            <i class="chevron circle right icon large selectable"></i>
+          </div>
+          <div
+            class="ui inverted left floated mini icon compact button"
+            {{action "changeImageMinus" model}}
+          >
+            <i class="chevron circle left icon large selectable"></i>
+            previous
+          </div>
+        </div>
+        <div class="content white">
+          Avatar
+        </div>
+      </div>
+      <div class="ui form inverted">
+        <div class="ui inverted grid">
+          <div class="ten wide column">
+            <div class="ui field inverted">
+              <label>
+                Email
+              </label>
+              <Input placeholder="Email" type="email" @value={{model.email}} />
+            </div>
+            <div class="ui field inverted">
+              <label>
+                User name
+              </label>
+              <Input
+                placeholder="User name"
+                type="text"
+                @value={{model.username}}
+              />
+            </div>
+            <div
+              class="ui field inverted"
+              style="margin-bottom: 14px !important;"
+            >
+              <label>
+                Your favorite languages
+              </label>
+              <select class="ui multiple dropdown" id="selectLanguagesRegister">
+                <option value="">
+                  Select your favorite languages
+                </option>
+                {{#each model.languages as |image|}}
+                  <option value="{{image}}">
+                    <img
+                      src="/assets/images/languages/{{image}}.png"
+                      alt="{{image}}"
+                    />
+                    {{image}}
+                  </option>
+                {{/each}}
+              </select>
+              <span class="ui inverted white text">
+                Please select at
+                <span
+                  class="ui inverted
+                    {{if model.selectLanguages "green" "red"}}
+                     text"
+                >
+                  least one
+                </span>
+                language.
+              </span>
+            </div>
+          </div>
+          <div class="center floated six wide column selectAvatar">
+            <div class="field"></div>
+          </div>
         </div>
         <div class="two fields">
           <div class="ui field inverted">

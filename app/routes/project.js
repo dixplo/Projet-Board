@@ -15,11 +15,21 @@ export default Route.extend({
         let developers = await project.get('developers');
         let stories = await project.get('stories');
         let steps = await project.get('steps');
-        
+
+        let currentDeveloperIsIn = false;
+
+        developers.toArray().forEach(developer => {
+            if (developer.id == localStorage.getItem("developerId")) {
+                currentDeveloperIsIn = true;
+            }
+        });
+
         let retour = RSVP.hash({
             project: project,
-            project_id: params.project_id
+            project_id: params.project_id,
+            isIn: currentDeveloperIsIn
         });
+        console.log(retour);
 
         return retour;
     },
@@ -32,6 +42,9 @@ export default Route.extend({
         },
         openStories(model) {
             this.transitionTo('/project/' + get(model, 'project_id') + '/stories');
+        },
+        openOverview(model) {
+            this.transitionTo('/project/' + get(model, 'project_id') + '/home');
         },
         backToProjects() {
             this.transitionTo('projects');

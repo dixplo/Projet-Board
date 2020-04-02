@@ -69,12 +69,13 @@ export default Model.extend({
     }),
     stepsOrderedTable: computed('stepsOrdered', function () {
         let retour = [];
+        let numberByRow = 2;
         let steps = this.get('stepsOrdered');
-        let numberTab = Math.ceil((steps.length + 1) / 4);
+        let numberTab = Math.ceil((steps.length + 1) / numberByRow);
         for (let i = 0; i < numberTab; i++) {
             let tab = [];
             var one = false;
-            for (let j = i * 4; j < (i + 1) * 4; j++) {
+            for (let j = i * numberByRow; j < (i + 1) * numberByRow; j++) {
                 let step = steps.toArray()[j];
                 if (step !== undefined) {
                     tab.push(step);

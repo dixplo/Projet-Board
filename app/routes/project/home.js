@@ -67,5 +67,23 @@ export default Route.extend({
             modifications: modifications,
             project_id : project_id
         });
+    },
+    actions: {
+        openAny(modification) {
+            var isStory = false;
+            let projectId = modification.referTo;
+            var storyId = undefined;
+            modification.contents.forEach(content => {
+                if (content.object._internalModel.modelName == "story") {
+                    isStory = true;
+                    storyId = content.referTo;
+                }
+            });
+            if (isStory) {
+                this.transitionTo('/project/' + projectId + '/story/' + storyId);
+            } else {
+                this.transitionTo('/project/' + projectId + "/home");
+            }
+        }
     }
 });

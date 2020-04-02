@@ -1,52 +1,74 @@
-<div class="ui segment secondary inverted">
-  <div class="ui placeholder segment">
-    <div class="content">
-      <div class="header">
-        <h2>
-          <i class="archive primary icon big"></i>
-          {{model.project.name}}
-        </h2>
-        <div class="meta">
-          <i class="stopwatch orange icon"></i>
-          {{model.project.stringStartDate}}
-          <i class="arrow right icon"></i>
-          {{model.project.stringEndDate}}
+<div class="ui segment tertiary inverted">
+  <div class="ui grid inverted">
+    <div class="five wide column">
+      <div class="ui inverted segment">
+        <div class="ui header">
+          <h2>
+            <i class="archive primary icon big"></i>
+            <div class="content">
+              {{model.project.name}}
+              <div class="sub header">
+                <i class="stopwatch orange icon"></i>
+                {{model.project.stringStartDate}}
+                <i class="arrow right icon"></i>
+                {{model.project.stringEndDate}}
+              </div>
+            </div>
+          </h2>
         </div>
-        {{model.project.description}}
-        <br />
-      </div>
-      <div class="ui horizontal basic segments">
-        <div class="ui center aligned basic segment inverted">
-          <i class="icon folder"></i>
-          {{pluralize
-            model.project.stories.length
-            "No stories"
-            "1 story"
-            " stories"
-          }}
+        <div class="ui horizontal basic segments">
+          <div class="ui center aligned basic segment inverted">
+            <i class="icon folder"></i>
+            {{pluralize
+              model.project.stories.length
+              "No stories"
+              "1 story"
+              " stories"
+            }}
+          </div>
+          <div class="ui center aligned basic segment inverted">
+            <i class="icon users"></i>
+            {{pluralize
+              model.project.developers.length
+              "No contributor"
+              "1 contributor"
+              " contributors"
+            }}
+          </div>
         </div>
-        <div class="ui center aligned basic segment inverted">
-          <i class="icon users"></i>
-          {{pluralize
-            model.project.developers.length
-            "No contributor"
-            "1 contributor"
-            " contributors"
-          }}
+        <div class="ui fitted inverted segment">
+          {{model.project.description}}
         </div>
-      </div>
-      <div class="large ui three bottom attached buttons">
-        <button class="ui icon button" {{action "openAddStory" model}}>
-          <i class="plus icon"></i>
-        </button>
-        <button class="ui icon button" {{action "openStories" model}}>
-          <i class="window restore outline icon"></i>
-        </button>
-        <button class="ui icon button" {{action "openBoard" model}}>
-          <i class="columns icon"></i>
-        </button>
+        <div
+          class="large ui
+            {{if (eq model.isIn true) "two"}}
+             top attached buttons"
+        >
+          {{#if (eq model.isIn true)}}
+            <button class="ui icon button" {{action "openAddStory" model}}>
+              <i class="plus icon"></i>
+              Add Story
+            </button>
+          {{/if}}
+          <button class="ui icon yellow button" {{action "openOverview" model}}>
+            <i class="window restore outline icon"></i>
+            Project Overview
+          </button>
+        </div>
+        <div class="large ui two bottom attached buttons">
+          <button class="ui icon pink button" {{action "openStories" model}}>
+            <i class="window restore outline icon"></i>
+            Stories
+          </button>
+          <button class="ui icon teal button" {{action "openBoard" model}}>
+            <i class="columns icon"></i>
+            Dashboard
+          </button>
+        </div>
       </div>
     </div>
+    <div class="eleven wide column">
+      {{outlet}}
+    </div>
   </div>
-  {{outlet}}
 </div>

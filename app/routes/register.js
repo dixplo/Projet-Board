@@ -1,32 +1,61 @@
 import Route from '@ember/routing/route';
 import $ from 'jquery';
 import { next } from '@ember/runloop';
-import { set } from '@ember/object';
+import { get, set } from '@ember/object';
 
 export default Route.extend({
     model() {
-        return {};
+
+        return {
+            selectedImage: "ade",
+            avatars: ["ade", "bob", "christian", "daniel", "elliot"],
+            languages: [".net", "c++", "css", "dart", "html"]
+        };
     },
     actions: {
         register(model) {
+
+            let image = get(model, 'avatars')[jQuery('#selectImageRegister')[0].selectedIndex - 1];
+            debugger
+
             let developer = this.store.createRecord('developer', {
                 name: model.name,
                 fname: model.fname,
                 username: model.username
             });
-            developer.save();
+            //developer.save();
             let user = this.store.createRecord('user', {
                 email: model.email,
                 password: model.password,
                 developer: developer
             });
-            user.save();
+            //user.save();
             let m = this.modelFor("application");
             set(m, "connected", true);
             set(m, "user", user);
             localStorage.setItem('user', JSON.stringify(user));
-            localStorage.setItem("connected", true);
+            //localStorage.setItem("connected", true);
             this.transitionTo("home");
+        },
+        changeImagePlus(model) {
+            let avatars = get(model, "avatars");
+            let index = avatars.indexOf(get(model, "selectedImage"));
+
+            if (avatars.length - 1 > index) {
+                set(model, "selectedImage", avatars[index + 1]);
+            } else {
+                set(model, "selectedImage", avatars[0]);
+            }
+        },
+        changeImageMinus(model) {
+            let avatars = get(model, "avatars");
+            let index = avatars.indexOf(get(model, "selectedImage"));
+
+            if (0 < index) {
+                set(model, "selectedImage", avatars[index - 1]);
+            } else {
+                set(model, "selectedImage", avatars[avatars.length - 1]);
+            }
         },
         didTransition() {
             next(this, 'initUI');
@@ -63,7 +92,7 @@ export default Route.extend({
             let model = self.modelFor('register');
             let password = model.password;
             let repassword = model.repassword;
-            if (password == repassword) {
+            if (password == repassword && repassword != "") {
                 set(model, "samePassword", true)
             } else {
                 set(model, "samePassword", false)
@@ -82,7 +111,38 @@ export default Route.extend({
                 model.numberPassord == true &&
                 model.password.length > 8 &&
                 model.repassword !== undefined &&
-                model.samePassword == true
+                model.samePassword == true &&
+                model.selectLanguages == true
+            ) {
+                set(model, "allFields", true)
+            } else {
+                set(model, "allFields", false)
+            }
+        });
+        $('.ui.dropdown').dropdown({
+            on: 'hover'
+        });
+        $("#selectLanguagesRegister").change(function () {
+            var selected = jQuery('#selectLanguagesRegister')[0].selectedOptions;
+            let model = self.modelFor('register');
+            if (selected.length > 0) {
+                set(model, "selectLanguages", true)
+            } else {
+                set(model, "selectLanguages", false)
+            }
+            if (
+                model.email !== undefined && model.email != "" &&
+                model.fname !== undefined && model.fname != "" &&
+                model.name !== undefined && model.name != "" &&
+                model.username !== undefined && model.username != "" &&
+                model.password !== undefined &&
+                model.upperPassord == true &&
+                model.lowerPassord == true &&
+                model.numberPassord == true &&
+                model.password.length > 8 &&
+                model.repassword !== undefined &&
+                model.samePassword == true &&
+                model.selectLanguages == true
             ) {
                 set(model, "allFields", true)
             } else {
