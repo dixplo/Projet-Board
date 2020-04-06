@@ -114,7 +114,8 @@ export default Route.extend({
             this.store.createRecord('modification', {
                 date: new Date(Date.now()),
                 contents: contents,
-                referTo: project.id,
+                idProject: project.id,
+                idDeveloper: localStorage.getItem("developerId"),
                 classHTML: "white large bold",
                 operation: "create"
             }).save()

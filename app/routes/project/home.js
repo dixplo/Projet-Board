@@ -11,14 +11,19 @@ export default Route.extend({
         });
         let developers = await project.get('developers');
         let stories = await project.get('stories');
-        let tags = await project.get('tags');
+
+        let tags = await this.store.query('tag', {
+            filter: {
+                project: project_id
+            }
+        });
         let modificationcontents = await this.store.findAll('modificationcontent');
         var modifications = await this.store.query('modification', {
             filter: {
-                referTo: project_id
+                idProject: project_id
             }
         });
-        
+
         developers.forEach(developer => {
             modifications.forEach(modification => {
                 modification.contents.forEach(content => {
@@ -37,6 +42,16 @@ export default Route.extend({
                 })
             })
         });
+        tags.forEach(tag => {
+            modifications.forEach(modification => {
+                modification.contents.forEach(content => {
+                    if (content.referTo == tag.id) {
+                        set(content, 'object', tag)
+                    }
+                })
+            })
+        });
+
         modifications = modifications.toArray().sort((a, b) => {
             if (a.date < b.date) {
                 return 1;
@@ -47,8 +62,8 @@ export default Route.extend({
         });
 
         modifications.forEach(modification => {
-            if (modification.referTo == project.id) {
-                set(modification, 'object', project)
+            if (modification.idProject == project.id) {
+                set(modification, 'project', project)
             }
             let newContents = modification.contents.toArray().sort((a, b) => {
                 if (a.order > b.order) {
@@ -61,17 +76,17 @@ export default Route.extend({
             set(modification, 'contents', newContents);
         })
         console.log(modifications);
-        
-        
+
+
         return RSVP.hash({
             modifications: modifications,
-            project_id : project_id
+            project_id: project_id
         });
     },
     actions: {
         openAny(modification) {
             var isStory = false;
-            let projectId = modification.referTo;
+            let projectId = modification.idProject;
             var storyId = undefined;
             modification.contents.forEach(content => {
                 if (content.object._internalModel.modelName == "story") {

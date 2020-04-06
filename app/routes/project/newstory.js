@@ -43,6 +43,32 @@ export default Route.extend({
                 project: project
             });
             tag.save();
+
+            let contents = [this.store.createRecord('modificationcontent', {
+                text: " create tag ",
+                referTo: localStorage.getItem("developerId"),
+                order: 0,
+                classHTML: "ui teal text"
+            }),
+            this.store.createRecord('modificationcontent', {
+                text: " in project  ",
+                referTo: tag.id,
+                order: 1,
+                classHTML: "ui "+color+" label"
+            })]
+            contents.forEach(content => {
+                content.save();
+            })
+
+            this.store.createRecord('modification', {
+                date: new Date(Date.now()),
+                contents: contents,
+                idProject: project.id,
+                idDeveloper: localStorage.getItem("developerId"),
+                classHTML: "white large bold",
+                operation: "create"
+            }).save()
+
             project.tags.toArray().addObject(tag);
             project.save();
             project = await this.store.findRecord('project', project.id, {
@@ -135,7 +161,8 @@ export default Route.extend({
             this.store.createRecord('modification', {
                 date: new Date(Date.now()),
                 contents: contents,
-                referTo: project.id,
+                idProject: project.id,
+                idDeveloper: localStorage.getItem("developerId"),
                 classHTML: "white large bold",
                 operation: "create"
             }).save()

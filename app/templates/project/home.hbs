@@ -1,6 +1,12 @@
 {{#each model.modifications as |modification|}}
   <div
-    class="ui inverted segment selectable"
+    class="ui blackBG
+      {{if (eq modification.operation "create") "blue" ""}}
+
+      {{if (eq modification.operation "update") "yellow" ""}}
+
+      {{if (eq modification.operation "delete") "red" ""}}
+       segment selectable"
     {{action "openAny" modification}}
   >
     <div class="ui selectable fitted horizontal segments top attached inverted">
@@ -19,6 +25,9 @@
               {{/if}}
               {{#if (eq content.object._internalModel.modelName "task")}}
                 {{content.object.name}}
+              {{/if}}
+              {{#if (eq content.object._internalModel.modelName "tag")}}
+                {{content.object.title}}
               {{/if}}
             </span>
             {{#if (not-eq content.text " create project ")}}
@@ -42,9 +51,6 @@
             {{/if}}
           {{/each}}
         </div>
-      </div>
-      <div class="ui right aligned fitted basic segment inverted">
-        {{modification.stringDate}}
       </div>
     </div>
   </div>

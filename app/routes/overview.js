@@ -22,8 +22,8 @@ export default Route.extend({
             });
             projects.forEach(project => {
                 modifications.forEach(modification => {
-                    if (modification.referTo == project.id) {
-                        set(modification, 'object', project)
+                    if (modification.idProject == project.id) {
+                        set(modification, 'project', project)
                     }
                 })
             });
@@ -32,6 +32,15 @@ export default Route.extend({
                     modification.contents.forEach(content => {
                         if (content.referTo == story.id) {
                             set(content, 'object', story)
+                        }
+                    })
+                })
+            });
+            tags.forEach(tag => {
+                modifications.forEach(modification => {
+                    modification.contents.forEach(content => {
+                        if (content.referTo == tag.id) {
+                            set(content, 'object', tag)
                         }
                     })
                 })
@@ -45,7 +54,6 @@ export default Route.extend({
                     return -1;
                 }
             });
-
             return RSVP.hash({
                 tags: tags,
                 developers: developers,
@@ -63,8 +71,8 @@ export default Route.extend({
             projects.forEach(project => {
                 projectsId.push(project.id)
                 modifications.forEach(modification => {
-                    if (modification.referTo == project.id) {
-                        set(modification, 'object', project)
+                    if (modification.idProject == project.id) {
+                        set(modification, 'project', project)
                     }
                 })
             });
@@ -96,9 +104,18 @@ export default Route.extend({
                     return -1;
                 }
             });
+            tags.forEach(tag => {
+                modifications.forEach(modification => {
+                    modification.contents.forEach(content => {
+                        if (content.referTo == tag.id) {
+                            set(content, 'object', tag)
+                        }
+                    })
+                })
+            });
             let objectsToRemove = []
             modifications.forEach(data => {
-                if (projectsId.indexOf(data.referTo) == -1) {
+                if (projectsId.indexOf(data.idProject) == -1) {
                     objectsToRemove.push(data)
                 }
             })
@@ -119,7 +136,7 @@ export default Route.extend({
     actions: {
         openAny(model, any) {
             var isStory = false;
-            let projectId = any.referTo;
+            let projectId = any.idProject;
             var storyId = undefined;
             any.contents.forEach(content => {
                 if (content.object._internalModel.modelName == "story") {

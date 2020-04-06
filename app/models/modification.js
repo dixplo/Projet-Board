@@ -7,22 +7,23 @@ export default Model.extend({
     /*
     Explication :
         date : date de la modification
-        referTo : id du projet au quel elle fait reference
+        idProject : id du projet au quel elle fait reference
+        idDeveloper : id du developer au quel elle fait reference
         classHTML : pour lui donné un style par defaut mettre "white large bold"
         contents : tableaux du contenue de la modification voir /app/models/modificationcontent.js pour plus d'explication
         operation : prend les valeurs soit : "create", "update", "delete"
-        object : objet projet qui fais reference a l'id dans le referTo
-    
+        project : objet projet qui fais reference a l'id dans le idProject    
     Exemple : 
         /app/routes/project/newstory.js lignes 119 à 141
     ATENTION NE PAS OUBLIER DE CREER LES COLLECTIONS
     */
     date: DS.attr('date'),
-    referTo: DS.attr(),
+    idProject: DS.attr(),
+    idDeveloper: DS.attr(),
     classHTML: DS.attr(),
     contents: DS.hasMany('modificationcontent'),
-    operation: DS.attr('number'),
-    object: null,
+    operation: DS.attr(),
+    project: null,
 
     stringDate: computed('date', function () {
         let date = this.get('date');
@@ -56,7 +57,6 @@ export default Model.extend({
         } else if (a.order < b.order) {
             return -1;
         }
-
         return 0;
     })
 });

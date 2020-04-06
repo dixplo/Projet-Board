@@ -1,6 +1,15 @@
 <div class="ui segment secondary inverted">
   {{#each model.modifications as |modification|}}
-    <div class="ui inverted segment selectable" {{action "openAny" model modification}}>
+    <div
+      class="ui blackBG
+        {{if (eq modification.operation "create") "blue" ""}}
+
+        {{if (eq modification.operation "update") "yellow" ""}}
+
+        {{if (eq modification.operation "delete") "red" ""}}
+         segment selectable"
+      {{action "openAny" model modification}}
+    >
       <div class="ui fitted horizontal segments top attached inverted">
         <div class="ui left fitted aligned fitted basic segment inverted">
           <div class="inline">
@@ -18,6 +27,9 @@
                 {{#if (eq content.object._internalModel.modelName "task")}}
                   {{content.object.name}}
                 {{/if}}
+                {{#if (eq content.object._internalModel.modelName "tag")}}
+                  {{content.object.title}}
+                {{/if}}
               </span>
               <span class="ui grey text">
                 ⁠
@@ -28,40 +40,12 @@
               </span>
             {{/each}}
             <span class="{{modification.classHTML}}">
-              {{#if (eq modification.object._internalModel.modelName "project")}}
-                {{modification.object.name}}
-              {{else}}
-                {{modification.object.code}}
-              {{/if}}
+              {{modification.project.name}}
             </span>
           </div>
         </div>
         <div class="ui right aligned fitted basic segment inverted">
           {{modification.stringDate}}
-        </div>
-      </div>
-      <div class="ui very basic horizontal segments attached inverted">
-        <div class="ui left aligned fitted basic segment inverted">
-          {{modification.object.description}}
-          ⁠
-                ⁠
-          {{#each modification.contentsOrdered as |content|}}
-            {{#each content.object.tags as |tag|}}
-              <div class="ui {{tag.color}} label">
-                {{tag.title}}
-              </div>
-                ⁠
-                ⁠
-            {{/each}}
-          {{/each}}
-        </div>
-        <div class="ui right aligned fitted basic segment inverted">
-          {{#if modification.developer}}
-            <div class="ui label">
-              <i class="user icon"></i>
-              {{modification.developer.username}}
-            </div>
-          {{/if}}
         </div>
       </div>
     </div>

@@ -55,7 +55,7 @@
             Project Overview
           </button>
         </div>
-        <div class="large ui two bottom attached buttons">
+        <div class="large ui two attached buttons">
           <button class="ui icon pink button" {{action "openStories" model}}>
             <i class="window restore outline icon"></i>
             Stories
@@ -65,9 +65,19 @@
             Dashboard
           </button>
         </div>
+        <div class="large ui two bottom attached buttons">
+          <button class="ui icon green button" {{action "openTags" model}}>
+            <i class="tags icon"></i>
+            Tags
+          </button>
+          <button class="ui icon violet button" {{action "openContributors" model}}>
+            <i class="users icon"></i> 
+            Contributors
+          </button>
+        </div>
       </div>
     </div>
-    <div class="eleven wide column">
+    <div class="eleven wide column scrollable" style="height: 90vh;">
       {{outlet}}
     </div>
   </div>
