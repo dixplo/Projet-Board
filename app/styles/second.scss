@@ -153,10 +153,11 @@ body {
   height: 100vh !important;
 }
 
-#demo:hover #message {
-  visibility: hidden;
+#demo:hover + #message{
+  visibility: visible;
+
 }
 
-#message {
-  visibility: visible;
+#message{
+  visibility: hidden;
 }
