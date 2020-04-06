@@ -44,11 +44,13 @@
                 </font>
             </font>
         </h4>
+
+        {{#each model.listProjectDev as |listProjectDev|}}
         <div class="ui cards">
             <div class="card">
                 <div class="content">
                     <div class="header">
-                        Projet Ex4 todoList
+                        {{listProjectDev.name}}
                     </div>
                     <div class="meta">
                         Start 12/03/2020 End 21/06/2020
@@ -60,7 +62,7 @@
                     </div>
                 </div>
             </div>
-           
         </div>
+        {{/each}}
     </div>
 </div>
