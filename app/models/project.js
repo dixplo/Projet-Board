@@ -16,7 +16,7 @@ export default Model.extend({
     developers: DS.hasMany('developer'),
 
     tags: DS.hasMany('tag'),
-    
+
     steps: DS.hasMany('step'),
 
     stringStartDate: computed('startDate', function () {
@@ -69,7 +69,7 @@ export default Model.extend({
     }),
     stepsOrderedTable: computed('stepsOrdered', function () {
         let retour = [];
-        let numberByRow = 2;
+        let numberByRow = 3;
         let steps = this.get('stepsOrdered');
         let numberTab = Math.ceil((steps.length + 1) / numberByRow);
         for (let i = 0; i < numberTab; i++) {

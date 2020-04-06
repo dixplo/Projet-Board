@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-import { get, set } from '@ember/object';
+import { get, set, computed } from '@ember/object';
 
 export default Route.extend({
     async model() {
@@ -77,9 +77,34 @@ export default Route.extend({
         })
         console.log(modifications);
 
+        let modificationsOrderedTable = null;
+        let retour = [];
+        let numberByRow = 3;
+        let numberTab = Math.ceil((modifications.length + 1) / numberByRow);
+        for (let i = 0; i < numberTab; i++) {
+            let tab = [];
+            var one = false;
+            for (let j = i * numberByRow; j < (i + 1) * numberByRow; j++) {
+                let step = modifications.toArray()[j];
+                if (step !== undefined) {
+                    tab.push(step);
+                } else {
+                    if (!one && i == numberTab - 1) {
+                        one = true;
+                        tab.push("addStep");
+                    }
+                }
+            }
+            retour.push(tab);
+        }
+        modificationsOrderedTable = retour;
+
+        let m = this.modelFor('project')
+        set(m, "whereIAm", 1);
 
         return RSVP.hash({
             modifications: modifications,
+            modificationsOrderedTable: modificationsOrderedTable,
             project_id: project_id
         });
     },

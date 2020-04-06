@@ -1,58 +1,76 @@
-{{#each model.modifications as |modification|}}
-  <div
-    class="ui blackBG
-      {{if (eq modification.operation "create") "blue" ""}}
+<div class="ui equal width grid">
+  {{#each model.modificationsOrderedTable as |modifications|}}
+    <div class="equal width row">
+      {{#each modifications as |modification|}}
+        <div class="column {{if modification.id '' 'hidden'}}">
+          <div
+            class="ui blackBG
+              {{if (eq modification.operation "create") "blue" ""}}
 
-      {{if (eq modification.operation "update") "yellow" ""}}
+              {{if (eq modification.operation "update") "yellow" ""}}
 
-      {{if (eq modification.operation "delete") "red" ""}}
-       segment selectable"
-    {{action "openAny" modification}}
-  >
-    <div class="ui selectable fitted horizontal segments top attached inverted">
-      <div class="ui left fitted aligned fitted basic segment inverted">
-        <div class="inline">
-          {{#each modification.contents as |content|}}
-            <span class="{{content.classHTML}}">
-              {{#if (eq content.object._internalModel.modelName "developer")}}
-                {{content.object.username}}
-              {{/if}}
-              {{#if (eq content.object._internalModel.modelName "story")}}
-                {{content.object.code}}
-              {{/if}}
-              {{#if (eq content.object._internalModel.modelName "project")}}
-                {{content.object.name}}
-              {{/if}}
-              {{#if (eq content.object._internalModel.modelName "task")}}
-                {{content.object.name}}
-              {{/if}}
-              {{#if (eq content.object._internalModel.modelName "tag")}}
-                {{content.object.title}}
-              {{/if}}
-            </span>
-            {{#if (not-eq content.text " create project ")}}
-              {{#if (lt content.order modification.contentsLengthMinusOne)}}
-                <span class="ui grey text">
-                  ⁠
+              {{if (eq modification.operation "delete") "red" ""}}
+               segment selectable"
+            {{action "openAny" modification}}
+          >
+            <div
+              class="ui selectable fitted horizontal segments top attached inverted"
+            >
+              <div class="ui left fitted aligned fitted basic segment inverted">
+                <div class="inline">
+                  {{#each modification.contents as |content|}}
+                    <span class="{{content.classHTML}}">
+                      {{#if
+                        (eq content.object._internalModel.modelName "developer")
+                      }}
+                        {{content.object.username}}
+                      {{/if}}
+                      {{#if (eq content.object._internalModel.modelName "story")
+                      }}
+                        {{content.object.code}}
+                      {{/if}}
+                      {{#if
+                        (eq content.object._internalModel.modelName "project")
+                      }}
+                        {{content.object.name}}
+                      {{/if}}
+                      {{#if (eq content.object._internalModel.modelName "task")
+                      }}
+                        {{content.object.name}}
+                      {{/if}}
+                      {{#if (eq content.object._internalModel.modelName "tag")}}
+                        {{content.object.title}}
+                      {{/if}}
+                    </span>
+                    {{#if (not-eq content.text " create project ")}}
+                      {{#if
+                        (lt content.order modification.contentsLengthMinusOne)
+                      }}
+                        <span class="ui grey text">
+                          ⁠
                 ⁠
-                  {{content.text}}
-                  ⁠
+                          {{content.text}}
+                          ⁠
                 ⁠
-                </span>
-              {{/if}}
-            {{else}}
-              <span class="ui grey text">
+                        </span>
+                      {{/if}}
+                    {{else}}
+                      <span class="ui grey text">
+                        ⁠
                 ⁠
+                        {{content.text}}
+                        ⁠
                 ⁠
-                {{content.text}}
-                ⁠
-                ⁠
-              </span>
-            {{/if}}
-          {{/each}}
+                      </span>
+                    {{/if}}
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      {{/each}}
     </div>
-  </div>
-{{/each}}
+  {{/each}}
+</div>
 {{outlet}}

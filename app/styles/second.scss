@@ -5,9 +5,9 @@ body {
     margin-right: 3%;
   }
   .mainMarge {
-    margin-left: 10% !important;
-    margin-right: 10% !important;
-    width: 80% !important;
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+    width: 100% !important;
   }
   .addStep {
     width: 20% !important;
@@ -26,7 +26,7 @@ body {
     box-shadow: 0px 0px 6px rgb(255, 255, 255) !important;
   }
   .segment.blackBG {
-    background-color: #1b1C1D !important;
+    background-color: #1b1c1d !important;
   }
 
   .inputBorder {
@@ -62,6 +62,9 @@ body {
   .rightMarginAuto {
     margin-right: auto !important;
   }
+  .littleMargin {
+    margin: 0 1em !important;
+  }
 
   .paddingOne {
     padding: 1em !important;
@@ -75,6 +78,7 @@ body {
   }
   .applicationMenuTop {
     height: 5vh !important;
+    z-index: 200;
     box-shadow: 0px 0.5px 5px rgb(136, 136, 136) !important;
   }
   .applicationContentTop {
@@ -130,18 +134,29 @@ body {
     width: auto;
     box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
   }
+
+  .ui.vertical.inverted.tabular.menu {
+    .active.item {
+      background-color: #555 !important;
+    }
+    .active.item:hover {
+      background-color: #777 !important;
+    }
+  }
+
+  .hidden {
+    visibility: hidden !important;
+  }
 }
 
 .html {
   height: 100vh !important;
 }
 
-#demo:hover #message{
+#demo:hover #message {
   visibility: hidden;
 }
 
-#message{
+#message {
   visibility: visible;
 }
-
-

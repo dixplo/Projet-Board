@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
+import { set } from '@ember/object';
 
 export default Route.extend({
     async model() {
@@ -15,6 +16,8 @@ export default Route.extend({
             project_id: project_id
         });
 
+        let m = this.modelFor('project')
+        set(m, "whereIAm", 4);
         return retour;
     },
      actions: {

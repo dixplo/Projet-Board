@@ -29,6 +29,8 @@ Router.map(function () {
     this.route('stories', function () {
     });
     this.route('home');
+    this.route('developers');
+    this.route('tags');
   });
 
   this.route('login');

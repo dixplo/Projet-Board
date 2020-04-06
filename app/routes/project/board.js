@@ -19,6 +19,9 @@ export default Route.extend({
             project: project,
             project_id: project_id
         });
+        
+        let m = this.modelFor('project')
+        set(m, "whereIAm", 2);
         return retour;
     },
     actions: {

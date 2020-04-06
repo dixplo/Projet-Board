@@ -17,6 +17,9 @@ export default Route.extend({
             project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developer' }),
             colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
         });
+        
+        let m = this.modelFor('project')
+        set(m, "whereIAm", 3);
         return retour;
     },
     actions: {

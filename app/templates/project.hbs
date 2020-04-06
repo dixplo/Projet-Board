@@ -1,84 +1,58 @@
-<div class="ui segment tertiary inverted">
-  <div class="ui grid inverted">
-    <div class="five wide column">
-      <div class="ui inverted segment">
-        <div class="ui header">
-          <h2>
-            <i class="archive primary icon big"></i>
-            <div class="content">
-              {{model.project.name}}
-              <div class="sub header">
-                <i class="stopwatch orange icon"></i>
-                {{model.project.stringStartDate}}
-                <i class="arrow right icon"></i>
-                {{model.project.stringEndDate}}
-              </div>
-            </div>
-          </h2>
+<div class="inline">
+  <div class="ui left vertical inverted tabular menu">
+    <div class="ui fitted inverted segment">
+      <h2 class="ui inverted header">
+        <div class="content">
+          {{model.project.name}}
         </div>
-        <div class="ui horizontal basic segments">
-          <div class="ui center aligned basic segment inverted">
-            <i class="icon folder"></i>
-            {{pluralize
-              model.project.stories.length
-              "No stories"
-              "1 story"
-              " stories"
-            }}
-          </div>
-          <div class="ui center aligned basic segment inverted">
-            <i class="icon users"></i>
-            {{pluralize
-              model.project.developers.length
-              "No contributor"
-              "1 contributor"
-              " contributors"
-            }}
-          </div>
-        </div>
-        <div class="ui fitted inverted segment">
-          {{model.project.description}}
-        </div>
-        <div
-          class="large ui
-            {{if (eq model.isIn true) "two"}}
-             top attached buttons"
-        >
-          {{#if (eq model.isIn true)}}
-            <button class="ui icon button" {{action "openAddStory" model}}>
-              <i class="plus icon"></i>
-              Add Story
-            </button>
-          {{/if}}
-          <button class="ui icon yellow button" {{action "openOverview" model}}>
-            <i class="window restore outline icon"></i>
-            Project Overview
-          </button>
-        </div>
-        <div class="large ui two attached buttons">
-          <button class="ui icon pink button" {{action "openStories" model}}>
-            <i class="window restore outline icon"></i>
-            Stories
-          </button>
-          <button class="ui icon teal button" {{action "openBoard" model}}>
-            <i class="columns icon"></i>
-            Dashboard
-          </button>
-        </div>
-        <div class="large ui two bottom attached buttons">
-          <button class="ui icon green button" {{action "openTags" model}}>
-            <i class="tags icon"></i>
-            Tags
-          </button>
-          <button class="ui icon violet button" {{action "openContributors" model}}>
-            <i class="users icon"></i> 
-            Contributors
-          </button>
-        </div>
+      </h2>
+      <div class="inline">
+        <i class="stopwatch icon"></i>
+        {{model.project.stringStartDate}}
+        <i class="arrow right icon"></i>
+        {{model.project.stringEndDate}}
       </div>
     </div>
-    <div class="eleven wide column scrollable" style="height: 90vh;">
-      {{outlet}}
-    </div>
+    <a class="{{if (eq model.whereIAm 1 ) 'active'}} yellow item" {{action "openOverview" model}}>
+      Project Overview
+      <i class="window restore outline yellow icon"></i>
+    </a>
+    <a class="{{if (eq model.whereIAm 2 ) 'active'}} teal item" {{action "openBoard" model}}>
+      Dashboard
+      <i class="columns teal icon"></i>
+    </a>
+    {{#if (eq model.isIn true)}}
+      <a class="{{if (eq model.whereIAm 3 ) 'active'}} basic item" {{action "openAddStory" model}}>
+        Add Story
+        <i class="plus icon"></i>
+      </a>
+    {{/if}}
+    <a class="{{if (eq model.whereIAm 4 ) 'active'}} pink item" {{action "openStories" model}}>
+      Stories
+      <div class="ui pink label icon">
+        {{model.project.stories.length}}
+        <i class="window restore outline icon"></i>
+      </div>
+    </a>
+    <a class="{{if (eq model.whereIAm 5 ) 'active'}} violet item" {{action "openContributors" model}}>
+      Contributors
+      <div class="ui violet label icon">
+        {{model.project.developers.length}}
+        <i class="users icon"></i>
+      </div>
+    </a>
+    <a class="{{if (eq model.whereIAm 6 ) 'active'}} green item" {{action "openTags" model}}>
+      Tags
+      <div class="ui green label icon">
+        {{model.project.tags.length}}
+        <i class="tags icon"></i>
+      </div>
+    </a>
+  </div>
+  <div
+    class="ui segment tertiary fluid inverted scrollable littleMargin"
+    style="max-height: 90vh; width: -webkit-fill-available;"
+  >
+    {{outlet}}
   </div>
 </div>
