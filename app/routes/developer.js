@@ -6,11 +6,19 @@ export default Route.extend({
         let devloperId = this.paramsFor("developer").developer_id;
         let developer = await this.get('store').findRecord('developer', devloperId)
 
-        let listProjectDev = await this.get('store').findAll('project', devloperId)
+       // let listProject = await this.get('store').peekRecord('project', devloperId)
+       
+        let listProject = await this.store.query('project', {
+            
+            filter: {
+                developers: devloperId
+                }   
+            });
+
         debugger
         return RSVP.hash({
             developer: developer,
-            listProjectDev: listProjectDev
+            listProject: listProject
         });
 
 
