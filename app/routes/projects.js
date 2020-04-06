@@ -37,6 +37,7 @@ export default Route.extend({
         },
         openProject(project) {
             this.transitionTo('/project/' + project.id + "/home");
-        }
-    }
+        },
+    },
 });
+
