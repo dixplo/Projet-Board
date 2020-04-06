@@ -24,7 +24,7 @@ export default Route.extend({
                     category: "Developers",
                     title: developer.username,
                     description: developer.fullName,
-                    url: "/developer/" + developer.id + "/profil"
+                    url: "/developer/" + developer.id
                 });
         });
         let connected = (localStorage.getItem("connected") == "true");
@@ -34,6 +34,7 @@ export default Route.extend({
             developers.forEach(developer => {
                 if (developer.id == devId) {
                     dev = developer
+
                 }
             });
         }
@@ -55,6 +56,9 @@ export default Route.extend({
         },
         goToDevelopers() {
             this.transitionTo('developers');
+        },
+        openProfil(model) {
+            this.transitionTo('/developer/' + model.user.id);
         },
         goToLogin() {
             this.transitionTo('login');

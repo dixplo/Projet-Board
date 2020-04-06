@@ -9,34 +9,34 @@ export default Route.extend({
         return {
             selectedImage: "ade",
             selectedLanguages: [],
-            avatars: ["ade", "bob", "christian", "daniel", "elliot"],
-            languages: [".net", "c++", "css", "dart", "html"]
+            avatars: ["ade", "bob", "christian", "daniel", "elliot", "elyse", "eve", "ines", "joe", "justen", "laura", "lena", "lindsay", "marie", "mark", "matthew", "molly", "nan", "pablo", "steve", "tom", "veronika"],
+            languages: [".net", "c++", "css", "dart", "html", "java", "javascript", "kotlin", "objective-c", "php", "python", "swift"]
         };
     },
     actions: {
         register(model) {
-
-            let image = get(model, 'avatars')[jQuery('#selectImageRegister')[0].selectedIndex - 1];
-            debugger
-
             let developer = this.store.createRecord('developer', {
                 name: model.name,
+                email: model.email,
                 fname: model.fname,
-                username: model.username
+                username: model.username,
+                avatar: model.selectedImage,
+                languagesString: JSON.stringify(model.selectedLanguages)
             });
-            //developer.save();
+            developer.save();
             let user = this.store.createRecord('user', {
                 email: model.email,
                 password: model.password,
-                developer: developer
+                developerId: developer.id
             });
-            //user.save();
+            user.save();
             let m = this.modelFor("application");
             set(m, "connected", true);
             set(m, "user", user);
             localStorage.setItem('user', JSON.stringify(user));
-            //localStorage.setItem("connected", true);
-            this.transitionTo("home");
+            localStorage.setItem("connected", true);
+            localStorage.setItem("developerId", developer.id);
+            this.transitionTo("overview", "myProject");
         },
         changeImagePlus(model) {
             let avatars = get(model, "avatars");

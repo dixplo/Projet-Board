@@ -46,7 +46,7 @@
     </div>
     {{#if (eq model.connected true)}}
       <div class="ui dropdown icon item">
-        <i class="user circle large icon"></i>
+        <img class="ui image circular mini" src="/assets/images/avatars/{{model.user.avatar}}.jpg" alt="A">
         <div class="menu">
           <h6 class="header">
             Signed in as
@@ -57,7 +57,7 @@
             </h5>
           </h6>
           <div class="divider"></div>
-          <div class="item">
+          <div class="item" {{action "openProfil" model}}>
             <i class="user circle icon"></i>
             Your profile
           </div>

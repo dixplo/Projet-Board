@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 
 export default Model.extend({
     username: DS.attr(),
+    email: DS.attr(),
     name: DS.attr(),
     fname: DS.attr(),
     avatar: DS.attr(),
@@ -16,6 +17,6 @@ export default Model.extend({
         return this.get('name') + " " + this.get('fname');
     }),
     languages: computed('languagesString', function () {
-        return JSON.parsea(this.get('languagesString'));
+        return JSON.parse(this.get('languagesString'));
     })
 });

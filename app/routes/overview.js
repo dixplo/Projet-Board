@@ -5,14 +5,14 @@ import { get, set } from '@ember/object';
 export default Route.extend({
     async model(params) {        
         let modificationcontents = await this.store.findAll('modificationcontent', { reload: true });
-        let allData = await this.store.findAll('modification', { reload: true, include: 'modificationcontent' });
+        let modifications = await this.store.findAll('modification', { reload: true, include: 'modificationcontent' });
         let developers = await this.store.findAll('developer');
         let stories = await this.store.findAll('story');
         let tags = await this.store.findAll('tag');
         var projects = await this.store.findAll('project');
         if (params.what == "all") {
             developers.forEach(developer => {
-                allData.forEach(modification => {
+                modifications.forEach(modification => {
                     modification.contents.forEach(content => {
                         if (content.referTo == developer.id) {
                             set(content, 'object', developer)
@@ -21,14 +21,14 @@ export default Route.extend({
                 })
             });
             projects.forEach(project => {
-                allData.forEach(modification => {
+                modifications.forEach(modification => {
                     if (modification.referTo == project.id) {
                         set(modification, 'object', project)
                     }
                 })
             });
             stories.forEach(story => {
-                allData.forEach(modification => {
+                modifications.forEach(modification => {
                     modification.contents.forEach(content => {
                         if (content.referTo == story.id) {
                             set(content, 'object', story)
@@ -37,7 +37,7 @@ export default Route.extend({
                 })
             });
 
-            allData = allData.toArray().sort((a, b) => {
+            modifications = modifications.toArray().sort((a, b) => {
                 if (a.date < b.date) {
                     return 1;
                 }
@@ -51,7 +51,7 @@ export default Route.extend({
                 developers: developers,
                 stories: stories,
                 projects: projects,
-                allData: allData
+                modifications: modifications
             });
         } else if (params.what == "myProject" && JSON.parse(localStorage.getItem("connected"))) {
             let devId =  localStorage.getItem("developerId");
@@ -62,7 +62,7 @@ export default Route.extend({
 
             projects.forEach(project => {
                 projectsId.push(project.id)
-                allData.forEach(modification => {
+                modifications.forEach(modification => {
                     if (modification.referTo == project.id) {
                         set(modification, 'object', project)
                     }
@@ -70,7 +70,7 @@ export default Route.extend({
             });
 
             developers.forEach(developer => {
-                allData.forEach(modification => {
+                modifications.forEach(modification => {
                     modification.contents.forEach(content => {
                         if (content.referTo == developer.id) {
                             set(content, 'object', developer)
@@ -79,7 +79,7 @@ export default Route.extend({
                 })
             });
             stories.forEach(story => {
-                allData.forEach(modification => {
+                modifications.forEach(modification => {
                     modification.contents.forEach(content => {
                         if (content.referTo == story.id) {
                             set(content, 'object', story)
@@ -88,7 +88,7 @@ export default Route.extend({
                 })
             });
 
-            allData = allData.toArray().sort((a, b) => {
+            modifications = modifications.toArray().sort((a, b) => {
                 if (a.date < b.date) {
                     return 1;
                 }
@@ -96,18 +96,19 @@ export default Route.extend({
                     return -1;
                 }
             });
-
-            allData.forEach(data => {
+            let objectsToRemove = []
+            modifications.forEach(data => {
                 if (projectsId.indexOf(data.referTo) == -1) {
-                    allData.removeObject(data)
+                    objectsToRemove.push(data)
                 }
             })
+            modifications.removeObjects(objectsToRemove)
             return RSVP.hash({
                 tags: tags,
                 developers: developers,
                 stories: stories,
                 projects: projects,
-                allData: allData
+                modifications: modifications
             });
         } else {
             this.transitionTo('overview', "all");
