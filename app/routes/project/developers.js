@@ -6,6 +6,7 @@ export default Route.extend({
         
         let m = this.modelFor('project')
         set(m, "whereIAm", 5);
+        set(m, "color", "#6435C9");
         return {};
     }
 });

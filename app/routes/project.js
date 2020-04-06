@@ -33,7 +33,8 @@ export default Route.extend({
             project: project,
             project_id: params.project_id,
             isIn: currentDeveloperIsIn,
-            whereIAm: 1
+            whereIAm: 1,
+            color: "#FFD700"
         });
         console.log(retour);
 

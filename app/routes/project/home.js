@@ -101,6 +101,7 @@ export default Route.extend({
 
         let m = this.modelFor('project')
         set(m, "whereIAm", 1);
+        set(m, "color", "#FFD700");
 
         return RSVP.hash({
             modifications: modifications,
