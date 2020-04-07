@@ -192,3 +192,15 @@ body {
 #message{
   visibility: hidden;
 }
+
+// Profil developer 
+
+.developerProfilGrid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: flex-end;
+}
+
+
+// Fin CSS Profil developer 
