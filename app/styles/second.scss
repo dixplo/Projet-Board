@@ -1,5 +1,8 @@
 body {
   background-color: #1b1c1d !important;
+  height: 100vh;
+
+
   .marge {
     margin-left: 3%;
     margin-right: 3%;
@@ -9,11 +12,11 @@ body {
     margin-right: 0% !important;
     width: 100% !important;
   }
-  .addStep {
-    width: 20% !important;
-  }
   .mySegmentBorder {
     border: 1px solid white !important;
+  }
+  .myStep {
+    width: 300px !important;
   }
   .very.basic.segment {
     border: none !important;
@@ -25,6 +28,17 @@ body {
   .selectable.segment:hover {
     box-shadow: 0px 0px 6px rgb(255, 255, 255) !important;
   }
+  .selectable.nosegment:hover {
+    box-shadow: 0px 0px 6px rgba(255, 255, 255, 0) !important;
+  }
+
+  .myRaised{
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.7);
+  }
+
+
+
+
   .segment.blackBG {
     background-color: #1b1c1d !important;
   }
@@ -116,9 +130,20 @@ body {
     width: 25px !important;
   }
 
-  .scrollable {
+  .myScrollable {
     overflow: auto !important;
     scroll-padding: 1em !important;
+    width: max-content !important;
+  }
+  .myScrollableY {
+    overflow-y: auto !important;
+    scroll-padding: 1em !important;
+    height: max-content !important;
+  }
+  .myScrollableX {
+    overflow-x: auto !important;
+    scroll-padding: 1em !important;
+    width: max-content !important;
   }
 
   .ui.overlay {
@@ -148,6 +173,10 @@ body {
 
   .hidden {
     visibility: hidden !important;
+  }
+
+  .bgProject {
+    background-color: rgb(91, 94, 96) !important;
   }
 }
 

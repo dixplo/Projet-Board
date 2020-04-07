@@ -1,22 +1,20 @@
-<br />
-<br />
-<div class="ui equal width grid">
-  <div class="row">
-    <div class="column myStep">
-      <div class="ui top attached secondary segment inverted">
-        Unreferenced story
-      </div>
-      {{#draggable-dropzone content=step dropped="addToStep" class="column"}}
-        <div class="ui attached raised segment inverted">
-          {{#each model.project.haveStoriesWithNoStep as |story|}}
+<div class="inline" style="width: fit-content;">
+  <div class="myStep">
+    <div class="ui top attached tertiary segment inverted">
+      Unreferenced story
+    </div>
+    {{#draggable-dropzone content=step dropped="addToStep" class="column"}}
+      <div class="ui attached raised segment secondary inverted">
+        {{#each model.project.haveStoriesWithNoStep as |story|}}
+          {{#draggable-item
+            class="ui segment raised inverted selectable"
+            activeClass="tertiary mySegmentBorder"
+            content=story
+            onClick="activate"
+            onDblClick="open"
+          }}
             <div class="ui middle aligned grid inverted">
-              {{#draggable-item
-                class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive"
-                activeClass="tertiary"
-                content=story
-                onClick="activate"
-                onDblClick="open"
-              }}
+              <div class="two column row">
                 <div class="ui column">
                   <h4 class="ui header inverted">
                     <i class="folder primary icon big"></i>
@@ -40,103 +38,136 @@
                     </div>
                     <div class="ui button">
                       <i class="arrows alternate icon"></i>
-                          Drag and drop in a step
+                      Drag and drop in a step
                     </div>
                   </div>
                 </div>
-              {{/draggable-item}}
+              </div>
             </div>
+          {{/draggable-item}}
+        {{/each}}
+      </div>
+    {{/draggable-dropzone}}
+  </div>
+  {{#each model.project.stepsOrdered as |step|}}
+    <div class="myStep">
+      <div class="ui top attached raised tertiary segment inverted">
+        <div class="ui aligned grid">
+          <div class="left floated left aligned eight wide column">
+            {{step.title}}
+          </div>
+          <div class="right floated right aligned eight wide column">
+            {{#if (not-eq step.order 0)}}
+              <i
+                class="chevron circle left icon large"
+                {{action "minusStep" model step}}
+              ></i>
+            {{/if}}
+            {{#if (not-eq step.order model.project.stepsLengthMinusOne)}}
+              <i
+                class="chevron circle right icon large"
+                {{action "plusStep" model step}}
+              ></i>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{#draggable-dropzone content=step dropped="addToStep" class="column"}}
+        <div class="ui attached secondary raised segment inverted">
+          {{#each model.project.storiesOrdered as |story|}}
+            {{#if (eq story.step.id step.id)}}
+              {{#draggable-item
+                class="ui segment raised inverted selectable"
+                activeClass="tertiary mySegmentBorder"
+                content=story
+                onClick="activate"
+                onDblClick="open"
+              }}
+                <i class="folder primary open icon"></i>
+                {{#if story.estimate}}
+                  <div class="ui left icon circular violet label left icon">
+                    {{story.estimate}}
+                  </div>
+                {{/if}}
+                <b>
+                  {{story.code}}
+                </b>
+                {{#each story.tags as |tag|}}
+                  <div class="ui {{tag.color}} label">
+                    {{tag.title}}
+                  </div>
+                {{/each}}
+                {{#if story.developer}}
+                  <div class="ui left icon label left icon">
+                    <i class="user icon"></i>
+                    {{story.developer.fullName}}
+                  </div>
+                {{/if}}
+                {{#if (not-eq story.tasks.length 0)}}
+                  <div class="ui left icon circular label">
+                    <i class="file icon"></i>
+                    {{story.ratioTasks}}
+                  </div>
+                {{/if}}
+              {{/draggable-item}}
+            {{/if}}
           {{/each}}
         </div>
       {{/draggable-dropzone}}
     </div>
-  </div>
-  {{#each model.project.stepsOrderedTable as |steps|}}
-    <div class="row">
-      {{#each steps as |step|}}
-        {{#if (eq step "addStep")}}
-          <div class="column centered addStep">
-            <div class="ui top attached secondary selected segment inverted">
-              <div class="ui form">
-                <div class="ui labeled transparent inputBorder borderRadiusZeroFive input field fluid inverted">
-                  <div class="ui label">
-                    Step title
-                  </div>
-                  <Input type="text" @value={{model.stepTitle}} />
-                </div>
-              </div>
-            </div>
-            <a class="ui attached placeholder segment inverted" {{action "addStep" model}}>
-              <div class="ui icon header">
-                <i class="ui plus icon"></i>
-                  Add Step
-              </div>
-            </a>
-          </div>
-        {{else}}
-          <div class="column myStep">
-            <div class="ui top attached raised secondary segment inverted">
-              <div class="ui aligned grid">
-                <div class="left floated left aligned eight wide column">
-                  {{step.title}}
-                </div>
-                <div class="right floated right aligned eight wide column">
-                  <i class="chevron circle left icon large" {{action "minusStep" model step}}></i>
-                  <i class="chevron circle right icon large" {{action "plusStep" model step}}></i>
-                </div>
-              </div>
-            </div>
-            {{#draggable-dropzone
-              content=step
-              dropped="addToStep"
-              class="column"
-            }}
-              <div class="ui attached raised segment inverted">
-                {{#each model.project.storiesOrdered as |story|}}
-                  {{#if (eq story.step.id step.id)}}
-                    {{#draggable-item
-                      class="ui segment raised inverted mySegmentBorder"
-                      activeClass="tertiary"
-                      content=story
-                      onClick="activate"
-                      onDblClick="open"
-                    }}
-                      <i class="folder primary open icon"></i>
-                      {{#if story.estimate}}
-                        <div class="ui left icon circular violet label left icon">
-                          {{story.estimate}}
-                        </div>
-                      {{/if}}
-                      <b>
-                        {{story.code}}
-                      </b>
-                      {{#each story.tags as |tag|}}
-                        <div class="ui {{tag.color}} label">
-                          {{tag.title}}
-                        </div>
-                      {{/each}}
-                      {{#if story.developer}}
-                        <div class="ui left icon label left icon">
-                          <i class="user icon"></i>
-                          {{story.developer.fullName}}
-                        </div>
-                      {{/if}}
-                      {{#if (not-eq story.tasks.length 0)}}
-                        <div class="ui left icon circular label">
-                          <i class="file icon"></i>
-                          {{story.ratioTasks}}
-                        </div>
-                      {{/if}}
-                    {{/draggable-item}}
-                  {{/if}}
-                {{/each}}
-              </div>
-            {{/draggable-dropzone}}
-          </div>
-        {{/if}}
-      {{/each}}
-    </div>
   {{/each}}
+  <div class="centered myStep">
+    <div class="ui top attached tertiary segment inverted">
+      <div class="ui form">
+        <div class="ui input field fluid inverted">
+          <Input
+            type="text"
+            placeholder="Step title"
+            @value={{model.stepTitle}}
+          />
+        </div>
+      </div>
+    </div>
+    <a
+      class="ui attached placeholder segment inverted selectable nosegment"
+      {{action "addStep" model}}
+    >
+      <div class="ui icon header">
+        <i class="ui plus icon"></i>
+        Add Step
+      </div>
+    </a>
+  </div>
 </div>
-
+<div class="ui inverted card selectable myRaised">
+  <div class="content">
+    <i class="right floated grey arrows alternate icon"></i>
+    <div class="ui header inverted">
+      <img
+        class="ui avatar image"
+        src="/assets/images/avatars/ade.jpg"
+        alt="Avatar"
+      />
+      <div class="content">
+        Ade
+        <div class="sub header">
+          Ade moro
+        </div>
+      </div>
+    </div>
+    <div class="description">
+      <p></p>
+    </div>
+  </div>
+  <div class="extra content">
+    <span class="left floated like">
+      <i class="like icon"></i>
+      Like
+    </span>
+    <span class="right floated star">
+      <i class="star icon"></i>
+      Favorite
+    </span>
+  </div>
+</div>
 {{outlet}}

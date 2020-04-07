@@ -1,97 +1,102 @@
 {{outlet}}
 <div class="ui grid">
-    <div class="four wide column">
-        <div class="ui inverted card">
-            <div class="image">
-                <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg" />
-            </div>
-            <div class="content">
-                <div class="header white">
-                    {{model.developer.username}}
-                </div>
-                <div class="meta">
-                    <span class="date">
-                        {{model.developer.fname}}
-                        {{model.developer.name}}
-                        <br />
-                        {{model.developer.email}}
-                    </span>
-                </div>
-                <div class="description">
-                    {{#if (not (is-empty model.developer.languagesString))}}
-                    {{#each model.developer.languages as |language|}}
-                    <img class="ui image little" src="/assets/images/languages/{{language}}.png" alt="language" />
-                    {{/each}}
-                    {{else}}
-                    No favorite languages
-                    {{/if}}
-                </div>
-            </div>
+  <div class="four wide column">
+    <div class="ui inverted card">
+      <div class="image">
+        <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg" />
+      </div>
+      <div class="content">
+        <div class="header white">
+          {{model.developer.username}}
         </div>
-    </div>
-    <div class="twelve wide column">
-        <div>
-            <span class="ui large white text">List des projets</span>
+        <div class="meta">
+          <span class="date">
+            {{model.developer.fname}}
+            {{model.developer.name}}
+            <br />
+            {{model.developer.email}}
+          </span>
         </div>
-        <h4 class="ui horizontal left aligned divider header">
-            <i class=" align icon"></i>
-            <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">
-                </font>
-            </font>
-        </h4>
-        <div class="ui segment secondary inverted">
-            {{#each model.listProject as |listProject|}}
-            <div class="ui inverted segment selectable" {{action "openProject" project}}>
-                <div class="ui horizontal segments top attached inverted">
-                    <div class="ui left aligned basic segment inverted">
-                        <h2>
-                            {{listProject.name}}
-                        </h2>
-                    </div>
-                    <div class="ui right aligned basic segment inverted">
-                        <i class="stopwatch icon"></i>
-                        {{listProject.stringStartDate}}
-                        <i class="arrow right icon"></i>
-                        {{listProject.stringEndDate}}
-                    </div>
-                </div>
-                <div class="ui very basic segment attached inverted">
-                    <h5>
-                        {{listProject.description}}
-                    </h5>
-                    <div class="ui fitted horizontal segments inverted">
-                        <div class="ui left aligned fitted segment inverted">
-                            <div class="ui label">
-                                <i class="icon folder"></i>
-                                {{pluralize
-                listProject.stories.length
-                "No stories"
-                "1 story"
-                " stories"
-              }}
-                            </div>
-                            <div class="ui label" id="demo">
-                                <i class="icon users"></i>
-                                {{pluralize
-                listProject.developers.length
-                "No contributor"
-                "1 contributor"
-                " contributors"
-              }}
-                            </div>
-                            <div class="ui black bottom pointing label" id="message">ujh</div>
-                        </div>
-                    </div>
-                </div>
-                {{outlet project.id}}
-            </div>
+        <div class="description">
+          {{#if (not (is-empty model.developer.languagesString))}}
+            {{#each model.developer.languages as |language|}}
+              <img
+                class="ui image little"
+                src="/assets/images/languages/{{language}}.png"
+                alt="language"
+              />
             {{/each}}
+          {{else}}
+            No favorite languages
+          {{/if}}
         </div>
-
-
-
-
-
+      </div>
     </div>
+  </div>
+  <div class="twelve wide column">
+    <div>
+      <span class="ui large white text">
+        List des projets
+      </span>
+    </div>
+    <h4 class="ui horizontal left aligned divider header">
+      <i class="align icon"></i>
+      <font style="vertical-align: inherit;">
+        <font style="vertical-align: inherit;"></font>
+      </font>
+    </h4>
+    <div class="ui segment secondary inverted">
+      {{#each model.listProject as |listProject|}}
+        <div
+          class="ui inverted segment selectable"
+          {{action "openProject" project}}
+        >
+          <div class="ui horizontal segments top attached inverted">
+            <div class="ui left aligned basic segment inverted">
+              <h2>
+                {{listProject.name}}
+              </h2>
+            </div>
+            <div class="ui right aligned basic segment inverted">
+              <i class="stopwatch icon"></i>
+              {{listProject.stringStartDate}}
+              <i class="arrow right icon"></i>
+              {{listProject.stringEndDate}}
+            </div>
+          </div>
+          <div class="ui very basic segment attached inverted">
+            <h5>
+              {{listProject.description}}
+            </h5>
+            <div class="ui fitted horizontal segments inverted">
+              <div class="ui left aligned fitted segment inverted">
+                <div class="ui label">
+                  <i class="icon folder"></i>
+                  {{pluralize
+                    listProject.stories.length
+                    "No stories"
+                    "1 story"
+                    " stories"
+                  }}
+                </div>
+                <div class="ui label" id="demo">
+                  <i class="icon users"></i>
+                  {{pluralize
+                    listProject.developers.length
+                    "No contributor"
+                    "1 contributor"
+                    " contributors"
+                  }}
+                </div>
+                <div class="ui black bottom pointing label" id="message">
+                  ujh
+                </div>
+              </div>
+            </div>
+          </div>
+          {{outlet project.id}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
 </div>

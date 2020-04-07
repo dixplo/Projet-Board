@@ -13,35 +13,35 @@
         {{model.project.stringEndDate}}
       </div>
     </div>
-    <a class="{{if (eq model.whereIAm 1 ) 'active'}} yellow item" {{action "openOverview" model}}>
+    <a class="{{if (eq model.whereIAm 1) 'active'}} yellow item" {{action "openOverview" model}}>
       Project Overview
       <i class="window restore outline yellow icon"></i>
     </a>
-    <a class="{{if (eq model.whereIAm 2 ) 'active'}} teal item" {{action "openBoard" model}}>
+    <a class="{{if (eq model.whereIAm 2) 'active'}} teal item" {{action "openBoard" model}}>
       Dashboard
       <i class="columns teal icon"></i>
     </a>
     {{#if (eq model.isIn true)}}
-      <a class="{{if (eq model.whereIAm 3 ) 'active'}} basic item" {{action "openAddStory" model}}>
+      <a class="{{if (eq model.whereIAm 3) 'active'}} basic item" {{action "openAddStory" model}}>
         Add Story
         <i class="plus icon"></i>
       </a>
     {{/if}}
-    <a class="{{if (eq model.whereIAm 4 ) 'active'}} pink item" {{action "openStories" model}}>
+    <a class="{{if (eq model.whereIAm 4) 'active'}} pink item" {{action "openStories" model}}>
       Stories
       <div class="ui pink label icon">
         {{model.project.stories.length}}
         <i class="window restore outline icon"></i>
       </div>
     </a>
-    <a class="{{if (eq model.whereIAm 5 ) 'active'}} violet item" {{action "openContributors" model}}>
+    <a class="{{if (eq model.whereIAm 5) 'active'}} violet item" {{action "openContributors" model}}>
       Contributors
       <div class="ui violet label icon">
         {{model.project.developers.length}}
         <i class="users icon"></i>
       </div>
     </a>
-    <a class="{{if (eq model.whereIAm 6 ) 'active'}} green item" {{action "openTags" model}}>
+    <a class="{{if (eq model.whereIAm 6) 'active'}} green item" {{action "openTags" model}}>
       Tags
       <div class="ui green label icon">
         {{model.project.tags.length}}
@@ -50,8 +50,8 @@
     </a>
   </div>
   <div
-    class="ui segment tertiary fluid inverted scrollable littleMargin"
-    style="max-height: 90vh; width: -webkit-fill-available;"
+    class="ui segment bgProject fluid inverted myScrollable littleMargin"
+    style="height: 92vh; width: -webkit-fill-available;"
   >
     {{outlet}}
   </div>

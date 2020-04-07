@@ -1,7 +1,10 @@
 {{outlet}}
 <div class="ui segment secondary inverted">
   {{#each model as |project|}}
-    <div class="ui inverted segment selectable" {{action "openProject" project}}>
+    <div
+      class="ui inverted segment selectable"
+      {{action "openProject" project}}
+    >
       <div class="ui horizontal segments top attached inverted">
         <div class="ui left aligned basic segment inverted">
           <h2>
@@ -30,7 +33,7 @@
                 " stories"
               }}
             </div>
-            <div class="ui label"  id="demo">
+            <div class="ui label" id="demo">
               <i class="icon users"></i>
               {{pluralize
                 project.developers.length
@@ -39,11 +42,11 @@
                 " contributors"
               }}
             </div>
-            
-            <div class="ui black bottom pointing label" id="message">{{#each model as |developers|}} {{model.developers.username}} 
-               {{/each}}
+            <div class="ui blue bottom left pointing label" id="message">
+              {{#each project.developers as |developer|}}
+                ·⁠ {{developer.username}}<br />
+              {{/each}}
             </div>
-           
           </div>
         </div>
       </div>

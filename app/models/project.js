@@ -96,5 +96,8 @@ export default Model.extend({
         } else if (a.estimate > b.estimate) {
             return -1;
         } else return 0;
-    })
+    }),
+    stepsLengthMinusOne: computed('steps', function () {
+        return this.get('steps').length - 1;
+    }),
 });

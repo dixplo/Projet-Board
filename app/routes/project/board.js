@@ -28,7 +28,7 @@ export default Route.extend({
     actions: {
         addStep(model) {
             let title = get(model, 'stepTitle');
-            if (title === undefined) {
+            if (title === undefined || title == "") {
                 jQuery('body')
                     .toast({
                         class: 'error',
@@ -40,6 +40,7 @@ export default Route.extend({
                     });
                 return
             }
+            
             let project = get(model, 'project');
             let steps = get(project, 'steps');
             let step = this.store.createRecord('step', {

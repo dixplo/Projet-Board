@@ -23,9 +23,7 @@ export default Route.extend({
         } else if (params.what == "new") {
             this.transitionTo("projects.new")
         }
-        
         return projects;
-        debugger
     },
     actions: {
         openAdd() {
