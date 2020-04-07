@@ -39,7 +39,9 @@
                 " contributors"
               }}
             </div>
-            <div class="ui black bottom pointing label" id="message" >ujh</div>
+            {{#each model as |developers|}}
+            <div class="ui black bottom pointing label" id="message" >{{developers.name}}</div>
+            {{/each}}
           </div>
         </div>
       </div>
