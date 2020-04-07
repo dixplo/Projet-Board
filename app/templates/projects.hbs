@@ -39,9 +39,11 @@
                 " contributors"
               }}
             </div>
-            {{#each model as |developers|}}
-            <div class="ui black bottom pointing label" id="message" >{{developers.name}}</div>
-            {{/each}}
+            
+            <div class="ui black bottom pointing label" id="message">{{#each model as |developers|}} {{model.developers.username}} 
+               {{/each}}
+            </div>
+           
           </div>
         </div>
       </div>
