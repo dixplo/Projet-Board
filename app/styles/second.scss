@@ -12,11 +12,16 @@ body {
     margin-right: 0% !important;
     width: 100% !important;
   }
+  .labelMargin {
+    margin: 0.2em !important;
+  }
+
   .mySegmentBorder {
     border: 1px solid white !important;
   }
   .myStep {
     width: 300px !important;
+    margin-right: 1em !important;
   }
   .very.basic.segment {
     border: none !important;
@@ -177,6 +182,9 @@ body {
 
   .bgProject {
     background-color: rgb(91, 94, 96) !important;
+  }
+  .bgSelected {
+    background-color: #A2A5A7 !important;
   }
 }
 

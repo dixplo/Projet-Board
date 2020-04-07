@@ -32,5 +32,40 @@ export default Model.extend({
             }
         });
         return parseInt(finished / tasks.length * 100) + " %"
-    })
+    }),
+
+    stringStartDate: computed('startDate', function () {
+        let date = this.get('startDate');
+        if (date !== null && date !== undefined && date instanceof Date) {
+            let year = date.getFullYear().toString();
+            var month = (date.getMonth() + 1).toString();
+            var day = date.getDate().toString();
+            var newDate = year + "-";
+            if (month.length == 1) { month = "0" + month; }
+            if (day.length == 1) { day = "0" + day; }
+            newDate += month + "-" + day;
+            return newDate;
+        } else if (date !== "" && date !== null) {
+            return date;
+        } else {
+            return "????-??-??";
+        }
+    }),
+    stringEndDate: computed('endDate', function () {
+        let date = this.get('endDate');
+        if (date !== null && date !== undefined && date instanceof Date) {
+            let year = date.getFullYear().toString();
+            var month = (date.getMonth() + 1).toString();
+            var day = date.getDate().toString();
+            var newDate = year + "-";
+            if (month.length == 1) { month = "0" + month; }
+            if (day.length == 1) { day = "0" + day; }
+            newDate += month + "-" + day;
+            return newDate;
+        } else if (date !== "" && date !== null) {
+            return date;
+        } else {
+            return "????-??-??";
+        }
+    }),
 });

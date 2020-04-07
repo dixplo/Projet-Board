@@ -4,47 +4,54 @@
       Unreferenced story
     </div>
     {{#draggable-dropzone content=step dropped="addToStep" class="column"}}
-      <div class="ui attached raised segment secondary inverted">
+      <div class="ui attached raised segment secondary inverted myScrollableY"  style="height: 82.5vh !important;">
         {{#each model.project.haveStoriesWithNoStep as |story|}}
           {{#draggable-item
-            class="ui segment raised inverted selectable"
-            activeClass="tertiary mySegmentBorder"
-            content=story
-            onClick="activate"
-            onDblClick="open"
-          }}
-            <div class="ui middle aligned grid inverted">
-              <div class="two column row">
-                <div class="ui column">
-                  <h4 class="ui header inverted">
-                    <i class="folder primary icon big"></i>
-                    <div class="content">
-                      {{story.code}}
-                      <div class="sub header">
-                        {{story.description}}
-                        {{#each story.tags as |tag|}}
-                          <div class="ui {{tag.color}} label">
-                            {{tag.title}}
-                          </div>
-                        {{/each}}
-                      </div>
-                    </div>
-                  </h4>
-                </div>
-                <div class="right floated right aligned column">
-                  <div class="ui left labeled button">
-                    <div class="ui basic right pointing label">
-                      {{story.developer.fullName}}
-                    </div>
-                    <div class="ui button">
-                      <i class="arrows alternate icon"></i>
-                      Drag and drop in a step
-                    </div>
+                class="ui inverted card selectable"
+                activeClass="bgSelected"
+                content=story
+                onClick="activate"
+                onDblClick="open"
+              }}
+                <div class="content">
+                  {{#if story.developer}}
+                    <img
+                      class="right floated mini ui image"
+                      src="/assets/images/avatars/{{story.developer.avatar}}.jpg"
+                    />
+                    {{else}}
+                    <img
+                      class="right floated mini ui image"
+                      src="/assets/images/avatars/unknow.jpg"
+                    />
+                  {{/if}}
+                  <div class="header">
+                    {{story.code}}
+                  </div>
+                  <div class="meta">
+                    {{#if story.endDate}}
+                      {{story.stringEndDate}}
+                    {{/if}}
+                  </div>
+                  <div class="description">
+                    {{story.description}}
                   </div>
                 </div>
-              </div>
-            </div>
-          {{/draggable-item}}
+                <div class="extra content">
+                  {{#if story.estimate}}
+                    <div class="ui left icon circular violet label left icon">
+                      {{story.estimate}}
+                    </div>
+                  {{/if}}
+                  {{#each story.tags as |tag|}}<div class="ui {{tag.color}} label labelMargin">{{tag.title}}</div>{{/each}}
+                  {{#if (not-eq story.tasks.length 0)}}
+                    <div class="ui left icon circular label">
+                      <i class="file icon"></i>
+                      {{story.ratioTasks}}
+                    </div>
+                  {{/if}}
+                </div>
+              {{/draggable-item}}
         {{/each}}
       </div>
     {{/draggable-dropzone}}
@@ -73,42 +80,58 @@
         </div>
       </div>
       {{#draggable-dropzone content=step dropped="addToStep" class="column"}}
-        <div class="ui attached secondary raised segment inverted">
+        <div class="ui attached secondary raised segment inverted myScrollableY"  style="height: 82.5vh !important;">
           {{#each model.project.storiesOrdered as |story|}}
             {{#if (eq story.step.id step.id)}}
               {{#draggable-item
-                class="ui segment raised inverted selectable"
-                activeClass="tertiary mySegmentBorder"
+                class="ui inverted card selectable"
+                activeClass="bgSelected"
                 content=story
                 onClick="activate"
                 onDblClick="open"
               }}
-                <i class="folder primary open icon"></i>
-                {{#if story.estimate}}
-                  <div class="ui left icon circular violet label left icon">
-                    {{story.estimate}}
+                <div class="content">
+                  {{#if story.developer}}
+                    <img
+                      class="right floated mini ui image"
+                      src="/assets/images/avatars/{{story.developer.avatar}}.jpg"
+                    />
+                    {{else}}
+                    <img
+                      class="right floated mini ui image"
+                      src="/assets/images/avatars/unknow.jpg"
+                    />
+                  {{/if}}
+                  <div class="header">
+                    {{story.code}}
                   </div>
-                {{/if}}
-                <b>
-                  {{story.code}}
-                </b>
-                {{#each story.tags as |tag|}}
-                  <div class="ui {{tag.color}} label">
-                    {{tag.title}}
+                  <div class="meta">
+                    {{#if story.endDate}}
+                      {{story.stringEndDate}}
+                    {{/if}}
                   </div>
-                {{/each}}
-                {{#if story.developer}}
-                  <div class="ui left icon label left icon">
-                    <i class="user icon"></i>
-                    {{story.developer.fullName}}
+                  <div class="description">
+                    {{story.description}}
                   </div>
-                {{/if}}
-                {{#if (not-eq story.tasks.length 0)}}
-                  <div class="ui left icon circular label">
-                    <i class="file icon"></i>
-                    {{story.ratioTasks}}
-                  </div>
-                {{/if}}
+                </div>
+                <div class="extra content">
+                  {{#if story.estimate}}
+                    <div class="ui left icon circular violet label left icon">
+                      {{story.estimate}}
+                    </div>
+                  {{/if}}
+                  {{#each story.tags as |tag|}}
+                    <div class="ui {{tag.color}} label">
+                      {{tag.title}}
+                    </div>
+                  {{/each}}
+                  {{#if (not-eq story.tasks.length 0)}}
+                    <div class="ui left icon circular label">
+                      <i class="file icon"></i>
+                      {{story.ratioTasks}}
+                    </div>
+                  {{/if}}
+                </div>
               {{/draggable-item}}
             {{/if}}
           {{/each}}
@@ -137,37 +160,6 @@
         Add Step
       </div>
     </a>
-  </div>
-</div>
-<div class="ui inverted card selectable myRaised">
-  <div class="content">
-    <i class="right floated grey arrows alternate icon"></i>
-    <div class="ui header inverted">
-      <img
-        class="ui avatar image"
-        src="/assets/images/avatars/ade.jpg"
-        alt="Avatar"
-      />
-      <div class="content">
-        Ade
-        <div class="sub header">
-          Ade moro
-        </div>
-      </div>
-    </div>
-    <div class="description">
-      <p></p>
-    </div>
-  </div>
-  <div class="extra content">
-    <span class="left floated like">
-      <i class="like icon"></i>
-      Like
-    </span>
-    <span class="right floated star">
-      <i class="star icon"></i>
-      Favorite
-    </span>
   </div>
 </div>
 {{outlet}}
