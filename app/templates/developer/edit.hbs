@@ -1,1 +1,251 @@
-{{outlet}}
+<div class="ui two column centered grid" style="height: 95vh;">
+  <div class="column middle aligned bottom aligned">
+    <h2 class="ui image header inverted">
+      <i class="user circle icon"></i>
+      <div class="content">
+        Register
+      </div>
+    </h2>
+  </div>
+  <div class="two column centered row">
+    <div class="column mySegmentBorder borderRadiusZeroFive paddingOne">
+      <div class="ui grid inverted">
+        <div class="row">
+          <div class="six wide column inverted">
+            <div class="ui inverted card">
+              <div class="image">
+                <img src="/assets/images/avatars/{{model.selectedImage}}.jpg" />
+              </div>
+              <div class="content">
+                <div class="header white">
+                  {{#if model.username}}
+                    {{model.username}}
+                  {{else}}
+                    User name
+                  {{/if}}
+                </div>
+                <div class="meta">
+                  <span class="date">
+                    {{#if model.fname}}
+                      {{model.fname}}
+                    {{else}}
+                      First name
+                    {{/if}}
+                    {{#if model.name}}
+                      {{model.name}}
+                    {{else}}
+                      Last name
+                    {{/if}}
+                    <br />
+                    {{#if model.email}}
+                      {{model.email}}
+                    {{else}}
+                      Email
+                    {{/if}}
+                  </span>
+                </div>
+                <div class="description">
+                  {{#if (not (is-empty model.selectedLanguages))}}
+                    {{#each model.selectedLanguages as |language|}}
+                      <img
+                        class="ui image little"
+                        src="/assets/images/languages/{{language}}.png"
+                        alt="language"
+                      />
+                    {{/each}}
+                  {{else}}
+                    Your favorite languages
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ten wide column inverted">
+            <div class="ui form inverted">
+              <div class="ui inverted field inline inputBottomMargin">
+                <div
+                  class="ui inverted left floated mini icon compact button rightMarginAuto"
+                  {{action "changeImageMinus" model}}
+                >
+                  <i class="chevron circle left icon large selectable"></i>
+                  previous
+                </div>
+                <div
+                  class="ui inverted left floated white textVerticaleAlignThirty"
+                >
+                  Avatar
+                </div>
+                <div
+                  class="ui inverted right floated mini icon compact button leftMarginAuto"
+                  {{action "changeImagePlus" model}}
+                >
+                  next
+                  <i class="chevron circle right icon large selectable"></i>
+                </div>
+              </div>
+              <div class="ui field inverted inputBottomMargin">
+                <label>
+                  User name
+                </label>
+                <Input
+                  placeholder="User name"
+                  type="text"
+                  @value={{model.username}}
+                />
+              </div>
+              <div class="ui field inverted inputBottomMargin">
+                <label>
+                  Email
+                </label>
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  @value={{model.email}}
+                />
+              </div>
+              <div class="two fields">
+                <div class="ui field inverted">
+                  <label>
+                    First name
+                  </label>
+                  <Input
+                    placeholder="First name"
+                    type="text"
+                    @value={{model.fname}}
+                  />
+                </div>
+                <div class="ui field inverted">
+                  <label>
+                    Last name
+                  </label>
+                  <Input
+                    placeholder="Last name"
+                    type="text"
+                    @value={{model.name}}
+                  />
+                </div>
+              </div>
+              <div class="ui field inverted">
+                <div
+                  class="ui field inverted"
+                  style="margin-bottom: 14px !important;"
+                >
+                  <label>
+                    Your favorite languages
+                  </label>
+                  <select
+                    class="ui multiple dropdown"
+                    id="selectLanguagesRegister"
+                  >
+                    <option value="">
+                      Select your favorite languages
+                    </option>
+                    {{#each model.languages as |image|}}
+                      <option value="{{image}}">
+                        <img
+                          src="/assets/images/languages/{{image}}.png"
+                          alt="{{image}}"
+                        />
+                        {{image}}
+                      </option>
+                    {{/each}}
+                  </select>
+                  <span class="ui inverted white text">
+                    Please select at
+                    <span
+                      class="ui inverted
+                        {{if model.selectLanguages "green" "red"}}
+                         text"
+                    >
+                      least one
+                    </span>
+                    language.
+                  </span>
+                </div>
+              </div>
+              <div class="ui field inverted">
+                <label>
+                  Password
+                </label>
+                <Input
+                  placeholder="Password"
+                  id="password"
+                  type="password"
+                  @value={{model.password}}
+                />
+                <span class="ui inverted white text">
+                  The password must contain at least:
+                  <span
+                    class="ui inverted
+                      {{if model.lowerPassord "green" "red"}}
+                       text"
+                  >
+                    one lowercase
+                  </span>
+                  ,
+                  <span
+                    class="ui inverted
+                      {{if model.upperPassord "green" "red"}}
+                       text"
+                  >
+                    one uppercase
+                  </span>
+                  ,
+                  <span
+                    class="ui inverted
+                      {{if model.numberPassord "green" "red"}}
+                       text"
+                  >
+                    one number
+                  </span>
+                  and
+                  <span
+                    class="ui inverted
+                      {{if (gt model.password.length 8) "green" "red"}}
+                       text"
+                  >
+                    8 characters
+                  </span>
+                  .
+                </span>
+              </div>
+              <div class="ui field inverted">
+                <label>
+                  Re-Password
+                </label>
+                <Input
+                  placeholder="re-Password"
+                  id="repassword"
+                  type="password"
+                  @value={{model.repassword}}
+                />
+                <span class="ui inverted white text">
+                  Please
+                  <span
+                    class="ui inverted
+                      {{if model.samePassword "green" "red"}}
+                       text"
+                  >
+                    re-enter
+                  </span>
+                  your password.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="sixteen wide column">
+          <div
+            class="ui primary
+              {{if model.allFields "" "disabled"}}
+               large fluid button submit"
+            {{action "register" model}}
+          >
+            Register
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

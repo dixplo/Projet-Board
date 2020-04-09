@@ -76,33 +76,6 @@
                     <h5>
                         {{listProject.description}}
                     </h5>
-                    <div class="ui fitted horizontal segments inverted">
-                        <div class="ui left aligned fitted segment inverted">
-                            <div class="ui label">
-                                <i class="icon folder"></i>
-                                {{pluralize
-                    listProject.stories.length
-                    "No stories"
-                    "1 story"
-                    " stories"
-                  }}
-                            </div>
-                            <div class="ui label" id="demo">
-                                <i class="icon users"></i>
-                                {{pluralize
-                    listProject.developers.length
-                    "No contributor"
-                    "1 contributor"
-                    " contributors"
-                  }}
-                            </div>
-                            <div class="ui blue bottom left pointing label" id="message">
-                                {{#each project.developers as |developer|}}
-                                ·⁠ {{developer.username}}<br />
-                                {{/each}}
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 {{outlet project.id}}
             </div>
