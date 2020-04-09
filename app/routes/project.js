@@ -36,7 +36,6 @@ export default Route.extend({
             whereIAm: 1,
             color: "#FFD700"
         });
-        console.log(retour);
 
         return retour;
     },

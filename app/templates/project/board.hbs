@@ -120,11 +120,7 @@
                       {{story.estimate}}
                     </div>
                   {{/if}}
-                  {{#each story.tags as |tag|}}
-                    <div class="ui {{tag.color}} label">
-                      {{tag.title}}
-                    </div>
-                  {{/each}}
+                  {{#each story.tags as |tag|}}<div class="ui {{tag.color}} label labelMargin">{{tag.title}}</div>{{/each}}
                   {{#if (not-eq story.tasks.length 0)}}
                     <div class="ui left icon circular label">
                       <i class="file icon"></i>

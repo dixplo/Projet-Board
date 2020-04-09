@@ -3,22 +3,37 @@ import RSVP from 'rsvp';
 
 export default Route.extend({
     async model() {
-        let devloperId = this.paramsFor("developer").developer_id;
-        let developer = await this.get('store').findRecord('developer', devloperId)
+        let currentDevId = localStorage.getItem('developerId')
+        let currentDeveloper = await this.get('store').findRecord('developer', currentDevId)
 
-       // let listProject = await this.get('store').peekRecord('project', devloperId)
-       
+        let developerId = this.paramsFor("developer").developer_id;
+        let developer = await this.get('store').findRecord('developer', developerId)
+
         let listProject = await this.store.query('project', {
-            
             filter: {
-                developers: devloperId
-                }   
-            });
+                developers: developerId
+            }
+        });
 
-        debugger
+        var canFollow = true;
+        var isMyProfil = false;
+        if (currentDevId != developerId) {
+            currentDeveloper.follow.forEach(dev => {
+                if (dev.id == developer.id) {
+                    canFollow = false
+                }
+            });
+        } else {
+            isMyProfil = true;
+        }
+
+
         return RSVP.hash({
             developer: developer,
-            listProject: listProject
+            listProject: listProject,
+            connected: JSON.parse(localStorage.getItem('connected')),
+            canFollow: canFollow,
+            isMyProfil: isMyProfil
         });
 
 
