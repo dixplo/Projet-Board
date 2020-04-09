@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { get, set } from '@ember/object';
+import { next } from '@ember/runloop';
 import RSVP from 'rsvp';
 import jQuery from 'jquery';
 
@@ -15,9 +16,21 @@ export default Route.extend({
         let retour = await RSVP.hash({
             project_id: project_id,
             project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developer' }),
-            colors: ["red", "orange", "yellow", "olive", "green", "teal", "blue", "purple", "pink", "brown", "basic", "empty", "primary", "grey", "black"],
+            colors: [{ name: "red", hexa: "#DB2828" },
+            { name: "orange", hexa: "#F2711C" },
+            { name: "yellow", hexa: "#FBBD08" },
+            { name: "olive", hexa: "#b5cc18" },
+            { name: "green", hexa: "#24BA45" },
+            { name: "teal", hexa: "#00B5AD" },
+            { name: "blue", hexa: "#2185D0" },
+            { name: "purple", hexa: "#A333C8" },
+            { name: "pink", hexa: "#E03997" },
+            { name: "brown", hexa: "#A5673F" },
+            { name: "white", hexa: "#E5E5E5" },
+            { name: "grey", hexa: "#767676" },
+            { name: "black", hexa: "#1B1C1D" }],
         });
-        
+
         let m = this.modelFor('project')
         set(m, "whereIAm", 3);
         set(m, "color", "");
@@ -31,12 +44,12 @@ export default Route.extend({
             let dropdown = jQuery("#colorNewTag")[0];
             let color = dropdown.value;
             let title = get(model, 'titleNewTag');
-            if (title === undefined) {
+            if (title === undefined || title == "") {
                 jQuery('body')
                     .toast({
                         class: 'error',
                         showIcon: true,
-                        message: 'You must enter a tag title to add it !'
+                        message: 'You must enter a tag name to add it !'
                     });
                 return
             }
@@ -58,7 +71,7 @@ export default Route.extend({
                 text: " in project  ",
                 referTo: tag.id,
                 order: 1,
-                classHTML: "ui "+color+" label"
+                classHTML: "ui " + color + " label"
             })]
             contents.forEach(content => {
                 content.save();
@@ -80,7 +93,7 @@ export default Route.extend({
                 reload: true
             });
             set(model, 'project', project);
-            set(model, 'tags', get(project, 'tags'));
+            //set(model, 'tags', get(project, 'tags'));
             set(model, 'titleNewTag', '');
 
             jQuery('body')
@@ -145,7 +158,7 @@ export default Route.extend({
                 tags: tagsInProject,
                 createDate: new Date(Date.now())
             });
-            story.save();
+            //story.save();
             let contents = [this.store.createRecord('modificationcontent', {
                 text: " create story ",
                 referTo: localStorage.getItem("developerId"),
@@ -159,7 +172,7 @@ export default Route.extend({
                 classHTML: "ui teal text"
             })]
             contents.forEach(content => {
-                content.save();
+                //content.save();
             })
 
             this.store.createRecord('modification', {
@@ -169,11 +182,151 @@ export default Route.extend({
                 idDeveloper: localStorage.getItem("developerId"),
                 classHTML: "white large bold",
                 operation: "create"
-            }).save()
+            })//.save()
 
             get(project, 'stories').toArray().addObject(story);
-            project.save();
+            //project.save();
+            debugger
             this.transitionTo('/project/' + project.id + '/stories');
+        },
+        didTransition() {
+            next(this, 'initUI');
+        },
+        do() {
+            console.log("f");
+
         }
+    },
+    initUI() {
+        jQuery('.ui.calendar').calendar({
+            type: 'date'
+        });
+
+        let model = this.modelFor('project.newstory');
+        let developers = model.project.developers;
+        var contentDevelopers = [{
+            name: "Select developer",
+            value: "",
+            image: "/assets/images/avatars/unknow.jpg",
+            imageClass: "ui mini image",
+            selected: true
+        }];
+
+        developers.toArray().forEach(developer => {
+            contentDevelopers.push({
+                name: developer.username,
+                value: developer.id,
+                image: "/assets/images/avatars/" + developer.avatar + ".jpg",
+                imageClass: "ui mini image"
+            })
+        });
+        jQuery('#addDeveloper').dropdown({
+            minCharacters: 0,
+            fullTextSearch: true,
+            values: contentDevelopers
+        });
+        let estimates = ["1", "2", "3", "5", "8", "13", "21", "40"];
+        let estimatesDropdown = [{
+            name: "Select an Estimate",
+            value: "",
+            selected: true
+        },{
+            name: "coffee",
+            value: "coffee",
+            icon: "coffee"
+        }]
+        estimates.toArray().forEach(estimate => {
+            estimatesDropdown.push({
+                name: estimate,
+                value: estimate
+            })
+        });
+
+        jQuery('#estimateDropdown').dropdown({
+            minCharacters: 0,
+            fullTextSearch: true,
+            values: estimatesDropdown
+        });
+        jQuery('.ui.dropdown').dropdown({
+            on: "hover"
+        });
+
+        jQuery('#addDeveloper').change(function () {
+            var idDev = jQuery('#addDeveloper')[0].value;
+            let developer = null
+            model.project.developers.toArray().forEach(dev => {
+                if (dev.id == idDev) {
+                    developer = dev;
+                }
+            });
+            set(model, "developer", developer);
+        });
+
+        jQuery('#estimateDropdown').change(function () {
+            let value = jQuery('#estimateDropdown')[0].value;
+            set(model, "isIcon", (value == "coffee"));
+            set(model, "estimate", value);
+        });
+
+        jQuery('#addTags').change(function () {
+            var selectedOptions = jQuery('#addTags')[0].selectedOptions;
+            set(model, "tags", [])
+            for (let option of selectedOptions) {
+                if (!(option instanceof Number)) {
+                    let index = option.index - 1;
+                    if (index != -1) {
+                        get(model, "tags").push(model.project.tags.toArray()[index])
+                    }
+                }
+            }
+
+            let dropdown = jQuery('#addTagsDropdown a');
+            for (let option of dropdown) {
+                if (!(option instanceof Number)) {
+                    get(model, "tags").forEach(tag => {
+                        if (tag.id == option.dataset.value) {
+                            model.colors.forEach(color => {
+                                if (tag.color == color.name) {
+                                    option.style.backgroundColor = color.hexa
+                                    if (color.name != "white") {
+                                        option.style.color = "#FFF"
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        });
+        jQuery('#colorNewTag').change(function () {
+            var newValue = jQuery('#colorNewTag')[0].value;
+            let text = jQuery('#divAddTag .dropdown div.text div.ui');
+            text.addClass(newValue + " label")
+
+        });
+        var newValueTag = jQuery('#colorNewTag')[0].value;
+        let textTag = jQuery('#divAddTag .dropdown div.text div.ui');
+        textTag.addClass(newValueTag + " label")
+
+        jQuery('#colorNewTask').change(function () {
+            var newValueTask = jQuery('#colorNewTask')[0].value;
+            let text = jQuery('#divAddTask .dropdown div.text div.ui');
+            text.addClass(newValueTask + " empty label circular")
+            set(model, 'task.color', newValueTask);
+
+        });
+        var newValueTask = jQuery('#colorNewTask')[0].value;
+        let text = jQuery('#divAddTask .dropdown div.text div.ui');
+        text.addClass(newValueTask + " empty label circular")
+
+        jQuery('input').keyup(function () {
+            if (
+                model.code !== undefined && model.code != ""
+            ) {
+                set(model, "allFields", true)
+            } else {
+                set(model, "allFields", false)
+            }
+        });
     }
 });

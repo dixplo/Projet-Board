@@ -1,102 +1,259 @@
-<div class="marginZeroFive">
-  <div class="ui segment top tertiary attached inverted borderRadiusTopZeroThree">
-    <div class="ui middle aligned grid inverted">
-      <div class="ui eight wide column">
-        <h4 class="ui header inverted">
-          Add story
-        </h4>
-      </div>
-      <div class="right floated right aligned column">
-        <i class="close icon" {{action "backToProject" model}}></i>
-      </div>
-    </div>
-  </div>
-  <div class="ui form attached fluid segment inverted">
-    <div class="ui labeled transparent inputBorder borderRadiusZeroFive input field fluid inverted">
-      <div class="ui label">
-        Code
-      </div>
-      <Input class="inputBorder borderRadiusTopZeroThree" type="text" @value={{model.code}} />
-    </div>
-    <div class="ui labeled transparent inputBorder borderRadiusZeroFive input field fluid inverted">
-      <div class="ui  label">
-        Description
-      </div>
-      <Textarea @value={{model.description}} />
-    </div>
-    <div class="field inverted">
-      <label>
-        Developer
-      </label>
-      <select class="ui icon search dropdown inverted" id="addDeveloper">
-        <i class="user icon"></i>
-        <option value="">
-          Select Developer
-        </option>
-        {{#each model.project.developers as |developer|}}
-          <option value="{{developer.id}}">
-            {{developer.fullName}}
-          </option>
-        {{/each}}
-      </select>
-    </div>
-    <div class="two fields">
-      <div class="field">
-        <label>
-          Tags
-        </label>
-        <select class="ui search multiple dropdown inverted" id="addTags">
-          <option value="">
-            Select Tag
-          </option>
-          {{#each model.project.tags as |tag|}}
-            <option value="{{tag.id}}">
-              <div class="ui {{tag.color}} empty circular label"></div>
-              {{tag.title}}
-            </option>
-          {{/each}}
-        </select>
-      </div>
-      <div class="field">
-        <label>
-          Add new tag
-        </label>
-        <div
-          class="ui action input transparent borderRadiusLeftZeroThree inputBorder inputLeftPadding inverted"
-        >
-          <Input
-            type="text"
-            @value={{model.titleNewTag}}
-            placeholder="Tag name..."
-          />
-          <select class="ui icon dropdown inverted" id="colorNewTag">
-            <i class="user icon"></i>
-            {{#each model.colors as |color|}}
-              <option value="{{color}}">
-                <div class="ui {{color}} empty circular label"></div>
-                {{color}}
-              </option>
+<div class="ui very compact grid inverted maxHeight">
+  <div class="row">
+    <div class="four centered wide middle aligned column inverted autoWidth">
+      <div class="ui inverted card">
+        <div class="content">
+          {{#if model.developer}}
+            <img
+              class="right floated mini ui image"
+              src="/assets/images/avatars/{{model.developer.avatar}}.jpg"
+            />
+          {{else}}
+            <img
+              class="right floated mini ui image"
+              src="/assets/images/avatars/unknow.jpg"
+            />
+          {{/if}}
+          <div class="header">
+            {{#if model.code}}
+              {{model.code}}
+            {{else}}
+              Code
+            {{/if}}
+          </div>
+          <div class="meta">
+            {{#if model.endDate}}
+              {{model.endDate}}
+            {{else}}
+              Due Date
+            {{/if}}
+          </div>
+          <div class="description">
+            {{#if model.description}}
+              {{model.description}}
+            {{else}}
+              Description
+            {{/if}}
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui icon circular violet label icon">
+            {{#if model.estimate}}
+              {{#if (eq model.isIcon true)}}
+                <i class="ui {{model.estimate}} icon"></i>
+              {{else}}
+                {{model.estimate}}
+              {{/if}}
+            {{else}}
+              ?
+            {{/if}}
+          </div>
+          <div class="ui left icon circular label">
+            <i class="file icon"></i>
+            {{#if model.tasks.length}}
+              {{model.tasks.length}}
+            {{else}}
+              0
+            {{/if}}
+          </div>
+          {{#if model.tags}}
+            {{#each model.tags as |tag|}}
+              <div class="ui {{tag.color}} label labelMargin">
+                {{tag.title}}
+              </div>
             {{/each}}
-          </select>
-          <div class="ui button inverted" {{action "addNewTag" model}}>
-            Add tag
+          {{else}}
+            <div class="ui label">
+              Tags
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <div class="twelve wide column inverted">
+      <div class="ui form fluid segment inverted">
+        <div class="two fields">
+          <div class="ui field inverted">
+            <label>
+              Code
+            </label>
+            <Input placeholder="Code" type="text" @value={{model.code}} />
+          </div>
+          <div class="field inverted">
+            <label>
+              Developer
+            </label>
+            <select
+              class="ui clearable icon search dropdown inverted"
+              id="addDeveloper"
+            >
+              <i class="user icon"></i>
+              <option value="">
+                <img
+                  class="mini ui image"
+                  src="/assets/images/avatars/unknow.jpg"
+                />
+                Select Developer
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="ui calendar field inverted">
+            <label>
+              Due Date
+            </label>
+            <div class="ui input left icon">
+              <i class="calendar icon"></i>
+              <Input
+                type="text"
+                placeholder="Due Date"
+                @value={{model.endDate}}
+              />
+            </div>
+          </div>
+        </div>
+        <div class="ui field fluid inverted">
+          <label>
+            Description
+          </label>
+          <Textarea @value={{model.description}} placeholder="Description..." />
+        </div>
+        <div class="two fields">
+          <div class="field" id="addTagsDropdown">
+            <label>
+              Estimate
+            </label>
+            <select
+              class="ui clearable icon search dropdown inverted inputBottomMargin"
+              id="estimateDropdown"
+            ></select>
+            <label>
+              Tags
+            </label>
+            <select
+              class="ui search multiple dropdown inverted inputBottomMargin"
+              id="addTags"
+            >
+              <option value="">
+                Select Tag
+              </option>
+              {{#each model.project.tags as |tag|}}
+                <option value="{{tag.id}}">
+                  <div class="ui {{tag.color}} label">
+                    {{tag.title}}
+                  </div>
+                </option>
+              {{/each}}
+            </select>
+            <label>
+              Add new tag
+            </label>
+            <div class="ui action input inverted" id="divAddTag">
+              <Input
+                class="ui input"
+                type="text"
+                @value={{model.titleNewTag}}
+                placeholder="Tag name..."
+              />
+              <select class="ui icon dropdown inverted" id="colorNewTag">
+                {{#each model.colors as |color|}}
+                  <option value="{{color.name}}">
+                    <div class="ui {{color.name}} label">
+                      {{color.name}}
+                    </div>
+                  </option>
+                {{/each}}
+              </select>
+              <div class="ui button inverted" {{action "addNewTag" model}}>
+                Add tag
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label>
+              Tasks
+            </label>
+            <div class="ui vertically divided very compact grid inverted">
+              {{#if model.tasks}}
+                {{#each model.tasks as |task|}}
+                  <div class="row">
+                    <div class="sixteen wide column">
+                      <div class="ui empty {{task.color}} label circular"></div>
+                      <label>
+                        {{task.title}}
+                      </label>
+                      <div class="ui inverted checkbox inline">
+                        <Input
+                          type="checkbox"
+                          id="{{task.id}}"
+                          checked="{{task.finished}}"
+                          {{action "do" task}}
+                        />
+                        <label></label>
+                      </div>
+                    </div>
+                  </div>
+                {{/each}}
+              {{/if}}
+              <div class="row">
+                <div class="column" id="divAddTask">
+                  <select class="ui  compact dropdown inverted" id="colorNewTask">
+                    {{#each model.colors as |color|}}
+                      <option value="{{color.name}}">
+                        <div
+                          class="ui empty {{color.name}} label circular"
+                        ></div>
+                      </option>
+                    {{/each}}
+                  </select>
+                  <div
+                    class="ui empty {{model.task.color}} label circular"
+                  ></div>
+                  <label>
+                    bla
+                    {{model.task.title}}
+                  </label>
+                  <i
+                    class="ui check
+                      {{if (eq model.task.finished true) "green"}}
+                       icon"
+                  ></i>
+                </div>
+              </div>
+              <div class="row">
+                <div class="sixteen wide column">
+                  <div class="ui fluid button">
+                    Add a task
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="ui bottom attached segment inverted">
-    <button class="ui button positive icon" {{action "save" model}}>
-      <i class="check circle icon"></i>
-      Validate
-    </button>
-    <button
-      class="ui button inverted red icon"
-      {{action "backToProject" model}}
-    >
-      <i class="icon times circle outline"></i>
-      Cancel
-    </button>
+  <div class="row">
+    <div class="bottom aligned sixteen wide column">
+      <div class="ui two buttons">
+        <div
+          class="ui green
+            {{if model.allFields "" "disabled"}}
+             large button submit"
+          {{action "register" model}}
+        >
+          Validate
+        </div>
+        <div
+          class="ui red
+         large button submit"
+          {{action "backToProject" model}}
+        >
+          Cancel
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {{outlet}}

@@ -2,6 +2,10 @@ body {
   background-color: #1b1c1d !important;
   height: 100vh;
 
+  .autoWidth{
+    width: auto !important;
+  }
+
 
   .marge {
     margin-left: 3%;
@@ -116,6 +120,9 @@ body {
   .inline {
     display: flex !important;
   }
+  .inline.flex {
+    display: inline-flex !important;
+  }
   .text.inline {
     color: #555;
   }
@@ -185,6 +192,15 @@ body {
   }
   .bgSelected {
     background-color: #A2A5A7 !important;
+  }
+
+  .maxHeight {
+    height: inherit !important;
+  }
+
+
+  #addTagsDropdown a {
+    display: inline-flex !important;
   }
 }
 

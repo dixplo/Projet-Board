@@ -83,22 +83,19 @@ export default Route.extend({
         let numberTab = Math.ceil((modifications.length + 1) / numberByRow);
         for (let i = 0; i < numberTab; i++) {
             let tab = [];
-            var one = false;
             for (let j = i * numberByRow; j < (i + 1) * numberByRow; j++) {
                 let step = modifications.toArray()[j];
                 if (step !== undefined) {
                     tab.push(step);
                 } else {
-                    if (!one && i == numberTab - 1) {
-                        one = true;
-                        tab.push("addStep");
-                    }
+                    tab.push("hidden");
                 }
             }
             retour.push(tab);
         }
         modificationsOrderedTable = retour;
-
+        console.log(modificationsOrderedTable);
+        
         let m = this.modelFor('project')
         set(m, "whereIAm", 1);
         set(m, "color", "#FFD700");
