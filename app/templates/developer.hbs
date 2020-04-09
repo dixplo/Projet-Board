@@ -26,10 +26,12 @@
                     No favorite languages
                     {{/if}}
                 </div>
+                {{#if (eq model.connected false)}}
                 <button class="ui telegram button">
                     <i class="users friend icon"></i>
                     Follow
                 </button>
+                {{/if}}
                 <br>
                 {{#if (eq model.connected true)}}
                 <button class="ui telegram button">
