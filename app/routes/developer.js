@@ -35,7 +35,27 @@ export default Route.extend({
             canFollow: canFollow,
             isMyProfil: isMyProfil
         });
+    },
+    actions: {
+        follow(model) {
+            switch (model.canFollow) {
+                case true:
+               // set(model.currentDevId, 'follow', 'model.developerId')
+              //  model.currentDevId.save();
+                follow.pushObject(model.developer)
+                set('canFollow', 'false')
+                debugger
 
+                    break;
+                case false:
 
+                       
+                model.canFollow = true
+                    break;
+            
+                default:
+                    break;
+            }
+        }
     }
 });
