@@ -19,6 +19,21 @@ body {
   .labelMargin {
     margin: 0.2em !important;
   }
+  .marginZeroFive {
+    margin: 0.5em;
+  }
+  .leftMarginAuto {
+    margin-left: auto !important;
+  }
+  .rightMarginAuto {
+    margin-right: auto !important;
+  }
+  .littleMargin {
+    margin: 0 1em !important;
+  }
+  .margeAuto {
+    margin: auto !important;
+  }
 
   .mySegmentBorder {
     border: 1px solid white !important;
@@ -75,18 +90,6 @@ body {
   }
   .borderRadiusLeftZeroThree {
     border-radius: 0.3em 0em 0em 0.3em !important;
-  }
-  .marginZeroFive {
-    margin: 0.5em;
-  }
-  .leftMarginAuto {
-    margin-left: auto !important;
-  }
-  .rightMarginAuto {
-    margin-right: auto !important;
-  }
-  .littleMargin {
-    margin: 0 1em !important;
   }
 
   .paddingOne {

@@ -29,6 +29,7 @@ export default Route.extend({
             { name: "white", hexa: "#E5E5E5" },
             { name: "grey", hexa: "#767676" },
             { name: "black", hexa: "#1B1C1D" }],
+            task: { title: undefined, color: undefined, finished: undefined }
         });
 
         let m = this.modelFor('project')
@@ -193,8 +194,27 @@ export default Route.extend({
             next(this, 'initUI');
         },
         do() {
-            console.log("f");
+            console.log("do");
 
+        },
+        finished(task) {
+            set(task, "finished", !get(task, "finished"));
+        },
+        addTask(model) {
+            var tasks = get(model, 'tasks');
+            if (tasks == undefined) {
+                tasks = [];
+            }
+
+            tasks.push({
+                title: model.task.title,
+                color: jQuery('#colorNewTask')[0].value,
+                finished: false
+            })
+
+            set(model, 'tasks', tasks);
+            console.log(get(model, 'tasks'));
+            
         }
     },
     initUI() {
@@ -230,7 +250,7 @@ export default Route.extend({
             name: "Select an Estimate",
             value: "",
             selected: true
-        },{
+        }, {
             name: "coffee",
             value: "coffee",
             icon: "coffee"
@@ -311,9 +331,8 @@ export default Route.extend({
         jQuery('#colorNewTask').change(function () {
             var newValueTask = jQuery('#colorNewTask')[0].value;
             let text = jQuery('#divAddTask .dropdown div.text div.ui');
-            text.addClass(newValueTask + " empty label circular")
+            text.addClass(newValueTask + " empty label circular");
             set(model, 'task.color', newValueTask);
-
         });
         var newValueTask = jQuery('#colorNewTask')[0].value;
         let text = jQuery('#divAddTask .dropdown div.text div.ui');

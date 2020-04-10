@@ -174,31 +174,34 @@
             <label>
               Tasks
             </label>
-            <div class="ui vertically divided very compact grid inverted">
-              {{#if model.tasks}}
-                {{#each model.tasks as |task|}}
-                  <div class="row">
-                    <div class="sixteen wide column">
-                      <div class="ui empty {{task.color}} label circular"></div>
-                      <label>
-                        {{task.title}}
-                      </label>
-                      <div class="ui inverted checkbox inline">
-                        <Input
-                          type="checkbox"
-                          id="{{task.id}}"
-                          checked="{{task.finished}}"
-                          {{action "do" task}}
-                        />
-                        <label></label>
-                      </div>
-                    </div>
-                  </div>
-                {{/each}}
-              {{/if}}
+            <div
+              class="ui vertically divided very compact grid inverted margeAuto"
+            >
               <div class="row">
-                <div class="column" id="divAddTask">
-                  <select class="ui  compact dropdown inverted" id="colorNewTask">
+                <div class="middle aligned sixteen wide column margeAuto">
+                  {{#each model.tasks as |task|}}
+                    <div class="ui empty {{task.color}} label circular"></div>
+                    <label>
+                      {{task.title}}
+                    </label>
+                    <i
+                      class="ui check selectable
+                        {{if (eq model.task.finished true) "green"}}
+                         icon"
+                      {{action "finished" model.task}}
+                    ></i>
+                    {{model.tasks.length}}
+                    <br />
+                  {{/each}}
+                  {{model.tasks.length}}
+                </div>
+              </div>
+              <div class="row margeAuto">
+                <div class="column inline flex margeAuto" id="divAddTask">
+                  <select
+                    class="ui compact dropdown inverted"
+                    id="colorNewTask"
+                  >
                     {{#each model.colors as |color|}}
                       <option value="{{color.name}}">
                         <div
@@ -207,23 +210,19 @@
                       </option>
                     {{/each}}
                   </select>
-                  <div
-                    class="ui empty {{model.task.color}} label circular"
-                  ></div>
-                  <label>
-                    bla
-                    {{model.task.title}}
-                  </label>
-                  <i
-                    class="ui check
-                      {{if (eq model.task.finished true) "green"}}
-                       icon"
-                  ></i>
+                  <div class="ui icon input inverted">
+                    <Input
+                      type="text"
+                      @value={{model.task.title}}
+                      placeholder="Task Title"
+                    />
+                    <i class="left check selectable icon"></i>
+                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="sixteen wide column">
-                  <div class="ui fluid button">
+                  <div class="ui fluid button" {{action "addTask" model}}>
                     Add a task
                   </div>
                 </div>
