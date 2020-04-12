@@ -51,9 +51,19 @@ export default Route.extend({
 
                     break;
                 case false:
-
+                    
+                    model.currentDeveloper.follow.forEach(DevFollow,index => {
+                       if (DevFollow == developer.id) {
+                        model.currentDeveloper.follow.splice(index,1)
+                        model.currentDeveloper.save();
+                        set('canFollow', 'true')
+                       }
+                       debugger
+                    });
+                    debugger
                        
-                model.canFollow = true
+
+                    set('canFollow', 'true')
                     break;
             
                 default:
