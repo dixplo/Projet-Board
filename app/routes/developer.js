@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
+import { set } from '@ember/object';
 
 export default Route.extend({
     async model() {
@@ -29,6 +30,7 @@ export default Route.extend({
 
 
         return RSVP.hash({
+            currentDeveloper: currentDeveloper,
             developer: developer,
             listProject: listProject,
             connected: JSON.parse(localStorage.getItem('connected')),
@@ -42,7 +44,8 @@ export default Route.extend({
                 case true:
                // set(model.currentDevId, 'follow', 'model.developerId')
               //  model.currentDevId.save();
-                follow.pushObject(model.developer)
+                model.currentDeveloper.follow.pushObject(model.developer)
+                model.currentDeveloper.save();
                 set('canFollow', 'false')
                 debugger
 

@@ -38,7 +38,7 @@ Router.map(function () {
   this.route('overview', { path: 'overview/:what' });
 
   this.route('developer', { path: 'developer/:developer_id' }, function () {
-    this.route('home');
+    this.route('projects');
     this.route('edit');
   });
 
