@@ -27,7 +27,13 @@ export default Route.extend({
         } else {
             isMyProfil = true;
         }
-
+        currentDeveloper.follow.forEach(DevFollow => {
+            if (DevFollow==developerId) {
+                canFollow = false
+            }
+        });
+        
+        debugger
 
         return RSVP.hash({
             currentDeveloper: currentDeveloper,
@@ -42,29 +48,28 @@ export default Route.extend({
         follow(model) {
             switch (model.canFollow) {
                 case true:
-               // set(model.currentDevId, 'follow', 'model.developerId')
-              //  model.currentDevId.save();
-                model.currentDeveloper.follow.pushObject(model.developer)
-                model.currentDeveloper.save();
-                set('canFollow', 'false')
-                debugger
-
+                    model.currentDeveloper.follow.pushObject(model.developer)
+                    model.currentDeveloper.save();
+                    set('canFollow', 'false') // le bouton devient UnFollow
+                
                     break;
+
                 case false:
-                    
-                    model.currentDeveloper.follow.forEach(DevFollow,index => {
-                       if (DevFollow == developer.id) {
-                        model.currentDeveloper.follow.splice(index,1)
-                        model.currentDeveloper.save();
-                        set('canFollow', 'true')
-                       }
-                       debugger
-                    });
                     debugger
-                       
+                    var i = 0
+                        model.currentDeveloper.follow.forEach(unfollow => {
+                            debugger  
+                        if (unfollow == model.developer.id) {
+                            model.currentDeveloper.follow.splice(i,1)
+                            model.currentDeveloper.follow.save();
+                            set('canFollow', 'true')
+                        }
+                        i++
+                        });
+                        debugger
+                        break;
 
-                    set('canFollow', 'true')
-                    break;
+                       // set('canFollow', 'true')
             
                 default:
                     break;
