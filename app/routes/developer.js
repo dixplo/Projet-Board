@@ -32,8 +32,6 @@ export default Route.extend({
                 canFollow = false
             }
         });
-        
-        debugger
 
         return RSVP.hash({
             currentDeveloper: currentDeveloper,
@@ -55,21 +53,10 @@ export default Route.extend({
                     break;
 
                 case false:
-                    debugger
-                    var i = 0
-                        model.currentDeveloper.follow.forEach(unfollow => {
-                            debugger  
-                        if (unfollow == model.developer.id) {
-                            model.currentDeveloper.follow.splice(i,1)
-                            model.currentDeveloper.follow.save();
+                       model.currentDeveloper.follow.removeObject(model.developer)
+                       model.currentDeveloper.save();
                             set('canFollow', 'true')
-                        }
-                        i++
-                        });
-                        debugger
                         break;
-
-                       // set('canFollow', 'true')
             
                 default:
                     break;
