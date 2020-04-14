@@ -1,124 +1,101 @@
 {{outlet}}
 <div class="ui grid">
-  <div class="four wide column">
-    <div class="ui inverted card">
-      <div class="image">
-        <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg" />
-      </div>
-      <div class="content">
-        <div class="header white">
-          {{model.developer.username}}
-        </div>
-        <div class="meta">
-          <span class="date">
-            {{model.developer.fname}}
-            {{model.developer.name}}
-            <br />
-            {{model.developer.email}}
-          </span>
-        </div>
-        <div class="description">
-          {{#if (not (is-empty model.developer.languagesString))}}
-            {{#each model.developer.languages as |language|}}
-              <img
-                class="ui image little"
-                src="/assets/images/languages/{{language}}.png"
-                alt="language"
-              />
-            {{/each}}
-          {{else}}
-            No favorite languages
-          {{/if}}
-        </div>
-        {{#if (eq model.isMyProfil true)}}
-          <button class="ui telegram button">
-            <i class="user icon"></i>
-            Edit profil
-          </button>
-        {{else if (eq model.connected true)}}
-          {{#if (eq model.canFollow true)}}
-            <button class="ui telegram button" {{action "follow" model}}>
-              <i class="users friend icon"></i>
-              Follow
-            </button>
-          {{else}}
-            <button class="ui telegram button" {{action "follow" model}}>
-              <i class="user icon"></i>
-              Unfollow
-            </button>
-          {{/if}}
-        {{/if}}
-      </div>
-    </div>
-  </div>
-  <div class="twelve wide column">
-    <div>
-      <span class="ui large white text">
-        List des projets
-      </span>
-    </div>
-    <h4 class="ui horizontal left aligned divider header">
-      <i class="align icon"></i>
-      <font style="vertical-align: inherit;">
-        <font style="vertical-align: inherit;"></font>
-      </font>
-    </h4>
-    <div class="four wide column developerProfilGrid">
-      {{#each model.listProject as |listProject|}}
-        <div class="ui segment secondary inverted">
-          <div
-            class="ui inverted segment selectable"
-            {{action "openProject" project}}
-          >
-            <div class="ui horizontal segments top attached inverted">
-              <div class="ui left aligned basic segment inverted">
-                <h2>
-                  {{listProject.name}}
-                </h2>
-              </div>
-              <div class="ui right aligned basic segment inverted">
-                <i class="stopwatch icon"></i>
-                {{listProject.stringStartDate}}
-                <i class="arrow right icon"></i>
-                {{listProject.stringEndDate}}
-              </div>
+    <div class="four wide column">
+        <div class="ui inverted card">
+            <div class="image">
+                <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg" />
             </div>
-            <div class="ui very basic segment attached inverted">
-              <h5>
-                {{listProject.description}}
-              </h5>
-              <div class="ui fitted horizontal segments inverted">
-                <div class="ui left aligned fitted segment inverted">
-                  <div class="ui label">
-                    <i class="icon folder"></i>
-                    {{pluralize
-                      listProject.stories.length
-                      "No stories"
-                      "1 story"
-                      " stories"
-                    }}
-                  </div>
-                  <div class="ui label" id="demo">
-                    <i class="icon users"></i>
-                    {{pluralize
-                      listProject.developers.length
-                      "No contributor"
-                      "1 contributor"
-                      " contributors"
-                    }}
-                  </div>
-                  <div class="ui blue bottom left pointing label" id="message">
-                    {{#each project.developers as |developer|}}
-                      ·⁠{{developer.username}}<br />
-                    {{/each}}
-                  </div>
+            <div class="content">
+                <div class="header white">
+                    {{model.developer.username}}
                 </div>
-              </div>
+                <div class="meta">
+                    <span class="date">
+                        {{model.developer.fname}}
+                        {{model.developer.name}}
+                        <br />
+                        {{model.developer.email}}
+                    </span>
+                </div>
+                <div class="description">
+                    {{#if (not (is-empty model.developer.languagesString))}}
+                    {{#each model.developer.languages as |language|}}
+                    <img class="ui image little" src="/assets/images/languages/{{language}}.png" alt="language" />
+                    {{/each}}
+                    {{else}}
+                    No favorite languages
+                    {{/if}}
+                </div>
             </div>
-            {{outlet project.id}}
-          </div>
+            <!--     <div class="extra content"> -->
+            {{#if (eq model.isMyProfil true)}}
+            <button class="ui telegram button">
+                <i class="user icon"></i>
+                Edit profil
+            </button>
+            {{else if (eq model.connected true)}}
+            {{#if (eq model.canFollow true)}}
+            <div class="ui telegram button bottom attached button" {{action "follow" model}}>
+                <i class="users friend icon"></i>
+                Follow
+            </div>
+            {{else}}
+            <div class="ui red  button  bottom attached button" {{action "follow" model}}>
+                <i class="user icon"></i>
+                Unfollow
+            </div>
+            {{/if}}
+            {{/if}}
+            <!-- </div> -->
         </div>
-      {{/each}}
     </div>
-  </div>
+    <div class="twelve wide column">
+        <div class="ui inverted secondary pointing menu">
+            <a class="active item">
+                Projects
+            </a>
+            <a class="item">
+                Follows
+            </a>
+            <a class="item">
+                Actions
+            </a>
+        </div>
+        <div class="ui segment">
+            <p></p>
+        </div>
+        <h4 class="ui horizontal left aligned divider header">
+            <i class="align icon"></i>
+            <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;"></font>
+            </font>
+        </h4>
+        <div class="four wide column developerProfilGrid">
+            {{#each model.listProject as |listProject|}}
+            <div class="ui segment secondary inverted">
+                <div class="ui inverted segment selectable" {{action "openProject" project}}>
+                    <div class="ui horizontal segments top attached inverted">
+                        <div class="ui left aligned basic segment inverted">
+                            <h2>
+                                {{listProject.name}}
+                            </h2>
+                        </div>
+                        <div class="ui right aligned basic segment inverted">
+                            <i class="stopwatch icon"></i>
+                            {{listProject.stringStartDate}}
+                            <i class="arrow right icon"></i>
+                            {{listProject.stringEndDate}}
+                        </div>
+                    </div>
+                    <div class="ui very basic segment attached inverted">
+                        <h5>
+                            {{listProject.description}}
+                        </h5>
+                    </div>
+                    {{outlet project.id}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
 </div>
