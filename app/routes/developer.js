@@ -39,7 +39,8 @@ export default Route.extend({
             listProject: listProject,
             connected: JSON.parse(localStorage.getItem('connected')),
             canFollow: canFollow,
-            isMyProfil: isMyProfil
+            isMyProfil: isMyProfil,
+            whereIam: ""
         });
     },
     actions: {

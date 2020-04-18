@@ -1,4 +1,3 @@
-{{outlet}}
 <div class="ui grid">
     <div class="four wide column">
         <div class="ui inverted card">
@@ -51,51 +50,16 @@
     </div>
     <div class="twelve wide column">
         <div class="ui inverted secondary pointing menu">
-            <a class="active item">
+            <a class="{{if (eq model.whereIam "projects") "active" }} item">
                 Projects
             </a>
-            <a class="item">
+            <a class="{{if (eq model.whereIam "follows") "active" }} item">
                 Follows
             </a>
-            <a class="item">
+            <a class="{{if (eq model.whereIam "follows") "active" }} item">
                 Actions
             </a>
         </div>
-        <div class="ui segment">
-            <p></p>
-        </div>
-        <h4 class="ui horizontal left aligned divider header">
-            <i class="align icon"></i>
-            <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;"></font>
-            </font>
-        </h4>
-        <div class="four wide column developerProfilGrid">
-            {{#each model.listProject as |listProject|}}
-            <div class="ui segment secondary inverted">
-                <div class="ui inverted segment selectable" {{action "openProject" project}}>
-                    <div class="ui horizontal segments top attached inverted">
-                        <div class="ui left aligned basic segment inverted">
-                            <h2>
-                                {{listProject.name}}
-                            </h2>
-                        </div>
-                        <div class="ui right aligned basic segment inverted">
-                            <i class="stopwatch icon"></i>
-                            {{listProject.stringStartDate}}
-                            <i class="arrow right icon"></i>
-                            {{listProject.stringEndDate}}
-                        </div>
-                    </div>
-                    <div class="ui very basic segment attached inverted">
-                        <h5>
-                            {{listProject.description}}
-                        </h5>
-                    </div>
-                    {{outlet project.id}}
-                </div>
-            </div>
-            {{/each}}
-        </div>
     </div>
 </div>
+{{outlet}}

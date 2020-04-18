@@ -38,8 +38,10 @@ Router.map(function () {
   this.route('overview', { path: 'overview/:what' });
 
   this.route('developer', { path: 'developer/:developer_id' }, function () {
-    this.route('projects');
+    this.route('projects', { path: ':developer_id' });
     this.route('edit');
+    this.route('follows');
+    this.route('actions');
   });
 
 
