@@ -3,7 +3,7 @@
     <h2 class="ui image header inverted">
       <i class="user circle icon"></i>
       <div class="content">
-        Register
+        Update your profile
       </div>
     </h2>
   </div>
@@ -164,73 +164,8 @@
                 </div>
               </div>
               <div class="ui field inverted">
-                <label>
-                  Password
-                </label>
-                <Input
-                  placeholder="Password"
-                  id="password"
-                  type="password"
-                  @value={{model.password}}
-                />
-                <span class="ui inverted white text">
-                  The password must contain at least:
-                  <span
-                    class="ui inverted
-                      {{if model.lowerPassord "green" "red"}}
-                       text"
-                  >
-                    one lowercase
-                  </span>
-                  ,
-                  <span
-                    class="ui inverted
-                      {{if model.upperPassord "green" "red"}}
-                       text"
-                  >
-                    one uppercase
-                  </span>
-                  ,
-                  <span
-                    class="ui inverted
-                      {{if model.numberPassord "green" "red"}}
-                       text"
-                  >
-                    one number
-                  </span>
-                  and
-                  <span
-                    class="ui inverted
-                      {{if (gt model.password.length 8) "green" "red"}}
-                       text"
-                  >
-                    8 characters
-                  </span>
-                  .
-                </span>
-              </div>
-              <div class="ui field inverted">
-                <label>
-                  Re-Password
-                </label>
-                <Input
-                  placeholder="re-Password"
-                  id="repassword"
-                  type="password"
-                  @value={{model.repassword}}
-                />
-                <span class="ui inverted white text">
-                  Please
-                  <span
-                    class="ui inverted
-                      {{if model.samePassword "green" "red"}}
-                       text"
-                  >
-                    re-enter
-                  </span>
-                  your password.
-                </span>
-              </div>
+                <button class="ui button">Change your password</button>
+               </div>
             </div>
           </div>
         </div>
