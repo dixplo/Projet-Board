@@ -28,7 +28,7 @@
             </div>
             <!--     <div class="extra content"> -->
             {{#if (eq model.isMyProfil true)}}
-            <button class="ui telegram button">
+            <button class="ui telegram button" {{action "goToEditProfilDeveloper" model}}>
                 <i class="user icon"></i>
                 Edit profil
             </button>

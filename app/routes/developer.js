@@ -62,6 +62,10 @@ export default Route.extend({
                 default:
                     break;
             }
+        },
+        goToEditProfilDeveloper(model) {
+            this.transitionTo('developer/' + model.currentDeveloper._id + '/edit');
+            debugger
         }
     }
 });
