@@ -6,18 +6,34 @@ export default Route.extend({
     async  model() {
         let currentDevId = localStorage.getItem('developerId')
         let currentDeveloper = await this.get('store').findRecord('developer', currentDevId)
+
+        let developerId = this.paramsFor("developer").developer_id;
         let developer = await this.get('store').findRecord('developer', developerId)
 
-
-        var isMyProfil = false;
-        if (currentDevId == developerId) {
-            isMyProfil = true;
+        if (localStorage.getItem("connected") == "true") {
+            if (currentDevId == developerId) {
+                
+            }
+            else {
+                this.transitionTo("developer").developer_id
+                return
+            }
+        } else{
+            this.transitionTo("developer").developer_id
+            return
         }
 
+
+
+
+        
+      
+
+
+        
+
         return RSVP.hash({
-            developer: developer,
-            connected: JSON.parse(localStorage.getItem('connected')),
-            isMyProfil: isMyProfil
+
         });
     }
 });

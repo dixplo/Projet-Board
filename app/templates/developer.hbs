@@ -28,18 +28,20 @@
             </div>
             <!--     <div class="extra content"> -->
             {{#if (eq model.isMyProfil true)}}
-            <button class="ui telegram button" {{action "goToEditProfilDeveloper" model}}>
+            <LinkTo @route="developer.edit" @model={{model.developerId}}>
+            <button class="ui fluid telegram button bottom attached ">
                 <i class="user icon"></i>
                 Edit profil
             </button>
+            </LinkTo>
             {{else if (eq model.connected true)}}
             {{#if (eq model.canFollow true)}}
-            <div class="ui telegram button bottom attached button" {{action "follow" model}}>
+            <div class="ui telegram bottom attached button" {{action "follow" model}}>
                 <i class="users friend icon"></i>
                 Follow
             </div>
             {{else}}
-            <div class="ui red  button  bottom attached button" {{action "follow" model}}>
+            <div class="ui red bottom attached button" {{action "follow" model}}>
                 <i class="user icon"></i>
                 Unfollow
             </div>
@@ -50,16 +52,22 @@
     </div>
     <div class="twelve wide column">
         <div class="ui inverted secondary pointing menu">
-            <a class="{{if (eq model.whereIam "projects") "active" }} item">
-                Projects
-            </a>
+            <LinkTo @route="developer.projects" @model={{model.developerId}}>
+                <a class="{{if (eq model.whereIam "projects") "active" }} item">
+                    Projects
+                </a>
+            </LinkTo>
+            <LinkTo @route="developer.follows" @model={{model.developerId}}>
             <a class="{{if (eq model.whereIam "follows") "active" }} item">
                 Follows
             </a>
-            <a class="{{if (eq model.whereIam "follows") "active" }} item">
+            </LinkTo>
+             <LinkTo @route="developer.actions" @model={{model.developerId}}>
+            <a class="{{if (eq model.whereIam "actions") "active" }} item">
                 Actions
             </a>
+            </LinkTo>
         </div>
+        {{outlet}}
     </div>
 </div>
-{{outlet}}

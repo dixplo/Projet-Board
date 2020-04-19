@@ -35,6 +35,7 @@ export default Route.extend({
 
         return RSVP.hash({
             currentDeveloper: currentDeveloper,
+            developerId:developerId,
             developer: developer,
             listProject: listProject,
             connected: JSON.parse(localStorage.getItem('connected')),
@@ -62,10 +63,6 @@ export default Route.extend({
                 default:
                     break;
             }
-        },
-        goToEditProfilDeveloper(model) {
-            this.transitionTo('developer/' + model.currentDeveloper._id + '/edit');
-            debugger
         }
     }
 });

@@ -10,13 +10,13 @@ export default Route.extend({
         let m = this.modelFor("developer")
         set(m,"whereIam", "projects")
        
-
-
-        currentDeveloper.follow.forEach(DevFollow => {
-            if (DevFollow==developerId) {
-                canFollow = false
+        let listProject = await this.store.query('project', {
+            filter: {
+                developers: this.paramsFor("developer").developer_id
             }
         });
+
+       
 
         return RSVP.hash({
             currentDeveloper: currentDeveloper,

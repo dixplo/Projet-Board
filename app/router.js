@@ -37,13 +37,14 @@ Router.map(function () {
   this.route('register');
   this.route('overview', { path: 'overview/:what' });
 
-  Router.map(function() {
-  this.route('developer', { path: 'developer/:developer_id' });
+ 
+  this.route('developer', { path: 'developer/:developer_id' }, function() {
     this.route('projects');
-    this.route('edit', { path: 'developer/:developer_id/edit' });
+    this.route('edit');
     this.route('follows');
     this.route('actions');
   });
+ 
 
 
 });
