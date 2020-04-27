@@ -1,1 +1,42 @@
 {{outlet}}
+<div class="{{if (eq model.showEdit false) "none"}}">
+  <div
+    class="ui {{model.editTagColor}} label labelMargin"
+  >
+    <div class="ui action inverted input" id="divChangeTagColor">
+      <Input
+        type="text"
+        placeholder={{tag.oldEditTagTitle}}
+        @value={{model.editTagTitle}}
+      />
+      <select class="ui icon dropdown inverted" id="editTagsColor">
+        {{#each model.colors as |color|}}
+          <option value="{{color.name}}">
+            <div class="ui {{color.name}} label">
+              {{color.name}}
+            </div>
+          </option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="ui icon buttons">
+      <div
+        class="ui button green" {{action "save" model}}
+      >
+        <i class="check icon"></i>
+      </div>
+      <div class="ui button red"  {{action "delete" model}}>
+        <i class="close icon"></i>
+      </div>
+    </div>
+  </div>
+  <div class="ui divider"></div>
+</div>
+{{#each model.project.tagsOrdered as |tag|}}
+  <div
+    class="ui {{tag.color}} label labelMargin selectable"
+    {{action "showEdit" model tag}}
+  >
+    {{tag.title}}
+  </div>
+{{/each}}

@@ -7,10 +7,16 @@ export default Route.extend({
 
         let project = await this.store.findRecord('project', params.project_id, {
             reload: true,
-            include: 'developers,stories,tags,steps'
+            include: 'developers,stories,stories.tasks,tags,steps'
         });
         let developers = await project.get('developers');
         let stories = await project.get('stories');
+        let tasks = await this.store.query('task', {
+            filter: {
+                project: params.project_id
+            }
+        });
+        
         let steps = await this.store.query('step', {
             filter: {
                 project: params.project_id
@@ -38,28 +44,5 @@ export default Route.extend({
         });
 
         return retour;
-    },
-    actions: {
-        openAddStory(model) {
-            this.transitionTo('/project/' + get(model, 'project_id') + '/story/new');
-        },
-        openBoard(model) {
-            this.transitionTo('/project/' + get(model, 'project_id') + '/board');
-        },
-        openStories(model) {
-            this.transitionTo('/project/' + get(model, 'project_id') + '/stories');
-        },
-        openOverview(model) {
-            this.transitionTo('/project/' + get(model, 'project_id') + '/home');
-        },
-        openContributors(model) {
-            this.transitionTo('/project/' + get(model, 'project_id') + '/developers');
-        },
-        openTags(model) {
-            this.transitionTo('/project/' + get(model, 'project_id') + '/tags');
-        },
-        backToProjects() {
-            this.transitionTo('projects');
-        }
     }
 });

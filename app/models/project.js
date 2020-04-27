@@ -97,6 +97,57 @@ export default Model.extend({
             return -1;
         } else return 0;
     }),
+    storiesOrderedTable: computed('storiesOrdered', function () {
+        let retour = [];
+        let numberByRow = 4;
+        let steps = this.get('storiesOrdered');
+        let numberTab = Math.ceil((steps.length + 1) / numberByRow);
+        for (let i = 0; i < numberTab; i++) {
+            let tab = [];
+            for (let j = i * numberByRow; j < (i + 1) * numberByRow; j++) {
+                let step = steps.toArray()[j];
+                if (step !== undefined) {
+                    tab.push(step);
+                } else {
+                    if (i == numberTab - 1) {
+                        tab.push("empty");
+                    }
+                }
+            }
+            retour.push(tab);
+        }
+        return retour;
+    }),
+    developersOrderedTable: computed('developers', function () {
+        let retour = [];
+        let numberByRow = 4;
+        let steps = this.get('developers');
+        let numberTab = Math.ceil((steps.length + 1) / numberByRow);
+        for (let i = 0; i < numberTab; i++) {
+            let tab = [];
+            for (let j = i * numberByRow; j < (i + 1) * numberByRow; j++) {
+                let step = steps.toArray()[j];
+                if (step !== undefined) {
+                    tab.push(step);
+                } else {
+                    if (i == numberTab - 1) {
+                        tab.push("empty");
+                    }
+                }
+            }
+            retour.push(tab);
+        }
+        return retour;
+    }),
+    tagsOrdered: sort('tags', function (a, b) {
+        if (a.title > b.title) {
+            return 1;
+        } else if (a.title < b.title) {
+            return -1;
+        }
+
+        return 0;
+    }),
     stepsLengthMinusOne: computed('steps', function () {
         return this.get('steps').length - 1;
     }),

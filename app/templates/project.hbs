@@ -1,5 +1,8 @@
 <div class="inline">
-  <div class="ui left vertical inverted tabular menu" style="border-right-width: 1px ; border-right-color: {{model.color}};">
+  <div
+    class="ui left vertical inverted tabular menu"
+    style="border-right-width: 1px ; border-right-color: {{model.color}};"
+  >
     <div class="ui fitted inverted segment">
       <h2 class="ui inverted header">
         <div class="content">
@@ -8,46 +11,70 @@
       </h2>
       <div class="inline">
         <i class="stopwatch icon"></i>
-        {{model.project.stringStartDate}} 
+        {{model.project.stringStartDate}}
         <i class="arrow right icon"></i>
         {{model.project.stringEndDate}}
       </div>
     </div>
-    <a class="{{if (eq model.whereIAm 1) 'active'}} yellow item" {{action "openOverview" model}}>
+    <LinkTo
+      @route="project.home"
+      @model={{model.project_id}}
+      class="{{if (eq model.whereIAm 1) "active"}} yellow item"
+    >
       Project Overview
       <i class="window restore outline yellow icon"></i>
-    </a>
-    <a class="{{if (eq model.whereIAm 2) 'active'}} teal item" {{action "openBoard" model}}>
+    </LinkTo>
+    <LinkTo
+      @route="project.board"
+      @model={{model.project_id}}
+      class="{{if (eq model.whereIAm 2) "active"}} teal item"
+    >
       Dashboard
       <i class="columns teal icon"></i>
-    </a>
+    </LinkTo>
     {{#if (eq model.isIn true)}}
-      <a class="{{if (eq model.whereIAm 3) 'active'}} basic item" {{action "openAddStory" model}}>
+      <LinkTo
+        @route="project.newstory"
+        @model={{model.project_id}}
+        class="{{if (eq model.whereIAm 3) "active"}} basic item"
+      >
         Add Story
         <i class="plus icon"></i>
-      </a>
+      </LinkTo>
     {{/if}}
-    <a class="{{if (eq model.whereIAm 4) 'active'}} pink item" {{action "openStories" model}}>
+    <LinkTo
+      @route="project.stories"
+      @model={{model.project_id}}
+      class="{{if (eq model.whereIAm 4) "active"}} pink item"
+    >
       Stories
       <div class="ui pink label icon">
         {{model.project.stories.length}}
         <i class="window restore outline icon"></i>
       </div>
-    </a>
-    <a class="{{if (eq model.whereIAm 5) 'active'}} violet item" {{action "openContributors" model}}>
+    </LinkTo>
+    <LinkTo
+      @route="project.developers"
+      @model={{model.project_id}}
+      class="{{if (eq model.whereIAm 5) "active"}} violet item"
+    >
       Contributors
       <div class="ui violet label icon">
         {{model.project.developers.length}}
         <i class="users icon"></i>
       </div>
-    </a>
-    <a class="{{if (eq model.whereIAm 6) 'active'}} green item" {{action "openTags" model}}>
+    </LinkTo>
+    <LinkTo
+      @route="project.tags"
+      @model={{model.project_id}}
+      class="{{if (eq model.whereIAm 6) "active"}} green item"
+    >
       Tags
       <div class="ui green label icon">
         {{model.project.tags.length}}
         <i class="tags icon"></i>
       </div>
-    </a>
+    </LinkTo>
   </div>
   <div
     class="ui segment bgProject fluid inverted myScrollable littleMargin"

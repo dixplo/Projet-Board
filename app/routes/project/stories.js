@@ -20,10 +20,5 @@ export default Route.extend({
         set(m, "whereIAm", 4);
         set(m, "color", "#FF1493");
         return retour;
-    },
-     actions: {
-        openStory(story, model) {
-            this.transitionTo("/project/" + model.project_id + "/story/" + story.id);
-        }
-     }
+    }
 });

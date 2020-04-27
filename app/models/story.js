@@ -7,7 +7,7 @@ export default Model.extend({
     active: false,
     code: DS.attr(),
     description: DS.attr(),
-    
+
     project: DS.belongsTo('project'),
 
     developer: DS.belongsTo('developer'),
@@ -18,20 +18,19 @@ export default Model.extend({
 
     step: DS.belongsTo('step'),
 
-    estimate: DS.attr('number'),
+    estimate: DS.attr(),
 
     createDate: DS.attr('utc'),
     endDate: DS.attr('utc'),
 
-    ratioTasks: computed('tasks.@each.finished', function () {
-        let tasks = this.get('tasks');
+    tasksFinished: computed('tasks.@each.finished', function () {
         var finished = 0;
-        tasks.toArray().forEach(task => {
+        this.get('tasks').toArray().forEach(task => {
             if (task.finished) {
                 finished++;
             }
         });
-        return parseInt(finished / tasks.length * 100) + " %"
+        return finished
     }),
 
     stringStartDate: computed('startDate', function () {
@@ -68,4 +67,16 @@ export default Model.extend({
             return "????-??-??";
         }
     }),
+    haveExtra: computed('tags', 'tasks', 'estimate', function () {
+        if (this.get('tags') != undefined && this.get('tags').length > 0) {
+            return true
+        }
+        if (this.get('estimate') != undefined && this.get('estimate').length > 0) {
+            return true
+        }
+        if (this.get('tasks') != undefined && this.get('tasks').length > 0) {
+            return true
+        }
+        return false
+    })
 });

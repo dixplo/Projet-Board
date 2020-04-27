@@ -5,5 +5,6 @@ export default Model.extend({
     title: DS.attr(),
     color: DS.attr(),
     story: DS.belongsTo('story'),
-    finished: DS.attr('boolean')
+    finished: DS.attr('boolean'),
+    project: DS.attr()
 });

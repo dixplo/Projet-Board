@@ -16,19 +16,21 @@ export default Route.extend({
         let retour = await RSVP.hash({
             project_id: project_id,
             project: await this.store.findRecord('project', project_id, { reload: true, include: 'tags,developer' }),
-            colors: [{ name: "red", hexa: "#DB2828" },
-            { name: "orange", hexa: "#F2711C" },
-            { name: "yellow", hexa: "#FBBD08" },
-            { name: "olive", hexa: "#b5cc18" },
-            { name: "green", hexa: "#24BA45" },
-            { name: "teal", hexa: "#00B5AD" },
-            { name: "blue", hexa: "#2185D0" },
-            { name: "purple", hexa: "#A333C8" },
-            { name: "pink", hexa: "#E03997" },
-            { name: "brown", hexa: "#A5673F" },
-            { name: "white", hexa: "#E5E5E5" },
-            { name: "grey", hexa: "#767676" },
-            { name: "black", hexa: "#1B1C1D" }],
+            colors: [
+                { name: "red", hexa: "#DB2828" },
+                { name: "orange", hexa: "#F2711C" },
+                { name: "yellow", hexa: "#FBBD08" },
+                { name: "olive", hexa: "#b5cc18" },
+                { name: "green", hexa: "#24BA45" },
+                { name: "teal", hexa: "#00B5AD" },
+                { name: "blue", hexa: "#2185D0" },
+                { name: "purple", hexa: "#A333C8" },
+                { name: "pink", hexa: "#E03997" },
+                { name: "brown", hexa: "#A5673F" },
+                { name: "white", hexa: "#E5E5E5" },
+                { name: "grey", hexa: "#767676" },
+                { name: "black", hexa: "#1B1C1D" }
+            ],
             task: { title: undefined, color: undefined, finished: undefined }
         });
 
@@ -105,61 +107,39 @@ export default Route.extend({
                 });
         },
         async save(model) {
-            let code = model.code;
-            let description = model.description;
-
-            var error = false;
-            var errorDescription = "You must enter : <br><ul>"
-            if (code === undefined) {
-                errorDescription += "<li>Story code</li>";
-                error = true;
-            }
-            if (description === undefined) {
-                errorDescription += "<li>Story description</li>";
-                error = true;
-            }
-            if (error) {
-                jQuery('body')
-                    .toast({
-                        class: 'error',
-                        title: "Warning",
-                        showIcon: true,
-                        message: errorDescription + "</ul>",
-                        showProgress: 'bottom',
-                        classProgress: 'black',
-                    });
-                return
-            }
-
             let project = get(model, 'project');
-            let developer = null;
-            get(project, 'developers').forEach(dev => {
-                if (dev.id == jQuery("#addDeveloper")[0].value) {
-                    developer = dev;
-                }
-            });
 
-            let tagsDropdown = jQuery("#addTags")[0].selectedOptions;
-            let tags = []
-            for (let option of tagsDropdown) {
-                if (!(option instanceof Number) && tags.indexOf(option.index - 1) == -1) {
-                    let tagIndex = option.index - 1;
-                    if (tagIndex != -1) {
-                        tags.push(tagIndex)
-                    }
-                }
+            var tasks = []
+
+            var tags = []
+            if (model.tags != undefined) {
+                tags = model.tags;
             }
-            let tagsInProject = get(model, 'project').tags.objectsAt(tags);
+            var endDate = null
+            if (model.endDate != undefined) {
+                endDate = new Date(model.endDate);
+            }
 
             let story = this.store.createRecord('story', {
-                code: code,
-                description: description,
+                code: model.code,
+                description: model.description,
                 project: project,
-                developer: developer,
-                tags: tagsInProject,
-                createDate: new Date(Date.now())
+                developer: model.developer,
+                tags: tags,
+                createDate: new Date(Date.now()),
+                endDate: endDate,
+                tasks: tasks,
+                estimate: model.estimate
             });
-            //story.save();
+            if (model.tasks != undefined) {
+                model.tasks.forEach(task => {
+                    set(task, 'story', story);
+                    task.save();
+                })
+                tasks = model.tasks;
+            }
+            set(story, 'tasks', tasks);
+            story.save();
             let contents = [this.store.createRecord('modificationcontent', {
                 text: " create story ",
                 referTo: localStorage.getItem("developerId"),
@@ -173,7 +153,7 @@ export default Route.extend({
                 classHTML: "ui teal text"
             })]
             contents.forEach(content => {
-                //content.save();
+                content.save();
             })
 
             this.store.createRecord('modification', {
@@ -183,22 +163,26 @@ export default Route.extend({
                 idDeveloper: localStorage.getItem("developerId"),
                 classHTML: "white large bold",
                 operation: "create"
-            })//.save()
+            }).save()
 
             get(project, 'stories').toArray().addObject(story);
-            //project.save();
-            debugger
+            project.save();
+
             this.transitionTo('/project/' + project.id + '/stories');
         },
         didTransition() {
             next(this, 'initUI');
         },
-        do() {
-            console.log("do");
+        finished(model, task) {
+            var tasksFinished = 0;
+            set(task, "finished", !task.finished);
+            model.tasks.forEach(task => {
+                if (task.finished == true) {
+                    tasksFinished++
+                }
+            });
 
-        },
-        finished(task) {
-            set(task, "finished", !get(task, "finished"));
+            set(model, "tasksFinished", tasksFinished);
         },
         addTask(model) {
             var tasks = get(model, 'tasks');
@@ -206,15 +190,49 @@ export default Route.extend({
                 tasks = [];
             }
 
-            tasks.push({
+            tasks.pushObject(this.store.createRecord('task', {
                 title: model.task.title,
                 color: jQuery('#colorNewTask')[0].value,
-                finished: false
-            })
+                finished: false,
+                project: get(model, 'project_id')
+            }))
 
+            set(model, "task.title", "");
             set(model, 'tasks', tasks);
-            console.log(get(model, 'tasks'));
-            
+            var tasksFinished = 0;
+            model.tasks.forEach(task => {
+                if (task.finished == true) {
+                    tasksFinished++
+                }
+            });
+
+            set(model, "tasksFinished", tasksFinished);
+
+            set(model, "haveExtra", true);
+        },
+        deleteTask(model, task) {
+            model.tasks.removeObject(task)
+
+            var tasksFinished = 0;
+            model.tasks.forEach(task => {
+                if (task.finished == true) {
+                    tasksFinished++
+                }
+            });
+
+            set(model, "tasksFinished", tasksFinished);
+
+            var haveExtra = false
+            if (model.tags != undefined && model.tags.length > 0) {
+                haveExtra = true
+            }
+            if (model.estimate != undefined && model.estimate.length > 0) {
+                haveExtra = true
+            }
+            if (model.tasks != undefined && model.tasks.length > 0) {
+                haveExtra = true
+            }
+            set(model, "haveExtra", haveExtra);
         }
     },
     initUI() {
@@ -286,6 +304,17 @@ export default Route.extend({
             let value = jQuery('#estimateDropdown')[0].value;
             set(model, "isIcon", (value == "coffee"));
             set(model, "estimate", value);
+            var haveExtra = false
+            if (model.tags != undefined && model.tags.length > 0) {
+                haveExtra = true
+            }
+            if (model.estimate != undefined && model.estimate.length > 0) {
+                haveExtra = true
+            }
+            if (model.tasks != undefined && model.tasks.length > 0) {
+                haveExtra = true
+            }
+            set(model, "haveExtra", haveExtra);
         });
 
         jQuery('#addTags').change(function () {
@@ -317,6 +346,18 @@ export default Route.extend({
                     })
                 }
             }
+
+            var haveExtra = false
+            if (model.tags != undefined && model.tags.length > 0) {
+                haveExtra = true
+            }
+            if (model.estimate != undefined && model.estimate.length > 0) {
+                haveExtra = true
+            }
+            if (model.tasks != undefined && model.tasks.length > 0) {
+                haveExtra = true
+            }
+            set(model, "haveExtra", haveExtra);
         });
         jQuery('#colorNewTag').change(function () {
             var newValue = jQuery('#colorNewTag')[0].value;
@@ -346,6 +387,11 @@ export default Route.extend({
             } else {
                 set(model, "allFields", false)
             }
+        });
+
+        $('.ui.progress').progress({
+            duration: 300,
+            total: 100
         });
     }
 });

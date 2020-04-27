@@ -36,41 +36,37 @@
             {{/if}}
           </div>
         </div>
-        <div class="extra content">
-          <div class="ui icon circular violet label icon">
+        {{#if model.haveExtra}}
+          <div class="extra content">
             {{#if model.estimate}}
-              {{#if (eq model.isIcon true)}}
-                <i class="ui {{model.estimate}} icon"></i>
-              {{else}}
-                {{model.estimate}}
-              {{/if}}
-            {{else}}
-              ?
-            {{/if}}
-          </div>
-          <div class="ui left icon circular label">
-            <i class="file icon"></i>
-            {{#if model.tasks.length}}
-              {{model.tasks.length}}
-            {{else}}
-              0
-            {{/if}}
-          </div>
-          {{#if model.tags}}
-            {{#each model.tags as |tag|}}
-              <div class="ui {{tag.color}} label labelMargin">
-                {{tag.title}}
+              <div class="ui icon circular violet label icon">
+                {{#if (eq model.isIcon true)}}
+                  <i class="ui {{model.estimate}} icon"></i>
+                {{else}}
+                  {{model.estimate}}
+                {{/if}}
               </div>
-            {{/each}}
-          {{else}}
-            <div class="ui label">
-              Tags
-            </div>
-          {{/if}}
-        </div>
+            {{/if}}
+            {{#if model.tasks.length}}
+              <div class="ui left icon circular label">
+                <i class="list icon"></i>
+                {{model.tasksFinished}}
+                /
+                {{model.tasks.length}}
+              </div>
+            {{/if}}
+            {{#if model.tags}}
+              {{#each model.tags as |tag|}}
+                <div class="ui {{tag.color}} label labelMargin">
+                  {{tag.title}}
+                </div>
+              {{/each}}
+            {{/if}}
+          </div>
+        {{/if}}
       </div>
     </div>
-    <div class="twelve wide column inverted">
+    <div class="twelve wide column">
       <div class="ui form fluid segment inverted">
         <div class="two fields">
           <div class="ui field inverted">
@@ -83,10 +79,7 @@
             <label>
               Developer
             </label>
-            <select
-              class="ui clearable icon search dropdown inverted"
-              id="addDeveloper"
-            >
+            <select class="ui icon search dropdown inverted" id="addDeveloper">
               <i class="user icon"></i>
               <option value="">
                 <img
@@ -125,20 +118,20 @@
               Estimate
             </label>
             <select
-              class="ui clearable icon search dropdown inverted inputBottomMargin"
+              class="ui icon dropdown inverted inputBottomMargin"
               id="estimateDropdown"
             ></select>
             <label>
               Tags
             </label>
             <select
-              class="ui search multiple dropdown inverted inputBottomMargin"
+              class="ui multiple dropdown inverted inputBottomMargin"
               id="addTags"
             >
               <option value="">
                 Select Tag
               </option>
-              {{#each model.project.tags as |tag|}}
+              {{#each model.project.tagsOrdered as |tag|}}
                 <option value="{{tag.id}}">
                   <div class="ui {{tag.color}} label">
                     {{tag.title}}
@@ -175,81 +168,83 @@
               Tasks
             </label>
             <div
-              class="ui vertically divided very compact grid inverted margeAuto"
+              style="max-height: 15.6vh !important;"
+              class="ui vertically divided very compact grid inverted margeAuto myScrollableY bgProjectDark"
             >
-              <div class="row">
-                <div class="middle aligned sixteen wide column margeAuto">
-                  {{#each model.tasks as |task|}}
+              {{#each model.tasks as |task|}}
+                <div class="row hover">
+                  <div class="middle aligned fifteen wide column margeAuto">
                     <div class="ui empty {{task.color}} label circular"></div>
                     <label>
                       {{task.title}}
                     </label>
                     <i
                       class="ui check selectable
-                        {{if (eq model.task.finished true) "green"}}
+                        {{if (eq task.finished true) "green"}}
                          icon"
-                      {{action "finished" model.task}}
+                      {{action "finished" model task}}
                     ></i>
-                    {{model.tasks.length}}
-                    <br />
+                  </div>
+                  <div class="middle aligned one wide column margeAuto">
+                    <i
+                      class="delete red icon selectable"
+                      {{action "deleteTask" model task}}
+                    ></i>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+            <div
+              class="inline flex margeAuto"
+              id="divAddTask"
+              style="width: 100% !important;"
+            >
+              <div
+                class="ui action fluid input inverted"
+                style="width: 100% !important;"
+              >
+                <select class="ui compact dropdown inverted" id="colorNewTask">
+                  {{#each model.colors as |color|}}
+                    <option value="{{color.name}}">
+                      <div class="ui empty {{color.name}} label circular"></div>
+                    </option>
                   {{/each}}
-                  {{model.tasks.length}}
-                </div>
-              </div>
-              <div class="row margeAuto">
-                <div class="column inline flex margeAuto" id="divAddTask">
-                  <select
-                    class="ui compact dropdown inverted"
-                    id="colorNewTask"
-                  >
-                    {{#each model.colors as |color|}}
-                      <option value="{{color.name}}">
-                        <div
-                          class="ui empty {{color.name}} label circular"
-                        ></div>
-                      </option>
-                    {{/each}}
-                  </select>
-                  <div class="ui icon input inverted">
-                    <Input
-                      type="text"
-                      @value={{model.task.title}}
-                      placeholder="Task Title"
-                    />
-                    <i class="left check selectable icon"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="sixteen wide column">
-                  <div class="ui fluid button" {{action "addTask" model}}>
-                    Add a task
-                  </div>
+                </select>
+                <Input
+                  style="width: auto !important; border-radius: 0;"
+                  type="text"
+                  @value={{model.task.title}}
+                  placeholder="Task Title"
+                />
+                <div
+                  class="ui label
+                    {{if model.task.title "" "disabled"}}
+                     right icon button"
+                  {{action "addTask" model}}
+                >
+                  Add task ⁠
+                  <i class="check selectable icon"></i>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="bottom aligned sixteen wide column">
-      <div class="ui two buttons">
-        <div
-          class="ui green
-            {{if model.allFields "" "disabled"}}
-             large button submit"
-          {{action "register" model}}
-        >
-          Validate
-        </div>
-        <div
-          class="ui red
+        <div class="ui two buttons">
+          <div
+            class="ui green
+              {{if model.allFields "" "disabled"}}
+               large button submit"
+            {{action "save" model}}
+          >
+            Validate
+          </div>
+          <div
+            class="ui red
          large button submit"
-          {{action "backToProject" model}}
-        >
-          Cancel
+            {{action "backToProject" model}}
+          >
+            Cancel
+          </div>
         </div>
       </div>
     </div>

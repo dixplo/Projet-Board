@@ -1,48 +1,77 @@
-<div class="ui segment inverted">
-  {{#if (eq model.project.storiesLength 0)}}
-    <div class="ui center aligned header icon">
-      <i class="icon folder open outline"></i>
-          No story in this project
-    </div>
-  {{else}}
-    <div class="ui middle aligned grid inverted">
-      {{#each model.project.storiesOrdered as |story|}}
-        <div class="two column row mySegmentBorder marginZeroFive borderRadiusZeroFive">
-          <div class="ui column">
-            <h4 class="ui header inverted">
-              <i class="folder primary icon big"></i>
-              <div class="content">
-                {{story.code}}
-                <div class="sub header">
-                  {{#if story.estimate}}
-                    <div class="ui circular violet label">
-                      {{story.estimate}}
-                    </div>
+{{#if (eq model.project.storiesLength 0)}}
+  <div class="ui center aligned header icon">
+    <i class="icon folder open outline"></i>
+    No story in this project
+  </div>
+{{else}}
+  <div class="ui middle aligned grid inverted">
+    {{#each model.project.storiesOrderedTable as |stories|}}
+      <div class="equal width row">
+        {{#each stories as |story|}}
+          {{#if (not-eq story "empty")}}
+            <div class="column">
+              <LinkTo
+                @route="project.story"
+                @models={{array model.project_id story.id}}
+                class="ui inverted card selectable"
+              >
+                <div class="content">
+                  {{#if story.developer}}
+                    <img
+                      class="right floated mini ui image"
+                      src="/assets/images/avatars/{{story.developer.avatar}}.jpg"
+                    />
+                  {{else}}
+                    <img
+                      class="right floated mini ui image"
+                      src="/assets/images/avatars/unknow.jpg"
+                    />
                   {{/if}}
-                  {{story.description}}
-                  {{#each story.tags as |tag|}}
-                    <a class="ui {{tag.color}} label">
-                      {{tag.title}}
-                    </a>
-                  {{/each}}
+                  <div class="header">
+                    {{story.code}}
+                  </div>
+                  <div class="meta">
+                    {{#if story.endDate}}
+                      {{story.stringEndDate}}
+                    {{/if}}
+                  </div>
+                  <div class="description">
+                    {{story.description}}
+                  </div>
                 </div>
-              </div>
-            </h4>
-          </div>
-          <div class="right floated right aligned column">
-            <div class="ui left labeled button" {{action "openStory" story model}}>
-              <div class="ui basic right pointing label">
-                {{story.developer.fullName}}
-              </div>
-              <div class="ui button">
-                <i class="folder open icon"></i>
-                    Open
-              </div>
+                {{#if story.haveExtra}}
+                  <div class="extra content">
+                    {{#if story.estimate}}
+                      <div class="ui icon circular violet label icon">
+                        {{#if (eq story.estimate "coffee")}}
+                          <i class="ui {{story.estimate}} icon"></i>
+                        {{else}}
+                          {{story.estimate}}
+                        {{/if}}
+                      </div>
+                    {{/if}}
+                    {{#if story.tasks.length}}
+                      <div class="ui left icon circular label">
+                        {{story.tasksFinished}}
+                        /
+                        {{story.tasks.length}}
+                      </div>
+                    {{/if}}
+                    {{#if story.tags}}
+                      {{#each story.tags as |tag|}}
+                        <div class="ui {{tag.color}} label labelMargin">
+                          {{tag.title}}
+                        </div>
+                      {{/each}}
+                    {{/if}}
+                  </div>
+                {{/if}}
+              </LinkTo>
             </div>
-          </div>
-        </div>
-      {{/each}}
-    </div>
-  {{/if}}
-</div>
+          {{/if}}
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+{{/if}}
 {{outlet}}
