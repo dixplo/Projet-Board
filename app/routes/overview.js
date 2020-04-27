@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-//import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 
 export default Route.extend({
     async model(params) {        
@@ -65,7 +65,7 @@ export default Route.extend({
             let devId =  localStorage.getItem("developerId");
             
             let dev = await this.store.findRecord('developer', devId);
-            var projects = dev.get('projects');
+           // var projects = dev.get('projects'); projects' is already defined
             let projectsId = []
 
             projects.forEach(project => {
