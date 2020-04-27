@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import jquery from 'jquery';
+import jQuery from 'jquery';
 import { next } from '@ember/runloop';
 import { get, set } from '@ember/object';
 
@@ -64,7 +64,7 @@ export default Route.extend({
     },
     initUI() {
         let self = this;
-        $('#password').keyup(function () {
+        jQuery('#password').keyup(function () {
             let model = self.modelFor('register');
             let password = model.password;
             if (password.match(/[A-Z]/g)) {
@@ -89,7 +89,7 @@ export default Route.extend({
                 set(model, "samePassword", false)
             }
         });
-        $('#repassword').keyup(function () {
+        jQuery('#repassword').keyup(function () {
             let model = self.modelFor('register');
             let password = model.password;
             let repassword = model.repassword;
@@ -99,7 +99,7 @@ export default Route.extend({
                 set(model, "samePassword", false)
             }
         });
-        $('input').keyup(function () {
+        jQuery('input').keyup(function () {
             let model = self.modelFor('register');
             if (
                 model.email !== undefined && model.email != "" &&
@@ -120,10 +120,10 @@ export default Route.extend({
                 set(model, "allFields", false)
             }
         });
-        $('.ui.dropdown').dropdown({
+        jQuery('.ui.dropdown').dropdown({
             on: 'hover'
         });
-        $("#selectLanguagesRegister").change(function () {
+        jQuery("#selectLanguagesRegister").change(function () {
             var selected = jQuery('#selectLanguagesRegister')[0].selectedOptions;
             let model = self.modelFor('register');
             if (selected.length > 0) {
