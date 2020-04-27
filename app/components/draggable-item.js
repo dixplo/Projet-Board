@@ -1,9 +1,10 @@
 import Component from '@ember/component';
 import { get } from '@ember/object';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   classNameBindings: ['isActive'],
-  isActive: Ember.computed('content.active', function () {
+  isActive: computed('content.active', function () {
     let content = get(this, 'content');
     if (get(content, 'active'))
       return this.get('activeClass');
@@ -12,6 +13,7 @@ export default Component.extend({
   attributeBindings: ['draggable'],
   draggable: 'true',
 
+actions: {
   dragStart(event) {
     return event.dataTransfer.setData('text/data', get(this, 'content').get('id'));
   },
@@ -21,4 +23,6 @@ export default Component.extend({
   click() {
     this.sendAction("onClick", get(this, 'content'));
   }
+}
+  
 });
