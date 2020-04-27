@@ -155,7 +155,6 @@ export default Route.extend({
             contents.forEach(content => {
                 content.save();
             })
-
             this.store.createRecord('modification', {
                 date: new Date(Date.now()),
                 contents: contents,

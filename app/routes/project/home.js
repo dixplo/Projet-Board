@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-import { get, set, computed } from '@ember/object';
+import { set } from '@ember/object';
 
 export default Route.extend({
     async model() {
@@ -17,7 +17,7 @@ export default Route.extend({
                 project: project_id
             }
         });
-        let modificationcontents = await this.store.findAll('modificationcontent');
+       await this.store.findAll('modificationcontent');
         var modifications = await this.store.query('modification', {
             filter: {
                 idProject: project_id

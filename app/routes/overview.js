@@ -1,10 +1,10 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 
 export default Route.extend({
     async model(params) {        
-        let modificationcontents = await this.store.findAll('modificationcontent', { reload: true });
+        await this.store.findAll('modificationcontent', { reload: true });
         let modifications = await this.store.findAll('modification', { reload: true, include: 'modificationcontent' });
         let developers = await this.store.findAll('developer');
         let stories = await this.store.findAll('story');
@@ -65,7 +65,7 @@ export default Route.extend({
             let devId =  localStorage.getItem("developerId");
             
             let dev = await this.store.findRecord('developer', devId);
-            var projects = dev.get('projects');
+           var projects = dev.get('projects');
             let projectsId = []
 
             projects.forEach(project => {
@@ -134,7 +134,7 @@ export default Route.extend({
 
     },
     actions: {
-        openAny(model, any) {
+        openAny(any) {
             var isStory = false;
             let projectId = any.idProject;
             var storyId = undefined;

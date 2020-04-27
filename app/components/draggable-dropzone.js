@@ -6,6 +6,7 @@ export default Component.extend({
   classNameBindings: ['dragClass'],
   dragClass: '',
 
+  actions: {
   dragLeave(event) {
     event.preventDefault();
     set(this, 'dragClass', '');
@@ -21,4 +22,6 @@ export default Component.extend({
     this.sendAction('dropped', data, get(this, 'content'));
     set(this, 'dragClass', 'deactivated');
   }
+}
+
 });

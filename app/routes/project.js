@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-import { get } from '@ember/object';
 
 export default Route.extend({
     async model(params) {
@@ -10,19 +9,19 @@ export default Route.extend({
             include: 'developers,stories,stories.tasks,tags,steps'
         });
         let developers = await project.get('developers');
-        let stories = await project.get('stories');
-        let tasks = await this.store.query('task', {
+        await project.get('stories');
+        await this.store.query('task', {
             filter: {
                 project: params.project_id
             }
         });
-        
-        let steps = await this.store.query('step', {
+
+        await this.store.query('step', {
             filter: {
                 project: params.project_id
             }
         });
-        let tags = await this.store.query('tag', {
+        await this.store.query('tag', {
             filter: {
                 project: params.project_id
             }

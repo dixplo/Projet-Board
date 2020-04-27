@@ -6,7 +6,7 @@ export default Route.extend({
     model() {
         let m = this.modelFor("developer")
         set(m,"whereIam", "follows")
-        debugger
+        
 
         return {
             
