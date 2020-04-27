@@ -172,10 +172,12 @@ export default Route.extend({
                 order: 1,
                 classHTML: "ui teal text"
             })]
+            /*
             contents.forEach(content => {
                 //content.save();
+                'content' is defined but never used 
             })
-
+            */
             this.store.createRecord('modification', {
                 date: new Date(Date.now()),
                 contents: contents,

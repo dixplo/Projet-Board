@@ -37,7 +37,7 @@ export default Route.extend({
             let name = get(model, 'name');
             let description = get(model, 'description');
             let ownerIndex = jQuery('#selectOwnerEditProject')[0].selectedIndex - 1;
-            let selectedDev = jQuery('#selectDevelopersEditProject')[0].selectedOptions;
+           // let selectedDev = jQuery('#selectDevelopersEditProject')[0].selectedOptions;
             let startDate = new Date(get(model, 'startDate'));
             let endDate = new Date(get(model, 'endDate'));
 

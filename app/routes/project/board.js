@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { get, set } from '@ember/object';
+import jQuery from 'jquery'; // 'jQuery' is not defined  
 
 export default Route.extend({
     async model() {
@@ -9,7 +10,7 @@ export default Route.extend({
             reload: true,
             include: 'developers,stories,stories.tasks,tags,steps'
         });
-        let developers = await project.get('developers');
+       // let developers = await project.get('developers');
         let stories = await project.get('stories');
         await stories.forEach(async story => {
             await story.get('tasks');

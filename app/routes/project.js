@@ -10,17 +10,19 @@ export default Route.extend({
             include: 'developers,stories,tags,steps'
         });
         let developers = await project.get('developers');
-        let stories = await project.get('stories');
-        let steps = await this.store.query('step', {
+       // let stories = await project.get('stories');
+       /* let steps = await this.store.query('step', {
             filter: {
                 project: params.project_id
             }
         });
+        is assigned a value but never used  
         let tags = await this.store.query('tag', {
             filter: {
                 project: params.project_id
             }
         });
+        */ 
         let currentDeveloperIsIn = false;
 
         developers.toArray().forEach(developer => {

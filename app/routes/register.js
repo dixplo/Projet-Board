@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import $ from 'jquery';
+import jquery from 'jquery';
 import { next } from '@ember/runloop';
 import { get, set } from '@ember/object';
 

@@ -9,8 +9,8 @@ export default Route.extend({
             reload: true,
             include: 'developers,stories,tags'
         });
-        let developers = await project.get('developers');
-        let stories = await project.get('stories');
+       // let developers = await project.get('developers'); is assigned a value but never used  
+        //let stories = await project.get('stories');
         let retour = RSVP.hash({
             project: project,
             project_id: project_id

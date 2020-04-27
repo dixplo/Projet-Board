@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { get, set } from '@ember/object';
+//import { get, set } from '@ember/object';
 import { next } from '@ember/runloop';
 import jQuery from 'jquery';
 import RSVP from 'rsvp';
@@ -56,7 +56,7 @@ export default Route.extend({
         },
         goToDevelopers() {
             this.transitionTo('developers');
-            debugger
+            
         },
         openProfil(model) {
             this.transitionTo('/developer/' + model.user.id + '/projects');

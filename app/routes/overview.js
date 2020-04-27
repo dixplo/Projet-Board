@@ -1,10 +1,10 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-import { get, set } from '@ember/object';
+//import { get, set } from '@ember/object';
 
 export default Route.extend({
     async model(params) {        
-        let modificationcontents = await this.store.findAll('modificationcontent', { reload: true });
+        //let modificationcontents = await this.store.findAll('modificationcontent', { reload: true });
         let modifications = await this.store.findAll('modification', { reload: true, include: 'modificationcontent' });
         let developers = await this.store.findAll('developer');
         let stories = await this.store.findAll('story');

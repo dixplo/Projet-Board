@@ -24,7 +24,6 @@ export default Route.extend({
             this.transitionTo("developer").developer_id
             return
         }
-        debugger
       
 
         return RSVP.hash({
@@ -60,10 +59,12 @@ export default Route.extend({
             }
         },
         /* la partie en commentaire me supprime l'affichage des logos des languages 
+        
         didTransition() {
             next(this, 'initUI');
         },
         */
+       /*
         initUI() {
             $('input').keyup(function () {
                 let model = self.modelFor('register');
@@ -112,7 +113,7 @@ export default Route.extend({
                 }
             });
         }
-
+*/
     
 }
 });
