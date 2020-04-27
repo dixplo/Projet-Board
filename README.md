@@ -1,9 +1,39 @@
 # Board project
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This project aim to represent a manage administration of projects of developers. It can be assimilate to Github.
 
-## Prerequisites
+#### Technology Used
+- Java
+- VueJS
+
+## Contributors :
+students on BTS SIO on the Saint Ursule High School in Caen.
+
+Thomas Holley, Thomas Fontaine, Theo Marie
+
+## Features
+
+
+## Project specifications :
+
+### Dependency :
+
+### Frameworks :
+
+### Deployment :
+Project deployment used
+
+- Heroku
+
+### IDE :
+Development environment used
+
+- Visual Studio Code
+
+----------------------------------------------------------------------------------------------
+## Start the project :
+
+###  Prerequisites
 
 You will need the following things properly installed on your computer.
 
@@ -12,13 +42,13 @@ You will need the following things properly installed on your computer.
 * [Ember CLI](https://ember-cli.com/)
 * [Google Chrome](https://google.com/chrome/)
 
-## Installation
+###  Installation
 
 * `git clone <repository-url>` this repository
 * `cd td4`
 * `npm install`
 
-## Running / Development
+###  Running / Development
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
