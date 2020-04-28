@@ -38,6 +38,7 @@ students on BTS SIO on the Saint Ursule High School in Caen.
 - Display the board of a project
 - Display the dashboard of a user
 
+![image](https://user-images.githubusercontent.com/55082849/80465049-f7fec980-893a-11ea-9188-d3a27a51ace9.png)
 
 
 ## Project specifications :
@@ -94,31 +95,19 @@ You will need the following things properly installed on your computer.
 * `cd td4`
 * `npm install`
 
-###  Running / Development
+###  Launch / Development
 
 * `ember serve`
+* `Mongod`
+> :warning: in case of port problem with mongoDB, execute mongodb on another port like 27017 : `mongod --port 27117`
+* `java -jar restheart.jar`
+> :warning: in case of port problem with restheart, modify the configuration file
+>  - modify port 8080
+>  - comment the security part of line 165
+>  - execute restheart.jar specifying the configuration file modify : `java -jar restheart.jar etc/restheart.yml`
+
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
 
 ### Deploying
 
@@ -132,3 +121,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+  
+  -----------------------------------------------------------------------------------------------------------------------
+  
+  ### ScreenShot :
