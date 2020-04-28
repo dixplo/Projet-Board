@@ -41,7 +41,11 @@
             {{#if model.estimate}}
               <div class="ui icon circular violet label icon">
                 {{#if (eq model.isIcon true)}}
-                  <i class="ui {{model.estimate}} icon"></i>
+                  {{#if (eq model.estimate "coffee")}}
+                    <i class="ui {{model.estimate}} icon"></i>
+                  {{else}}
+                    <i class="ui help icon"></i>
+                  {{/if}}
                 {{else}}
                   {{model.estimate}}
                 {{/if}}

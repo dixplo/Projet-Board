@@ -44,8 +44,12 @@
               <div class="extra content">
                 {{#if story.estimate}}
                   <div class="ui icon circular violet label icon">
-                    {{#if (eq story.estimate "coffee")}}
-                      <i class="ui {{story.estimate}} icon"></i>
+                    {{#if (eq story.isIcon true)}}
+                      {{#if (eq story.estimate "coffee")}}
+                        <i class="ui {{model.estimate}} icon"></i>
+                      {{else}}
+                        <i class="ui help icon"></i>
+                      {{/if}}
                     {{else}}
                       {{story.estimate}}
                     {{/if}}
@@ -135,8 +139,16 @@
                 </div>
                 <div class="extra content">
                   {{#if story.estimate}}
-                    <div class="ui left icon circular violet label left icon">
-                      {{story.estimate}}
+                    <div class="ui {{if (eq story.isIcon true) "" "left"}} icon circular violet label">
+                      {{#if (eq story.isIcon true)}}
+                        {{#if (eq story.estimate "coffee")}}
+                          <i class="ui {{model.estimate}} icon"></i>
+                        {{else}}
+                          <i class="ui help icon"></i>
+                        {{/if}}
+                      {{else}}
+                        {{story.estimate}}
+                      {{/if}}
                     </div>
                   {{/if}}
                   {{#each story.tags as |tag|}}
@@ -146,8 +158,10 @@
                   {{/each}}
                   {{#if (not-eq story.tasks.length 0)}}
                     <div class="ui left icon circular label">
-                      <i class="file icon"></i>
-                      {{story.ratioTasks}}
+                      <i class="list icon"></i>
+                      {{story.tasksFinished}}
+                      /
+                      {{story.tasks.length}}
                     </div>
                   {{/if}}
                 </div>

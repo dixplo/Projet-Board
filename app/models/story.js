@@ -32,7 +32,6 @@ export default Model.extend({
         });
         return finished
     }),
-
     stringStartDate: computed('startDate', function () {
         let date = this.get('startDate');
         if (date !== null && date !== undefined && date instanceof Date) {
@@ -78,5 +77,9 @@ export default Model.extend({
             return true
         }
         return false
-    })
+    }),
+    isIcon: computed('estimate', function () {
+        return this.get('estimate') == "coffee" || this.get('estimate') == "unknown"
+    }),
+
 });

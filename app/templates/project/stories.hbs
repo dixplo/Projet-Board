@@ -42,9 +42,13 @@
                 {{#if story.haveExtra}}
                   <div class="extra content">
                     {{#if story.estimate}}
-                      <div class="ui icon circular violet label icon">
-                        {{#if (eq story.estimate "coffee")}}
-                          <i class="ui {{story.estimate}} icon"></i>
+                      <div class="ui {{if (eq story.isIcon true) "" "left"}} icon circular violet label">
+                        {{#if (eq story.isIcon true)}}
+                          {{#if (eq story.estimate "coffee")}}
+                            <i class="ui {{model.estimate}} icon"></i>
+                          {{else}}
+                            <i class="ui help icon"></i>
+                          {{/if}}
                         {{else}}
                           {{story.estimate}}
                         {{/if}}

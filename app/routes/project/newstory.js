@@ -278,6 +278,11 @@ export default Route.extend({
                 value: estimate
             })
         });
+        estimatesDropdown.push({
+            name: "unknown",
+            value: "unknown",
+            icon: "help"
+        })
 
         jQuery('#estimateDropdown').dropdown({
             minCharacters: 0,
@@ -301,7 +306,7 @@ export default Route.extend({
 
         jQuery('#estimateDropdown').change(function () {
             let value = jQuery('#estimateDropdown')[0].value;
-            set(model, "isIcon", (value == "coffee"));
+            set(model, "isIcon", (value == "coffee" || value == "unknown"));
             set(model, "estimate", value);
             var haveExtra = false
             if (model.tags != undefined && model.tags.length > 0) {
