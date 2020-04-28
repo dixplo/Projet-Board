@@ -1,4 +1,5 @@
 # Board project
+:date: : 12/03/2020 to 01/05/2020 | :no_mobile_phones: : Only on laptop | :fr: French Developers
 
 This project aim to represent a manage administration of projects of developers. It can be assimilate to Github.
 
@@ -6,6 +7,7 @@ This project aim to represent a manage administration of projects of developers.
 - JSon
 - AngularJS
 - Node.JS
+- Ember
 
 ## Contributors :
 students on BTS SIO on the Saint Ursule High School in Caen.
@@ -37,6 +39,8 @@ students on BTS SIO on the Saint Ursule High School in Caen.
 - Consult a story
 - Display the board of a project
 - Display the dashboard of a user
+
+## Diagram
 
 ![image](https://user-images.githubusercontent.com/55082849/80465049-f7fec980-893a-11ea-9188-d3a27a51ace9.png)
 
