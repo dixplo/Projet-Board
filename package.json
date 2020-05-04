@@ -52,8 +52,7 @@
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.4",
     "sass": "^1.26.3",
-    "semantic-ui-ember": "^3.0.4",
-    "babel/compat-data": "7.9.0"
+    "semantic-ui-ember": "^3.0.4"
   },
   "engines": {
     "node": "8.* || >= 10.*"
