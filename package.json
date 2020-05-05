@@ -49,6 +49,7 @@
     "ember-welcome-page": "^4.0.0",
     "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-node": "^9.0.1",
+    "grunt-lineending": "^1.0.0",
     "loader.js": "^4.7.0",
     "local-storage": "^2.0.0",
     "qunit-dom": "^0.8.4",
