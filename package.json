@@ -57,6 +57,6 @@
     "semantic-ui-ember": "^3.0.4"
   },
   "engines": {
-    "node": "8.* || >= 10.*"
+    "node": "8.*"
   }
 }
