@@ -5,7 +5,7 @@ import RSVP from 'rsvp';
 export default Route.extend({
     async  model() {
         let currentDevId = localStorage.getItem('developerId')
-        let currentDeveloper = await this.get('store').findRecord('developer', currentDevId)
+        //let currentDeveloper = await this.get('store').findRecord('developer', currentDevId)
 
         let developerId = this.paramsFor("developer").developer_id;
         let developer = await this.get('store').findRecord('developer', developerId)

@@ -1,0 +1,78 @@
+<div
+  class="ui segment bgProject fluid inverted myScrollable littleMargin"
+  style="height: 92vh !important; width: -webkit-fill-available !important;"
+>
+  <h2 class="ui header">
+    <i class="folder plus icon"></i>
+    <div class="content">
+      Add Project
+    </div>
+  </h2>
+  <div class="ui form top attached fluid inverted segment">
+    <div class="two fields">
+      <div class="field">
+        <div class="ui fluid field inputBottomMargin">
+          <label>
+            Name
+          </label>
+          <Input type="text" @value={{model.name}} placeholder="Name"/>
+        </div>
+        <div class="ui fluid field inputBottomMargin">
+          <label>
+            Start date
+          </label>
+          <Input type="date" @value={{model.startDate}} max={{model.endDate}} />
+        </div>
+        <div class="ui fluid field">
+          <label>
+            Due date
+          </label>
+          <Input type="date" @value={{model.endDate}} min={{model.startDate}} />
+        </div>
+      </div>
+      <div class="ui fluid field">
+        <label>
+          Description
+        </label>
+        <Textarea @value={{model.description}} placeholder="Description..."/>
+      </div>
+    </div>
+    <div class="field">
+      <label>
+        Developers
+      </label>
+      <select
+        class="ui search multiple dropdown"
+        id="selectDevelopersAddProject"
+      >
+        <option value="">
+          Select Developers
+        </option>
+        {{#each model.developers as |developer|}}
+          <option value="{{developer.id}}">
+            <img
+              class="ui avatar image"
+              src="/assets/images/avatars/{{developer.avatar}}.jpg"
+            />
+            {{developer.username}}
+          </option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="ui bottom attached inverted segment">
+    <button class="ui button inverted positive icon" {{action "save" model}}>
+      <i class="check circle icon"></i>
+      Validate
+    </button>
+    <LinkTo
+      @route="projects"
+      @model="myProject"
+      class="ui button inverted red icon"
+    >
+      <i class="icon times circle outline"></i>
+      Cancel
+    </LinkTo>
+  </div>
+  {{outlet}}
+</div>

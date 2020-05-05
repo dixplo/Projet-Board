@@ -75,7 +75,7 @@ export default Route.extend({
             });
             set(modification, 'contents', newContents);
         })
-        console.log(modifications);
+        //console.log(modifications);
 
         let modificationsOrderedTable = null;
         let retour = [];
@@ -94,7 +94,7 @@ export default Route.extend({
             retour.push(tab);
         }
         modificationsOrderedTable = retour;
-        console.log(modificationsOrderedTable);
+        //console.log(modificationsOrderedTable);
         
         let m = this.modelFor('project')
         set(m, "whereIAm", 1);

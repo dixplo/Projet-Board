@@ -15,22 +15,32 @@ export default Route.extend({
                 developers: this.paramsFor("developer").developer_id
             }
         });
+        
+        await this.store.findAll('developer');
+        await this.store.findAll('story');
 
-       
+        let projects = [];
+        let numberByRow = 2;
+        let numberTab = Math.ceil((listProject.length + 1) / numberByRow);
+        for (let i = 0; i < numberTab; i++) {
+            let tab = [];
+            for (let j = i * numberByRow; j < (i + 1) * numberByRow; j++) {
+                let project = listProject.toArray()[j];
+                if (project !== undefined) {
+                    tab.push(project);
+                } else {
+                    if (i == numberTab - 1) {
+                        tab.push("empty");
+                    }
+                }
+            }
+            projects.push(tab);
+        }
 
         return RSVP.hash({
             currentDeveloper: currentDeveloper,
-            listProject: listProject,
+            projectTable: projects,
         });
        
-    },
-
-     
-
-
-
-
-
-
-   
+    }   
 });

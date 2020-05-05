@@ -1,25 +1,52 @@
-
 {{outlet}}
-<table class="ui table content inverted">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Firstname</th>
-      <th class="right aligned">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each model.developers as |dev|}}
-      <tr>
-        <td>{{dev.name}}</td>
-        <td>{{dev.fname}}</td>
-        <td class="right aligned">
-          <button class="ui button inverted icon primary" {{action "openEdit" model dev}}><i class="user edit icon" /></button>
-          <button class="ui button inverted icon red" {{action "openDelete" model dev}}><i class="user times icon" /></button>
-        </td>
-      </tr>
-      {{outlet dev.id }}
-
+<div class="ui segment secondary inverted">
+  <div class="ui aligned grid inverted">
+    {{#each model.developersTable as |developers|}}
+      <div class="center aligned equal width row">
+        {{#each developers as |developer|}}
+          {{#if (not-eq developer "empty")}}
+            <div class="column">
+              <LinkTo
+                @route="developer.projects"
+                @model={{developer.id}}
+                class="ui inverted card selectable leftMarginAuto rightMarginAuto"
+              >
+                <div class="image">
+                  <img src="/assets/images/avatars/{{developer.avatar}}.jpg" />
+                </div>
+                <div class="content">
+                  <div class="header white">
+                    {{developer.username}}
+                  </div>
+                  <div class="meta">
+                    <span class="date">
+                      {{developer.fname}}
+                      {{developer.name}}
+                      <br />
+                      {{developer.email}}
+                    </span>
+                  </div>
+                  <div class="description">
+                    {{#if (not (is-empty developer.languagesString))}}
+                      {{#each developer.languages as |language|}}
+                        <img
+                          class="ui image little"
+                          src="/assets/images/languages/{{language}}.png"
+                          alt="language"
+                        />
+                      {{/each}}
+                    {{else}}
+                      No favorite languages
+                    {{/if}}
+                  </div>
+                </div>
+              </LinkTo>
+            </div>
+          {{else}}
+            <div class="column"></div>
+          {{/if}}
+        {{/each}}
+      </div>
     {{/each}}
-  </tbody>
-</table>
+  </div>
+</div>

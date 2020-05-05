@@ -1,73 +1,93 @@
-<div class="ui grid">
-    <div class="four wide column">
-        <div class="ui inverted card">
-            <div class="image">
-                <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg" />
-            </div>
-            <div class="content">
-                <div class="header white">
-                    {{model.developer.username}}
-                </div>
-                <div class="meta">
-                    <span class="date">
-                        {{model.developer.fname}}
-                        {{model.developer.name}}
-                        <br />
-                        {{model.developer.email}}
-                    </span>
-                </div>
-                <div class="description">
-                    {{#if (not (is-empty model.developer.languagesString))}}
-                    {{#each model.developer.languages as |language|}}
-                    <img class="ui image little" src="/assets/images/languages/{{language}}.png" alt="language" />
-                    {{/each}}
-                    {{else}}
-                    No favorite languages
-                    {{/if}}
-                </div>
-            </div>
-            <!--     <div class="extra content"> -->
-            {{#if (eq model.isMyProfil true)}}
-            <LinkTo @route="developer.edit" @model={{model.developerId}}>
-            <button class="ui fluid telegram button bottom attached ">
-                <i class="user icon"></i>
-                Edit profil
-            </button>
-            </LinkTo>
-            {{else if (eq model.connected true)}}
-            {{#if (eq model.canFollow true)}}
-            <div class="ui telegram bottom attached button" {{action "follow" model}}>
-                <i class="users friend icon"></i>
-                Follow
-            </div>
+<div class="inline">
+  <div
+    class="ui left vertical inverted tabular menu"
+    style="border-right: none;"
+  >
+    <div class="ui fitted inverted segment">
+      <div class="ui inverted card">
+        <div class="image">
+          <img src="/assets/images/avatars/{{model.developer.avatar}}.jpg" />
+        </div>
+        <div class="content">
+          <div class="header white">
+            {{model.developer.username}}
+          </div>
+          <div class="meta">
+            <span class="date">
+              {{model.developer.fname}}
+              {{model.developer.name}}
+              <br />
+              {{model.developer.email}}
+            </span>
+          </div>
+          <div class="description">
+            {{#if (not (is-empty model.developer.languagesString))}}
+              {{#each model.developer.languages as |language|}}
+                <img
+                  class="ui image little"
+                  src="/assets/images/languages/{{language}}.png"
+                  alt="language"
+                />
+              {{/each}}
             {{else}}
-            <div class="ui red bottom attached button" {{action "follow" model}}>
-                <i class="user icon"></i>
-                Unfollow
+              No favorite languages
+            {{/if}}
+          </div>
+        </div>
+        <!--     <div class="extra content"> -->
+        {{#if (eq model.isMyProfil true)}}
+          <LinkTo @route="developer.edit" @model={{model.developerId}}>
+            <button class="ui fluid telegram button bottom attached">
+              <i class="user icon"></i>
+              Edit profil
+            </button>
+          </LinkTo>
+        {{else if (eq model.connected true)}}
+          {{#if (eq model.canFollow true)}}
+            <div
+              class="ui telegram bottom attached button"
+              {{action "follow" model}}
+            >
+              <i class="users friend icon"></i>
+              Follow
             </div>
-            {{/if}}
-            {{/if}}
-            <!-- </div> -->
-        </div>
+          {{else}}
+            <div
+              class="ui red bottom attached button"
+              {{action "follow" model}}
+            >
+              <i class="user icon"></i>
+              Unfollow
+            </div>
+          {{/if}}
+        {{/if}}
+        <!-- </div> -->
+      </div>
     </div>
-    <div class="twelve wide column">
-        <div class="ui inverted secondary pointing menu">
-            <LinkTo @route="developer.projects" @model={{model.developerId}}>
-                <a class="{{if (eq model.whereIam "projects") "active" }} item">
-                    Projects
-                </a>
-            </LinkTo>
-            <LinkTo @route="developer.follows" @model={{model.developerId}}>
-            <a class="{{if (eq model.whereIam "follows") "active" }} item">
-                Follows
-            </a>
-            </LinkTo>
-             <LinkTo @route="developer.actions" @model={{model.developerId}}>
-            <a class="{{if (eq model.whereIam "actions") "active" }} item">
-                Actions
-            </a>
-            </LinkTo>
-        </div>
-        {{outlet}}
+  </div>
+  <div>
+    <div class="ui inverted secondary pointing menu">
+      <LinkTo @route="developer.projects" @model={{model.developerId}}>
+        <a class="{{if (eq model.whereIam "projects") "active"}} item">
+          Projects
+        </a>
+      </LinkTo>
+      <LinkTo @route="developer.follows" @model={{model.developerId}}>
+        <a class="{{if (eq model.whereIam "follows") "active"}} item">
+          Follows
+        </a>
+      </LinkTo>
+      <LinkTo @route="developer.actions" @model={{model.developerId}}>
+        <a class="{{if (eq model.whereIam "actions") "active"}} item">
+          Actions
+        </a>
+      </LinkTo>
     </div>
+    <div
+      class="ui segment bgProject fluid inverted myScrollable littleMargin"
+      style="height: 86vh !important; width: -webkit-fill-available !important;"
+    >
+      {{outlet}}
+    </div>
+  </div>
 </div>

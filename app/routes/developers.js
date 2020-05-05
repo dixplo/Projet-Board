@@ -1,44 +1,34 @@
 import Route from '@ember/routing/route';
-import { get, set } from '@ember/object';
 import RSVP from 'rsvp';
 
 export default Route.extend({
-     model() {
+    async model() {
+        let devs = await this.store.findAll('developer')
+
+        let developers = [];
+        let numberByRow = 5;
+        let numberTab = Math.ceil((devs.length + 1) / numberByRow);
+        for (let i = 0; i < numberTab; i++) {
+            let tab = [];
+            for (let j = i * numberByRow; j < (i + 1) * numberByRow; j++) {
+                let dev = devs.toArray()[j];
+                if (dev !== undefined) {
+                    tab.push(dev);
+                } else {
+                    if (i == numberTab - 1) {
+                        tab.push("empty");
+                    }
+                }
+            }
+            developers.push(tab);
+        }
+
         return RSVP.hash({
-            developers: this.get('store').findAll('developer'),
+            developersTable: developers,
             alreadyOpen: ''
         });
 
     },
     actions: {
-        openAdd() {
-            this.transitionTo('developers.new');
-        },
-        openEdit(model, dev) {
-            if (get(model, 'alreadyOpen') != "") {
-                if (get(model, 'alreadyOpen') == dev.id) {
-                    set(model, 'alreadyOpen', ""); 
-                    this.transitionTo('developers');
-                    return
-                } else {
-                    this.disconnectOutlet(get(model, 'alreadyOpen'));
-                }
-            }
-            set(model, 'alreadyOpen', dev.id);            
-            this.transitionTo('developers.edit', dev.id);
-        },
-        openDelete(model, dev) {
-            if (get(model, 'alreadyOpen') != "") {
-                if (get(model, 'alreadyOpen') == dev.id) {
-                    set(model, 'alreadyOpen', ""); 
-                    this.transitionTo('developers');
-                    return
-                } else {
-                    this.disconnectOutlet(get(model, 'alreadyOpen'));
-                }
-            }
-            set(model, 'alreadyOpen', dev.id)
-            this.transitionTo('developers.delete', dev.id);
-        },
     }
 });
