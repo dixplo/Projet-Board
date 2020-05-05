@@ -23,7 +23,7 @@
           {{project.description}}
         </h5>
         <div class="ui fitted horizontal segments inverted">
-          <div class="ui left aligned fitted segment inverted">
+          <div class="ui left aligned fitted segment inverted inline">
             <div class="ui label">
               <i class="icon folder"></i>
               {{pluralize
@@ -33,24 +33,32 @@
                 " stories"
               }}
             </div>
-            <div class="ui label" id="demo">
-              <i class="icon users"></i>
-              {{pluralize
-                project.developers.length
-                "No contributor"
-                "1 contributor"
-                " contributors"
-              }}
-            </div>
-            <div class="ui blue bottom left pointing label" id="message">
-              {{#each project.developers as |developer|}}
-                ·⁠ {{developer.username}}<br />
-              {{/each}}
+            <div id="developersHover">
+              <div class="ui label heightWrapContent" id="label">
+                <i class="icon users"></i>
+                {{pluralize
+                  project.developers.length
+                  "No contributor"
+                  "1 contributor"
+                  " contributors"
+                }}
+              </div>
+              <div class="ui blue bottom left pointing label" id="listDevs">
+                {{#each project.developers as |developer|}}
+                  <img
+                    class="ui avatar image"
+                    src="/assets/images/avatars/{{developer.avatar}}.jpg"
+                  />
+                  <span>
+                    {{developer.username}}
+                  </span>
+                  <br />
+                {{/each}}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {{outlet project.id}}
     </div>
   {{/each}}
 </div>

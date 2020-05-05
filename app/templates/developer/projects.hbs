@@ -1,28 +1,80 @@
 {{outlet}}
-        <div class="four wide column developerProfilGrid">
-            {{#each model.listProject as |listProject|}}
-            <div class="ui segment secondary inverted">
-                <div class="ui inverted segment selectable" {{action "openProject" project}}>
-                    <div class="ui horizontal segments top attached inverted">
-                        <div class="ui left aligned basic segment inverted">
-                            <h2>
-                                {{listProject.name}}
-                            </h2>
-                        </div>
-                        <div class="ui right aligned basic segment inverted">
-                            <i class="stopwatch icon"></i>
-                            {{listProject.stringStartDate}}
-                            <i class="arrow right icon"></i>
-                            {{listProject.stringEndDate}}
-                        </div>
-                    </div>
-                    <div class="ui very basic segment attached inverted">
-                        <h5>
-                            {{listProject.description}}
-                        </h5>
-                    </div>
-                    {{outlet project.id}}
+<div class="ui aligned grid inverted">
+  {{#each model.projectTable as |projects|}}
+    <div class="equal width row">
+      {{#each projects as |project|}}
+        {{#if (not-eq project "empty")}}
+          <div class="column">
+            <LinkTo
+              @route="project.home"
+              @model={{project.id}}
+              class="selectable"
+            >
+              <div class="ui inverted segment selectable">
+                <div class="ui horizontal segments top attached inverted">
+                  <div class="ui left floated inverted segment basic">
+                    <h2>
+                      {{project.name}}
+                    </h2>
+                  </div>
+                  <div class="ui right floated inverted segment basic">
+                    <i class="stopwatch icon"></i>
+                    {{project.stringStartDate}}
+                    <i class="arrow right icon"></i>
+                    {{project.stringEndDate}}
+                  </div>
                 </div>
-            </div>
-            {{/each}}
-        </div>
+                <div class="ui very basic segment attached inverted">
+                  <h5>
+                    {{project.description}}
+                  </h5>
+                  <div class="ui fitted horizontal segments inverted">
+                    <div class="ui left aligned fitted segment inverted inline">
+                      <div class="ui label heightWrapContent">
+                        <i class="icon folder"></i>
+                        {{pluralize
+                          project.stories.length
+                          "No stories"
+                          "1 story"
+                          " stories"
+                        }}
+                      </div>
+                      <div id="developersHover">
+                        <div class="ui label heightWrapContent" id="label">
+                          <i class="icon users"></i>
+                          {{pluralize
+                            project.developers.length
+                            "No contributor"
+                            "1 contributor"
+                            " contributors"
+                          }}
+                        </div>
+                        <div
+                          class="ui blue bottom left pointing label"
+                          id="listDevs"
+                        >
+                          {{#each project.developers as |developer|}}
+                            <img
+                              class="ui avatar image"
+                              src="/assets/images/avatars/{{developer.avatar}}.jpg"
+                            />
+                            <span>
+                              {{developer.username}}
+                            </span>
+                            <br />
+                          {{/each}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </LinkTo>
+          </div>
+        {{else}}
+          <div class="column"></div>
+        {{/if}}
+      {{/each}}
+    </div>
+  {{/each}}
+</div>

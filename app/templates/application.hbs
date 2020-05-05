@@ -3,39 +3,39 @@
     {{if (eq model.connected true) "" "container"}}
      borderless main menu inverted applicationMenuTop"
 >
-  <a class="item" {{action "goToHomeOverview" "all"}}>
+  <LinkTo @route="overview" @model="all" class="item">
     Overview
-  </a>
+  </LinkTo>
   {{#if (eq model.connected true)}}
-    <a class="item" {{action "goToHomeOverview" "myProject"}}>
+    <LinkTo @route="overview" @model="myProject" class="item">
       Home
-    </a>
+    </LinkTo>
   {{/if}}
   {{#if (eq model.connected true)}}
     <div class="menu">
       <div class="ui dropdown icon item">
         Projects
         <div class="menu">
-          <a class="item" {{action "goToProjects" "new"}}>
+          <LinkTo @route="projects.new" @model="create" class="item">
             New
-          </a>
-          <a class="item" {{action "goToProjects" "all"}}>
+          </LinkTo>
+          <LinkTo @route="projects" @model="all" class="item">
             View All
-          </a>
-          <a class="item" {{action "goToProjects" "myProject"}}>
+          </LinkTo>
+          <LinkTo @route="projects" @model="myProject" class="item">
             View My Projects
-          </a>
+          </LinkTo>
         </div>
       </div>
     </div>
   {{else}}
-    <a class="item" {{action "goToProjects" "all"}}>
+    <LinkTo @route="projects" @model="all" class="item">
       Projects
-    </a>
+    </LinkTo>
   {{/if}}
-  <a class="item" {{action "goToDevelopers"}}>
-    Developers
-  </a>
+    <LinkTo @route="developers" class="item">
+      Developers
+    </LinkTo>
   <div class="right menu">
     <div class="ui category search item searchMenu" id="searchAll">
       <div class="ui transparent icon input inverted">
@@ -46,7 +46,11 @@
     </div>
     {{#if (eq model.connected true)}}
       <div class="ui dropdown icon item">
-        <img class="ui image circular mini" src="/assets/images/avatars/{{model.user.avatar}}.jpg" alt="A">
+        <img
+          class="ui image circular mini"
+          src="/assets/images/avatars/{{model.user.avatar}}.jpg"
+          alt="A"
+        />
         <div class="menu">
           <h6 class="header">
             Signed in as
@@ -86,7 +90,9 @@
     {{/if}}
   </div>
 </div>
-<div class="ui bottom attached container inverted applicationContentTop mainMarge">
+<div
+  class="ui bottom attached container inverted applicationContentTop mainMarge"
+>
   <div class="ui very basic segment">
     {{outlet}}
   </div>

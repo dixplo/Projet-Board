@@ -15,7 +15,6 @@ Router.map(function () {
 
   this.route('projects', { path: "projects/:what" }, function () {
     this.route('new');
-    this.route('edit', { path: '/edit/:project_id' });
   });
 
 

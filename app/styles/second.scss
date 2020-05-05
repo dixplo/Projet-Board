@@ -224,19 +224,27 @@ body {
   #addTagsDropdown a {
     display: inline-flex !important;
   }
+
+  .ui[class*="left pointing"].label:before {
+    top: 13px !important;
+  }
+
+  .heightWrapContent{
+    height: fit-content !important;
+  }
 }
 
 .html {
   height: 100vh !important;
 }
 
-#demo:hover + #message{
-  visibility: visible;
-
+#developersHover:hover #listDevs{
+  display: inline-block;
 }
-
-#message{
-  visibility: hidden;
+#listDevs{
+  display: none;
+  position: absolute;
+  z-index: 99;
 }
 
 // Profil developer 

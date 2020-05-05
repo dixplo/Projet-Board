@@ -54,10 +54,6 @@ export default Route.extend({
             localStorage.setItem("developerId", undefined);
             this.transitionTo('overview', "all");
         },
-        goToDevelopers() {
-            this.transitionTo('developers');
-            
-        },
         openProfil(model) {
             this.transitionTo('/developer/' + model.user.id + '/projects');
         },
@@ -66,16 +62,6 @@ export default Route.extend({
         },
         goToRegister() {
             this.transitionTo('register');
-        },
-        goToProjects(my) {
-            if (my === undefined) {
-                this.transitionTo('projects.new');
-            } else {
-                this.transitionTo('projects', my);
-            }
-        },
-        goToHomeOverview(what) {
-            this.transitionTo("overview", what);
         },
         didTransition() {
             next(this, 'initUI');

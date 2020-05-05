@@ -20,7 +20,7 @@ export default Route.extend({
                     }
                 })
             });
-        } else if (params.what == "new") {
+        } else {
             this.transitionTo("projects.new")
         }
        
