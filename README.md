@@ -129,28 +129,27 @@ You will need the following things properly installed on your computer.
   -----------------------------------------------------------------------------------------------------------------------
   
   ### ScreenShot :
-  
 ![BoardLogin](https://user-images.githubusercontent.com/55082849/81183683-c081c400-8faf-11ea-8b87-a9086cf94b82.PNG)
-
+Login
 ![BoardRegister](https://user-images.githubusercontent.com/55082849/81183688-c11a5a80-8faf-11ea-9dfd-f3b460a0aba5.PNG)
-
+Register
 ![BoardProfil](https://user-images.githubusercontent.com/55082849/81183686-c081c400-8faf-11ea-8535-ccd10cb8fb52.PNG)
-
+Profil Page
 ![BoardSearchBar](https://user-images.githubusercontent.com/55082849/81183690-c1b2f100-8faf-11ea-941a-f89922675be8.PNG)
-
+SearchBar on Click
 ![boardView](https://user-images.githubusercontent.com/55082849/81183693-c24b8780-8faf-11ea-9448-166640810fdf.PNG)
-
+Display all the projects
 ![BoardViewDev](https://user-images.githubusercontent.com/55082849/81183696-c2e41e00-8faf-11ea-9b9f-c6ce1aaf65fd.PNG)
-
+Display all the developers
 ![boardAddProjet](https://user-images.githubusercontent.com/55082849/81183680-bfe92d80-8faf-11ea-9c5a-29e03b52258b.PNG)
-
+Create a New Project
 ![BoardViewProj](https://user-images.githubusercontent.com/55082849/81183698-c37cb480-8faf-11ea-98e4-8e7bf2df0cd1.PNG)
-
-![BoardViewProjContributor](https://user-images.githubusercontent.com/55082849/81183700-c37cb480-8faf-11ea-8295-c0d5e6368ca5.PNG)
-
+Display a project
 ![BoardViewProjDashboard](https://user-images.githubusercontent.com/55082849/81183709-c677a500-8faf-11ea-803f-9568a53aaa99.PNG)
-
+Display the Dashboard of the project
 ![BoardViewProjStories](https://user-images.githubusercontent.com/55082849/81183714-c7103b80-8faf-11ea-9fa2-277bb5951426.PNG)
-
+Display the Stories of the project
+![BoardViewProjContributor](https://user-images.githubusercontent.com/55082849/81183700-c37cb480-8faf-11ea-8295-c0d5e6368ca5.PNG)
+Display the Contributors of the project
 ![BoardViewProjTag](https://user-images.githubusercontent.com/55082849/81183717-c7a8d200-8faf-11ea-93b9-0c97422a20b9.PNG)
-
+Display the Tags of the project
