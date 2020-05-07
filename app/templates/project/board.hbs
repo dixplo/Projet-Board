@@ -144,10 +144,11 @@
                       {{tag.title}}
                     </div>
                   {{/each}}
-                  {{#if (not-eq story.tasks.length 0)}}
+                  {{#if story.tasks.length}}
                     <div class="ui left icon circular label">
-                      <i class="file icon"></i>
-                      {{story.ratioTasks}}
+                      {{story.tasksFinished}}
+                      /
+                      {{story.tasks.length}}
                     </div>
                   {{/if}}
                 </div>
